@@ -2,7 +2,7 @@ const express = require("express");
 const productRoutes = express.Router();
 const dbo = require("../db/conn");
 
-productRoutes.route("/products").get(async (req, res) => {
+productRoutes.route("/api/products").get(async (req, res) => {
   try {
     const db_connect = dbo.getDb("products");
     const products = await db_connect.collection("products").find({}).toArray();

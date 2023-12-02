@@ -16,7 +16,7 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
-  app.get("/products", async (req, res) => {
+  app.get("/api/products", async (req, res) => {
     try {
       const db_connect = dbo.getDb();
       const products = await db_connect
