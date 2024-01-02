@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { ObjectId } = require("mongodb");
 const app = express();
 require("dotenv").config({ path: __dirname + "/config.env" });
 
@@ -16,6 +17,8 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
+
+  //Get all products
   app.get("/api/products", async (req, res) => {
     try {
       const db_connect = dbo.getDb();
@@ -30,7 +33,60 @@ dbo.connectToServer((err) => {
     }
   });
 
-  app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+  //Get a single product by ID
+  /*   app.get("/api/products/:id", async (req, res) => {
+    const productId = req.params.id;
+
+    if (!ObjectId.isValid(productId)) {
+      res.status(400).json({ error: "Invalid product ID format" });
+      return;
+    }
+
+    try {
+      console.log("Requested Product ID:", productId);
+      const db_connect = dbo.getDb();
+      const product = await db_connect
+        .collection("products")
+        .findOne({ _id: new ObjectId(productId) });
+
+      if (!product) {
+        console.log("Product not found for ID:", productId);
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      res.json(product);
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  }); */
+
+  //Get a single product by slug name
+  app.get("/api/products/:slug", async (req, res) => {
+    const productSlug = req.params.slug;
+
+    try {
+      console.log("Requested Product Slug", productSlug);
+      const db_connect = dbo.getDb();
+      const product = await db_connect
+        .collection("products")
+        .findOne({ slug: productSlug });
+
+      if (!product) {
+        console.log("Product not found for slug:", productSlug);
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      res.json(product);
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      res.status(500).send("Internal Server Error");
+    }
   });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
 });

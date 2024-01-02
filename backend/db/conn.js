@@ -9,6 +9,7 @@ var _db;
 
 module.exports = {
   connectToServer: function (callback) {
+    console.log("ATLAS_URI:", uri);
     client
       .connect()
       .then((connection) => {
