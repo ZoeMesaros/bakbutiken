@@ -8,7 +8,6 @@ import NavBar from "./components/NavBar/NavBar";
 function App() {
   return (
     <>
-      <h1>Bakbutiken</h1>
       <main>
         <NavBar />
         <Routes>
