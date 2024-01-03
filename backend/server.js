@@ -4,6 +4,7 @@ const { ObjectId } = require("mongodb");
 const app = express();
 require("dotenv").config({ path: __dirname + "/config.env" });
 
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 // Import and initialize dbo before using it in routes

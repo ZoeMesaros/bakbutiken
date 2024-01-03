@@ -10,7 +10,7 @@ const NavBar = () => {
         <div className="header-nav">
           <div className="header-logo">
             <Link to={"/"}>
-              <img src={logo} />
+              <img src={logo} alt="Bakbutiken" />
             </Link>
           </div>
           <div className="header-button">
@@ -35,25 +35,28 @@ const NavBar = () => {
           </div>
         </div>
         {/* Navigation bar */}
-        <nav id="main-nav" class="navbar navbar-expand-md navbar-light border">
-          <div class="collapse navbar-collapse" id="main_nav">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item active">
+        <nav
+          id="main-nav"
+          className="navbar navbar-expand-md navbar-light border"
+        >
+          <div className="collapse navbar-collapse" id="main_nav">
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item active">
                 <Link className="nav-link" to={"/"}>
                   Hem
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to={"/products"}>
                   Produkter
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to={"/products"}>
                   Om oss
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link className="nav-link" to={"/products"}>
                   Kontakt
                 </Link>
