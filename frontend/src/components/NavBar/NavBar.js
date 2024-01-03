@@ -6,6 +6,7 @@ const NavBar = () => {
   return (
     <>
       <header>
+        {/* Main header */}
         <div className="header-nav">
           <div className="header-logo">
             <Link to={"/"}>
@@ -33,6 +34,34 @@ const NavBar = () => {
             </button>
           </div>
         </div>
+        {/* Navigation bar */}
+        <nav id="main-nav" class="navbar navbar-expand-md navbar-light border">
+          <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item active">
+                <Link className="nav-link" to={"/"}>
+                  Hem
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link className="nav-link" to={"/products"}>
+                  Produkter
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link className="nav-link" to={"/products"}>
+                  Om oss
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link className="nav-link" to={"/products"}>
+                  Kontakt
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        {/* Mobile Navigation Menu */}
         <nav id="mobile-nav" className="navbar navbar-light navbar-1 white">
           <button
             className="navbar-toggler"
@@ -71,14 +100,15 @@ const NavBar = () => {
                     </a>
                   </button>
                 </div>
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to={"/"}>
                   Hem <span className="sr-only">(current)</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-item" to={"/products"}>
+                  {" "}
                   Produkter
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
