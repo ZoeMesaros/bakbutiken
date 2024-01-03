@@ -33,11 +33,9 @@ const NavBar = () => {
             </button>
           </div>
         </div>
-        <nav class="navbar navbar-light navbar-1 white">
-          <a class="navbar-brand" href="#"></a>
-
+        <nav id="mobile-nav" className="navbar navbar-light navbar-1 white">
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent15"
@@ -45,24 +43,51 @@ const NavBar = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent15">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  Home <span class="sr-only">(current)</span>
+          <div
+            className="collapse navbar-collapse"
+            id="navbarSupportedContent15"
+          >
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <div className="header-button-mobile">
+                  <button>
+                    <a
+                      href="https://github.com/mdbootstrap/bootstrap-material-design"
+                      target="_blank"
+                    >
+                      <i className="fas fa-user-alt m-1 me-md-2"></i>
+                      <p className="d-none d-md-block mb-0">Logga in</p>
+                    </a>
+                  </button>
+                  <button>
+                    <a
+                      href="https://github.com/mdbootstrap/bootstrap-material-design"
+                      target="_blank"
+                    >
+                      <i className="fas fa-shopping-cart m-1 me-md-2"></i>
+                      <p className="d-none d-md-block mb-0">Kundvagn</p>
+                    </a>
+                  </button>
+                </div>
+                <a className="nav-link" href="#">
+                  Hem <span className="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Features
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Produkter
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Pricing
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Om oss
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Kontakt
                 </a>
               </li>
             </ul>

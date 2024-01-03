@@ -41,6 +41,34 @@
   }
 }
 
+@media (min-width: 768px) {
+  #mobile-nav {
+    display: none;
+  }
+}
+
+.navbar-toggler {
+  transform: translateY(-80px);
+  margin-right: 1rem;
+  margin-left: auto;
+}
+
+.header-button-mobile {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 5px;
+}
+
+.header-button-mobile button {
+  background-color: white;
+  width: 3rem;
+  border-radius: 9%;
+}
+
+/* #mobile-nav {
+  
+} */
+
 /* .header-button-container button {
   width: 1rem;
 } */
