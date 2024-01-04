@@ -1,5 +1,5 @@
 .header-nav {
-  padding: 1rem 2rem;
+  padding: 1rem 7rem;
   align-items: center;
   grid-template-columns: 16rem auto;
 }
@@ -22,6 +22,7 @@
     align-items: center;
     gap: 1rem;
     & button {
+      margin: 5px;
       border: 1px solid rgb(142, 173, 168);
       border-radius: 0.5rem;
       background-color: white;

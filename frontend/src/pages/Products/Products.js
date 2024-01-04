@@ -19,20 +19,34 @@ const ProductPage = () => {
   }, []);
 
   return (
-    <div class="product-page">
-      <ul class="cards">
+    <div className="product-page">
+      <ul className="cards">
         {products.map((product) => (
-          <li class="cards-item" key={product._id}>
-            <div class="card">
-              <div class="card-image">
+          <li className="cards-item" key={product._id}>
+            <div className="card">
+              <div className={`sale${product.onSale ? "-item" : ""} `}>
+                {product.onSale && <span>REA</span>}
+              </div>
+              <div className="card-image">
                 <img src="https://picsum.photos/500/300/?image=10" />
               </div>
-              <div class="card-content">
+              <div className="card-content">
                 <div className="card-text">
-                  <h2 class="card-title">{product.name}</h2>
-                  <p class="card-price">Kr</p>
+                  <h2 className="card-title">{product.name}</h2>
+                  <p className={`card-price ${product.onSale ? "-sale" : ""}`}>
+                    <span
+                      className={`item-price${product.onSale ? "-sale" : ""}`}
+                    >
+                      {product.price} Kr
+                    </span>
+                    {product.onSale && (
+                      <span className="sale-price">
+                        &nbsp; {product.salePrice} Kr
+                      </span>
+                    )}
+                  </p>
                 </div>
-                <button class="btn card-btn">Läs mer</button>
+                <button className="btn card-btn">Läs mer</button>
               </div>
             </div>
           </li>
