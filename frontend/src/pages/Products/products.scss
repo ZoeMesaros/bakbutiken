@@ -13,6 +13,7 @@ img {
   height: auto;
   max-width: 100%;
   vertical-align: middle;
+  padding: 15px;
 }
 
 .btn {
@@ -24,7 +25,6 @@ img {
   display: block;
   width: 100%;
   cursor: pointer;
-  /*   border: 1px solid rgba(0, 0, 0, 0.781); */
   background: transparent;
   background-color: #c0edd8;
 }
@@ -59,7 +59,7 @@ img {
 
 @media (min-width: 56rem) {
   .cards-item {
-    width: 24.3333%;
+    width: 20%;
   }
 }
 
@@ -130,4 +130,12 @@ img {
 nav {
   display: flex;
   justify-content: center;
+}
+
+.product-category ul {
+  margin-top: 2rem;
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  justify-content: space-evenly;
 }

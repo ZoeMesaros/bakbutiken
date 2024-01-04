@@ -29,6 +29,25 @@ const ProductPage = () => {
   return (
     <>
       <div className="product-page">
+        <div className="product-category">
+          <ul>
+            <li>
+              <a>Alla</a>
+            </li>
+            <li>
+              <a>Bakformar</a>
+            </li>
+            <li>
+              <a>Verktyg</a>
+            </li>
+            <li>
+              <a>Skålar</a>
+            </li>
+            <li>
+              <a>Dekoration</a>
+            </li>
+          </ul>
+        </div>
         <ul className="cards">
           {products.map((product) => (
             <li className="cards-item" key={product._id}>
@@ -37,7 +56,7 @@ const ProductPage = () => {
                   {product.onSale && <span>REA</span>}
                 </div>
                 <div className="card-image">
-                  <img src="https://picsum.photos/500/300/?image=10" />
+                  <img src={product.img} />
                 </div>
                 <div className="card-content">
                   <div className="card-text">

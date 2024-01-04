@@ -26,10 +26,30 @@ dbo.connectToServer((err) => {
 
     try {
       const db_connect = dbo.getDb();
-      console.log("Limit:", limit);
       const products = await db_connect
         .collection("products")
         .find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .toArray();
+      res.json(products);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
+  //Get products based on category
+  app.get("/api/products/:category", async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const category = req.params.category;
+
+    try {
+      const db_connect = dbo.getDb();
+      const products = await db_connect
+        .collection("products")
+        .find({ category: category })
         .skip((page - 1) * limit)
         .limit(limit)
         .toArray();
