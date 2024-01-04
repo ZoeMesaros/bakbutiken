@@ -21,11 +21,17 @@ dbo.connectToServer((err) => {
 
   //Get all products
   app.get("/api/products", async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+
     try {
       const db_connect = dbo.getDb();
+      console.log("Limit:", limit);
       const products = await db_connect
         .collection("products")
         .find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
         .toArray();
       res.json(products);
     } catch (error) {

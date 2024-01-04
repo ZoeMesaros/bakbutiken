@@ -1,3 +1,8 @@
+.product-page {
+  width: 100%;
+  overflow: hidden;
+}
+
 h1 {
   font-size: 24px;
   font-weight: 400;
@@ -120,4 +125,9 @@ img {
   padding-right: 2rem;
   display: flex;
   justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
 }
