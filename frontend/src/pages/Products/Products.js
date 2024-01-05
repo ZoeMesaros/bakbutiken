@@ -13,11 +13,14 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const url = `/api/products/${selectedCategory}?page=${currentPage}&limit=12`;
+        let url = `/api/products?page=${currentPage}&limit=12`;
+
+        if (selectedCategory) {
+          url = `/api/products/category/${selectedCategory}?page=${currentPage}&limit=12`;
+        }
+
         console.log("Request URL:", url);
-        const response = await axios.get(
-          `/api/products/${selectedCategory}?page=${currentPage}&limit=12`
-        );
+        const response = await axios.get(url);
         console.log("Fetched products:", response.data);
         setProducts(response.data);
       } catch (error) {
@@ -75,7 +78,9 @@ const ProductPage = () => {
                       )}
                     </p>
                   </div>
-                  <button className="btn card-btn">Läs mer</button>
+                  <Link to={`/products/${product.slug}`}>
+                    <button className="btn card-btn">Läs mer</button>
+                  </Link>
                 </div>
               </div>
             </div>
