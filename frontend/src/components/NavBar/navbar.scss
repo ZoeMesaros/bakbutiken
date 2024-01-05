@@ -1,5 +1,5 @@
 .header-nav {
-  padding: 1rem 4rem;
+  padding: 0rem 4rem;
   align-items: center;
   grid-template-columns: 16rem auto;
 }
@@ -45,8 +45,8 @@
 }
 
 .navbar-toggler {
-  transform: translateY(-80px);
-  margin-right: 1rem;
+  transform: translateY(-150px);
+  margin-right: 4rem;
   margin-left: auto;
 }
 
@@ -68,8 +68,14 @@
   height: 9rem;
 }
 
+@media (min-width: 768px) {
+  .header-logo img {
+    width: 15rem;
+  }
+}
+
 .header-logo img {
-  width: 15rem;
+  width: 10rem;
   height: auto;
   align-self: center;
   scroll-margin-right: auto;

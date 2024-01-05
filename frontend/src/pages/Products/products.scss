@@ -1,19 +1,23 @@
 .product-page {
   width: 100%;
   overflow: hidden;
+  padding: 0 4rem;
 }
-
 h1 {
   font-size: 24px;
   font-weight: 400;
   text-align: center;
 }
 
-img {
+.card-image {
+  text-align: center;
+}
+
+.card-image img {
   height: auto;
   max-width: 100%;
   vertical-align: middle;
-  padding: 15px;
+  padding: 30px;
 }
 
 .btn {
@@ -34,36 +38,21 @@ img {
 }
 
 .cards {
-  text-align: center;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  justify-content: center;
   margin-top: 1rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  list-style: none;
 }
 
 .cards-item {
-  display: flex;
-  padding: 2rem;
-  width: 100%;
-}
-
-@media (min-width: 40rem) {
-  .cards-item {
-    width: 50%;
-  }
-}
-
-@media (min-width: 56rem) {
-  .cards-item {
-    width: 20%;
-  }
+  box-sizing: border-box;
+  padding: 1rem;
+  height: 100%;
 }
 
 .card {
+  height: 100%;
   background-color: rgb(255, 255, 255);
   border-radius: 0.25rem;
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
@@ -130,12 +119,25 @@ img {
 nav {
   display: flex;
   justify-content: center;
+  margin-top: 1rem;
 }
 
-.product-category ul {
+.product-category {
   margin-top: 2rem;
   display: flex;
-  list-style: none;
-  justify-content: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+.product-category a {
+  margin-right: 1rem;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.product-category a:hover {
+  background-color: #c0edd8;
 }

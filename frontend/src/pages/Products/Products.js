@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./products.scss";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        const url = `/api/products/${selectedCategory}?page=${currentPage}&limit=12`;
+        console.log("Request URL:", url);
         const response = await axios.get(
-          `/api/products?page=${currentPage}&limit=12`
+          `/api/products/${selectedCategory}?page=${currentPage}&limit=12`
         );
         console.log("Fetched products:", response.data);
         setProducts(response.data);
@@ -20,37 +26,30 @@ const ProductPage = () => {
     };
 
     fetchProducts();
-  }, [currentPage]);
+  }, [currentPage, selectedCategory]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
   };
 
   return (
     <>
       <div className="product-page">
         <div className="product-category">
-          <ul>
-            <li>
-              <a>Alla</a>
-            </li>
-            <li>
-              <a>Bakformar</a>
-            </li>
-            <li>
-              <a>Verktyg</a>
-            </li>
-            <li>
-              <a>Skålar</a>
-            </li>
-            <li>
-              <a>Dekoration</a>
-            </li>
-          </ul>
+          <a onClick={() => handleCategoryClick("")}>Alla</a>
+          <a onClick={() => handleCategoryClick("pans")}>Bakformar</a>
+          <a onClick={() => handleCategoryClick("utensils")}>Verktyg</a>
+          <a onClick={() => handleCategoryClick("bowls")}>Skålar</a>
+          <a onClick={() => handleCategoryClick("decorations")}>Dekoration</a>
         </div>
-        <ul className="cards">
+        <div className="cards">
           {products.map((product) => (
-            <li className="cards-item" key={product._id}>
+            <div className="cards-item" key={product._id}>
               <div className="card">
                 <div className={`sale${product.onSale ? "-item" : ""} `}>
                   {product.onSale && <span>REA</span>}
@@ -79,9 +78,9 @@ const ProductPage = () => {
                   <button className="btn card-btn">Läs mer</button>
                 </div>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       <nav>
         <ul className="pagination">
