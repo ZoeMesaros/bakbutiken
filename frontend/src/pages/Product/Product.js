@@ -11,7 +11,6 @@ const SingleProductPage = () => {
     const fetchSingleProduct = async () => {
       try {
         const response = await axios.get(`/api/products/${slug}`);
-        console.log("Fetched product:", response.data);
         setProduct(response.data);
       } catch (error) {
         setProduct(null);
@@ -22,17 +21,23 @@ const SingleProductPage = () => {
     fetchSingleProduct();
   }, [slug]);
 
-  console.log("Product state:", product);
-
-  if (Object.keys(product).length === 0) {
-    return <div>Loading...</div>; // Add a loading state while fetching
-  }
-
   return (
     <>
       <div className="single-product-page">
-        <div className="product-card">
-          <h2 className="card-title">{product.name}</h2>
+        <div className="product-info">
+          <div className="product-image">
+            <img src={product.imgSingle} alt={product.name} />
+          </div>
+          <div className="product-details">
+            <h2 className="product-name">{product.name}</h2>
+            <p className="product-price">{product.price} Kr</p>
+            <div className="add-to-cart">
+              <button className="btn card-btn">Lägg till i kundvagnen</button>
+            </div>
+            <div className="product-description">
+              <p>{product.desc}</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
