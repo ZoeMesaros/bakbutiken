@@ -5,6 +5,8 @@ import "./product.scss";
 
 const SingleProductPage = () => {
   const [product, setProduct] = useState({});
+  const [specificationsOpen, setSpecificationsOpen] = useState(false);
+  const [materialsOpen, setMaterialsOpen] = useState(false);
   const { slug } = useParams();
 
   useEffect(() => {
@@ -21,6 +23,14 @@ const SingleProductPage = () => {
     fetchSingleProduct();
   }, [slug]);
 
+  const toggleSpecifications = () => {
+    setSpecificationsOpen(!specificationsOpen);
+  };
+
+  const toggleMaterials = () => {
+    setMaterialsOpen(!materialsOpen);
+  };
+
   return (
     <>
       <div className="single-product-page">
@@ -36,6 +46,63 @@ const SingleProductPage = () => {
             </div>
             <div className="product-description">
               <p>{product.desc}</p>
+            </div>
+            <div className="accordion" id="accordionFlushExample">
+              <div className="accordion-item">
+                <h2 className="accordion-header" id="flush-headingOne">
+                  <button
+                    className={`accordion-button ${
+                      specificationsOpen ? "" : "collapsed"
+                    }`}
+                    type="button"
+                    onClick={toggleSpecifications}
+                  >
+                    Specifikationer
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseOne"
+                  className={`accordion-collapse collapse ${
+                    specificationsOpen ? "show" : ""
+                  }`}
+                  aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample"
+                >
+                  <div className="accordion-body">
+                    Placeholder content for this accordion, which is intended to
+                    demonstrate the <code>.accordion-flush</code> class. This is
+                    the first item's accordion body.
+                  </div>
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h2 className="accordion-header" id="flush-headingTwo">
+                  <button
+                    className={`accordion-button ${
+                      materialsOpen ? "" : "collapsed"
+                    }`}
+                    type="button"
+                    onClick={toggleMaterials}
+                  >
+                    Material
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseTwo"
+                  className={`accordion-collapse collapse ${
+                    materialsOpen ? "show" : ""
+                  }`}
+                  aria-labelledby="flush-headingTwo"
+                  data-bs-parent="#accordionFlushExample"
+                >
+                  <div className="accordion-body">
+                    Placeholder content for this accordion, which is intended to
+                    demonstrate the <code>.accordion-flush</code> class. This is
+                    the second item's accordion body.
+                  </div>
+                </div>
+              </div>
+              {/* Add more accordion items as needed */}
             </div>
           </div>
         </div>
