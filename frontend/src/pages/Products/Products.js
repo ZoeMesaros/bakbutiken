@@ -82,7 +82,7 @@ const ProductPage = () => {
           ))}
         </div>
       </div>
-      <nav>
+      <nav className="pag-nav">
         <ul className="pagination">
           {currentPage > 1 && (
             <li
