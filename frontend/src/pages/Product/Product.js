@@ -40,7 +40,16 @@ const SingleProductPage = () => {
           </div>
           <div className="product-details">
             <h2 className="product-name">{product.name}</h2>
-            <p className="product-price">{product.price} Kr</p>
+            <p className="product-price">
+              <span className={`item-price${product.onSale ? "-sale" : ""}`}>
+                {product.price} Kr
+              </span>
+              {product.onSale && (
+                <span className="sale-price">
+                  &nbsp; {product.salePrice} Kr
+                </span>
+              )}
+            </p>
             <div className="add-to-cart">
               <button className="btn card-btn">Lägg till i kundvagnen</button>
             </div>
@@ -69,9 +78,11 @@ const SingleProductPage = () => {
                   data-bs-parent="#accordionFlushExample"
                 >
                   <div className="accordion-body">
-                    Placeholder content for this accordion, which is intended to
-                    demonstrate the <code>.accordion-flush</code> class. This is
-                    the first item's accordion body.
+                    <ul>
+                      <li>{product.spec}</li>
+                      <li>{product.spec1}</li>
+                      <li>{product.spec2}</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -96,9 +107,7 @@ const SingleProductPage = () => {
                   data-bs-parent="#accordionFlushExample"
                 >
                   <div className="accordion-body">
-                    Placeholder content for this accordion, which is intended to
-                    demonstrate the <code>.accordion-flush</code> class. This is
-                    the second item's accordion body.
+                    <p>{product.material}</p>
                   </div>
                 </div>
               </div>

@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 13rem);
+  height: calc(100vh - 20rem);
   padding: 0 2rem;
 }
 
@@ -27,12 +27,21 @@
 
 .product-price {
   font-size: 23px;
+  .item-price-sale {
+    color: red;
+    text-decoration: line-through;
+  }
 }
 
 .add-to-cart,
 .product-description {
   margin-top: 3rem;
   margin-bottom: 3rem;
+}
+
+.add-to-cart button {
+  background-color: #d0ebde;
+  padding: 0.7rem;
 }
 
 .product-image {
@@ -42,15 +51,20 @@
 .product-image img {
   height: 100%;
   max-width: 100%;
+  object-fit: cover;
 }
 
 .product-details {
-  width: 100%;
-  min-height: 100%;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
 }
 
 @media (max-width: 768px) {
+  .single-product-page {
+    height: calc(100vh - 0rem);
+    margin: 0 3rem;
+  }
   .product-name,
   .add-to-cart,
   .product-description {
@@ -77,5 +91,5 @@
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #ddf2e8;
+  background-color: white;
 }

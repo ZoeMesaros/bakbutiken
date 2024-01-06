@@ -1,5 +1,5 @@
 .header-nav {
-  padding: 0rem 4rem;
+  padding: 0rem 3rem;
   align-items: center;
   grid-template-columns: 16rem auto;
   display: grid;
@@ -12,6 +12,9 @@
 }
 
 @media (min-width: 768px) {
+  .header-nav {
+    padding: 0rem 4rem;
+  }
   .header-button {
     height: 9rem;
     justify-self: right;
