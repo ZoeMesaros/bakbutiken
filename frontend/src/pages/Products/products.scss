@@ -38,7 +38,7 @@
   @media (max-width: 760px) {
     .cards {
       grid-template-columns: repeat(1, 1fr);
-      max-width: 760px; /* Adjust the max-width to fit your design */
+      max-width: 760px;
     }
   }
 
@@ -52,7 +52,7 @@
   @media (min-width: 980px) and (max-width: 1300px) {
     .cards {
       grid-template-columns: repeat(3, 1fr);
-      max-width: 1300px; /* Adjust the max-width to fit your design */
+      max-width: 1300px;
     }
   }
 
@@ -156,7 +156,7 @@
           }
 
           .btn {
-            color: #000000;
+            color: rgba(0, 0, 0, 0.7);
             padding: 0.8rem;
             font-size: 15px;
             border-radius: 10px;
@@ -165,10 +165,10 @@
             width: 100%;
             cursor: pointer;
             background: transparent;
-            background-color: #c0edd8;
+            background-color: #d0ebde;
 
             &:hover {
-              background-color: #d0ebde;
+              background-color: #c0edd8;
             }
           }
         }
