@@ -10,33 +10,65 @@
   }
 
   .product-category {
+    min-height: 2rem;
     margin-top: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
     display: flex;
+    flex-wrap: wrap;
+    word-wrap: break-word;
     justify-content: space-around;
+    & a {
+      padding: 0.5rem;
+      margin-right: 1rem;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      transition: background-color 0.3s ease;
+    }
+    & a:hover {
+      background-color: #c0edd8;
+      border-radius: 15px;
+      padding: 0.5rem;
+    }
   }
 
-  & a {
-    margin-right: 1rem;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    background: transparent;
-    transition: background-color 0.3s ease;
+  @media (max-width: 760px) {
+    .cards {
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 760px; /* Adjust the max-width to fit your design */
+    }
   }
 
-  & a:hover {
-    background-color: #c0edd8;
+  @media (min-width: 650px) and (max-width: 980px) {
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 980px;
+    }
+  }
+
+  @media (min-width: 980px) and (max-width: 1300px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1300px; /* Adjust the max-width to fit your design */
+    }
+  }
+
+  @media (min-width: 1300px) {
+    .cards {
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1300px;
+    }
   }
 
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    min-width: 250px;
-    gap: 2rem;
+    gap: 15px;
     justify-content: center;
+    margin: 0 auto;
     margin-top: 1rem;
-
     &-item {
       box-sizing: border-box;
       padding: 1rem;
@@ -44,10 +76,8 @@
       text-align: center;
       justify-content: center;
       align-items: center;
-      width: 17rem;
+      width: 19rem;
       margin: 0 auto;
-      width: 17rem;
-
       .card {
         height: 100%;
         background-color: rgb(255, 255, 255);
@@ -119,6 +149,10 @@
               color: rgb(237, 7, 7);
               text-decoration: line-through;
             }
+          }
+
+          & a {
+            all: unset;
           }
 
           .btn {

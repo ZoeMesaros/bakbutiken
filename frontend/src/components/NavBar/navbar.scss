@@ -28,6 +28,7 @@
       background-color: white;
       align-items: center;
       & a {
+        all: unset;
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: 0.25rem;
@@ -36,6 +37,9 @@
         display: flex;
         border-radius: 0.25rem;
       }
+    }
+    & button:hover {
+      background-color: #fbf9f9;
     }
   }
 }
