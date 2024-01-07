@@ -46,7 +46,7 @@
 }
 
 .nav-link {
-  margin-right: 100px;
+  margin: 0 50px;
 }
 
 #mobile-nav {
@@ -60,9 +60,11 @@
 }
 
 .navbar-toggler {
-  transform: translateY(-100px);
-  margin-right: 4rem;
   margin-left: auto;
+}
+
+.navbar-light {
+  margin: 0 2rem;
 }
 
 .header-button-mobile {
