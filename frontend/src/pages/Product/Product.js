@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./product.scss";
 
 const SingleProductPage = () => {
@@ -33,6 +33,9 @@ const SingleProductPage = () => {
 
   return (
     <div className="single-product-page">
+      <Link to={"/products"}>
+        <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Gå tillbaka
+      </Link>
       <div className="product-info">
         <div className="product-image">
           <img src={product.imgSingle} alt={product.name} />

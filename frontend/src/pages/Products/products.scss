@@ -78,6 +78,10 @@
       align-items: center;
       width: 19rem;
       margin: 0 auto;
+      & a {
+        all: unset;
+        cursor: pointer;
+      }
       .card {
         height: 100%;
         background-color: rgb(255, 255, 255);

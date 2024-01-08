@@ -53,36 +53,41 @@ const ProductPage = () => {
         <div className="cards">
           {products.map((product) => (
             <div className="cards-item" key={product._id}>
-              <div className="card">
-                <div className={`sale${product.onSale ? "-item" : ""} `}>
-                  {product.onSale && <span>REA</span>}
-                </div>
-                <div className="card-image">
-                  <img src={product.img} />
-                </div>
-                <div className="card-content">
-                  <div className="card-text">
-                    <h2 className="card-title">{product.name}</h2>
-                    <p
-                      className={`card-price ${product.onSale ? "-sale" : ""}`}
-                    >
-                      <span
-                        className={`item-price${product.onSale ? "-sale" : ""}`}
-                      >
-                        {product.price} Kr
-                      </span>
-                      {product.onSale && (
-                        <span className="sale-price">
-                          &nbsp; {product.salePrice} Kr
-                        </span>
-                      )}
-                    </p>
+              <Link to={`/products/${product.slug}`}>
+                <div className="card">
+                  <div className={`sale${product.onSale ? "-item" : ""} `}>
+                    {product.onSale && <span>REA</span>}
                   </div>
-                  <Link to={`/products/${product.slug}`}>
+                  <div className="card-image">
+                    <img src={product.img} />
+                  </div>
+                  <div className="card-content">
+                    <div className="card-text">
+                      <h2 className="card-title">{product.name}</h2>
+                      <p
+                        className={`card-price ${
+                          product.onSale ? "-sale" : ""
+                        }`}
+                      >
+                        <span
+                          className={`item-price${
+                            product.onSale ? "-sale" : ""
+                          }`}
+                        >
+                          {product.price} Kr
+                        </span>
+                        {product.onSale && (
+                          <span className="sale-price">
+                            &nbsp; {product.salePrice} Kr
+                          </span>
+                        )}
+                      </p>
+                    </div>
+
                     <button className="btn card-btn">Läs mer</button>
-                  </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
