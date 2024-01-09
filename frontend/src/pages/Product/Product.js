@@ -41,7 +41,7 @@ const SingleProductPage = () => {
   return (
     <div className="single-product-page">
       <Link to={"/products"}>
-        <i className="fa-solid fa-arrow-left-long"></i>&nbsp;Gå tillbaka
+        <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Gå tillbaka
       </Link>
       <div className="product-info">
         <div className="product-image">

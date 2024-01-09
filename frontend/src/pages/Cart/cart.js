@@ -31,6 +31,7 @@ const CartPage = () => {
               <div className="col">Artikel</div>
               <div className="col">Antal</div>
               <div className="col">Pris</div>
+              <div className="col">Summa</div>
             </div>
           </div>
           {cart.map((cartItem, index) => (
@@ -46,7 +47,7 @@ const CartPage = () => {
                 <div className="col">
                   <div className="row text-muted">{cartItem.name}</div>
                 </div>
-                <div className="col"></div>
+                <div className="col">{cartItem.length}</div>
                 <div className="col">
                   <div className="price-container">
                     <span
@@ -61,6 +62,7 @@ const CartPage = () => {
                     )}
                   </div>
                 </div>
+                <div className="col">{/* Koden för summa */}</div>
               </div>
             </div>
           ))}
