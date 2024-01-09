@@ -22,6 +22,7 @@
     align-items: center;
     gap: 1rem;
     & button {
+      position: relative;
       margin: 5px;
       border: 1px solid rgb(142, 173, 168);
       border-radius: 0.5rem;
@@ -30,8 +31,6 @@
       color: rgba(0, 0, 0, 0.705);
       & a {
         all: unset;
-        padding-left: 1rem;
-        padding-right: 1rem;
         padding-bottom: 0.25rem;
         padding-top: 0.25rem;
         align-items: center;
@@ -42,6 +41,17 @@
     & button:hover {
       background-color: #fbf9f9;
     }
+  }
+}
+
+.item-symbol {
+  position: absolute;
+  transform: translateX(-5px) translateY(-17px);
+  & i {
+    transition: 500ms;
+    color: red;
+    width: 15px;
+    height: 15px;
   }
 }
 

@@ -67,7 +67,7 @@ const CartPage = () => {
             </div>
           ))}
         </div>
-        <div className="col-md-4 summary">
+        <div className="col-md-4 summary border-left border-right">
           <div>
             <h5>Din beställning</h5>
           </div>
