@@ -25,6 +25,14 @@ const CartPage = () => {
               </div>
             </div>
           </div>
+          <div className="row border-top border-bottom">
+            <div class="row main align-items-center">
+              <div className="col-2"></div>
+              <div className="col">Artikel</div>
+              <div className="col">Antal</div>
+              <div className="col">Pris</div>
+            </div>
+          </div>
           {cart.map((cartItem, index) => (
             <div className="row border-top border-bottom" key={index}>
               <div className="row main align-items-center">
@@ -58,7 +66,9 @@ const CartPage = () => {
           ))}
         </div>
         <div className="col-md-4 summary">
-          <div>Din beställning</div>
+          <div>
+            <h5>Din beställning</h5>
+          </div>
         </div>
       </div>
     </div>
