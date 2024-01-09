@@ -7,6 +7,7 @@ const SingleProductPage = () => {
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
+  const [cart, setCart] = useState([]);
   const { slug } = useParams();
 
   useEffect(() => {
@@ -23,6 +24,12 @@ const SingleProductPage = () => {
     fetchSingleProduct();
   }, [slug]);
 
+  const handleAddToCart = () => {
+    setCart([...cart, product]);
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    localStorage.setItem("cart", JSON.stringify([...storedCart, product]));
+  };
+
   const toggleSpecifications = () => {
     setSpecificationsOpen(!specificationsOpen);
   };
@@ -34,7 +41,7 @@ const SingleProductPage = () => {
   return (
     <div className="single-product-page">
       <Link to={"/products"}>
-        <i class="fa-solid fa-arrow-left-long"></i>&nbsp;Gå tillbaka
+        <i className="fa-solid fa-arrow-left-long"></i>&nbsp;Gå tillbaka
       </Link>
       <div className="product-info">
         <div className="product-image">
@@ -51,7 +58,9 @@ const SingleProductPage = () => {
             )}
           </p>
           <div className="add-to-cart">
-            <button className="btn card-btn">Lägg till i kundvagnen</button>
+            <button className="btn card-btn" onClick={handleAddToCart}>
+              Lägg till i kundvagnen
+            </button>
           </div>
           <div className="product-description">
             <p>{product.desc}</p>

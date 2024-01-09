@@ -1,0 +1,29 @@
+.cart-page {
+  padding: 6rem 6rem;
+  .cart-title {
+    margin-bottom: 2rem;
+  }
+  .main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+  }
+  .col-2 {
+    margin-right: 15%;
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+      & img {
+        width: 3.5rem;
+      }
+    }
+  }
+  .item-price-sale {
+    color: red;
+    text-decoration: line-through;
+    margin-right: 1rem;
+  }
+  .summary {
+    background-color: blue;
+  }
+}
