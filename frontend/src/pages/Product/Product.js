@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./product.scss";
+import useCart from "../../customHooks/useCart";
 
-const SingleProductPage = ({ handleAddToCart }) => {
+const SingleProductPage = ({ addToCart }) => {
+  const { handleAddToCart } = useCart();
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const { slug } = useParams();
 
   useEffect(() => {
@@ -24,19 +27,15 @@ const SingleProductPage = ({ handleAddToCart }) => {
   }, [slug]);
 
   const AddToCart = () => {
-    console.log("SIngle product page, Item added to cart");
-    handleAddToCart(product, true);
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    addToCart(product);
 
-    const existingItem = storedCart.find((item) => item._id === product._id);
+    setTimeout(() => {
+      setShowNotification(true);
+    }, 300);
 
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      storedCart.push({ ...product, quantity: 1 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(storedCart));
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 7000);
   };
 
   const toggleSpecifications = () => {
@@ -67,9 +66,14 @@ const SingleProductPage = ({ handleAddToCart }) => {
             )}
           </p>
           <div className="add-to-cart">
-            <button className="btn card-btn" onClick={AddToCart}>
-              Lägg till i kundvagnen
-            </button>
+            <div className="add-to-cart-container">
+              <button className="btn card-btn" onClick={AddToCart}>
+                Lägg till i kundvagnen
+              </button>
+              {showNotification && (
+                <p className="product-added show">Produkten lades till</p>
+              )}
+            </div>
           </div>
           <div className="product-description">
             <p>{product.desc}</p>

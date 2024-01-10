@@ -4,7 +4,7 @@ import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/images/bakbutiken.png";
 
-const NavBar = ({ cart, cartButton }) => {
+const NavBar = ({ cart }) => {
   const [cartLength, setCartLength] = useState(cart.length);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const NavBar = ({ cart, cartButton }) => {
                 <p className="d-none d-md-block mb-0">Logga in</p>
               </a>
             </button>
-            <button className={`btn-cart${cartButton ? " added" : ""}`}>
+            <button>
               <Link to={"/cart"}>
                 <a
                   href="https://github.com/mdbootstrap/bootstrap-material-design"
