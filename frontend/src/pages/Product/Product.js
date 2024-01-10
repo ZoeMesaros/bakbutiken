@@ -24,9 +24,19 @@ const SingleProductPage = ({ handleAddToCart }) => {
   }, [slug]);
 
   const AddToCart = () => {
-    handleAddToCart();
+    console.log("SIngle product page, Item added to cart");
+    handleAddToCart(product, true);
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    localStorage.setItem("cart", JSON.stringify([...storedCart, product]));
+
+    const existingItem = storedCart.find((item) => item._id === product._id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      storedCart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(storedCart));
   };
 
   const toggleSpecifications = () => {

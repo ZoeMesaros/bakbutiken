@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/images/bakbutiken.png";
 
-const NavBar = ({ cart }) => {
-  console.log("kundvagn", cart);
+const NavBar = ({ cart, cartButton }) => {
+  const [cartLength, setCartLength] = useState(cart.length);
+
+  useEffect(() => {
+    setCartLength(cart.length);
+  }, [cart]);
+
   return (
     <>
       <header>
@@ -26,7 +31,7 @@ const NavBar = ({ cart }) => {
                 <p className="d-none d-md-block mb-0">Logga in</p>
               </a>
             </button>
-            <button>
+            <button className={`btn-cart${cartButton ? " added" : ""}`}>
               <Link to={"/cart"}>
                 <a
                   href="https://github.com/mdbootstrap/bootstrap-material-design"
@@ -36,8 +41,8 @@ const NavBar = ({ cart }) => {
                   <p className="d-none d-md-block mb-0">
                     Kundvagn
                     {cart.length > 0 && (
-                      <span className={`item${cart.length ? "-symbol" : ""}`}>
-                        <i class="fa-solid fa-circle"></i>
+                      <span className={`item${cartLength ? "-symbol" : ""}`}>
+                        <i className="fa-solid fa-circle"></i>
                       </span>
                     )}
                   </p>

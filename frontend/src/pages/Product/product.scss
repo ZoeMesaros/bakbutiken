@@ -44,8 +44,25 @@
 }
 
 .add-to-cart button {
+  color: rgba(0, 0, 0, 0.923);
+  padding: 0.4rem;
+  font-size: 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  outline: 4px solid #d0ebde;
+  outline-offset: 2px;
+
+  cursor: pointer;
+  background: transparent;
   background-color: #d0ebde;
-  padding: 0.7rem;
+
+  &:hover {
+    background-color: #bfdccf;
+  }
+  &:focus {
+    box-shadow: none;
+    border: none;
+  }
 }
 
 .product-image {

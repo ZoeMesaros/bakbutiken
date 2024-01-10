@@ -21,6 +21,13 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    .btn-cart {
+      background-color: white;
+      &.added {
+        animation: blink 1s infinite;
+        background-color: red;
+      }
+    }
     & button {
       position: relative;
       margin: 5px;
@@ -40,6 +47,16 @@
     }
     & button:hover {
       background-color: #fbf9f9;
+    }
+    @keyframes blink {
+      0%,
+      50% {
+        opacity: 1;
+      }
+      51%,
+      100% {
+        opacity: 0;
+      }
     }
   }
 }

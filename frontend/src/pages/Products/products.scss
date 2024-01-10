@@ -160,19 +160,22 @@
           }
 
           .btn {
-            color: rgba(0, 0, 0, 0.7);
-            padding: 0.8rem;
+            color: rgba(0, 0, 0, 0.923);
+            padding: 0.4rem;
             font-size: 15px;
-            border-radius: 10px;
+            border-radius: 5px;
             font-weight: 600;
             display: block;
             width: 100%;
+            outline: 4px solid #d0ebde;
+            outline-offset: 2px;
+
             cursor: pointer;
             background: transparent;
             background-color: #d0ebde;
 
             &:hover {
-              background-color: #c0edd8;
+              background-color: #bfdccf;
             }
           }
         }
