@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
-          path="/products/"
+          path="/products"
           element={<ProductPage addToCart={handleAddToCart} />}
         />
         <Route

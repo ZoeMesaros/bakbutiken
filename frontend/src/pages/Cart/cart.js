@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./cart.scss";
-import CartModal from "../../components/NavBar/CartModal/CartModal";
+import CartModal from "../../components/CartModal/CartModal";
 
 // Cart page component to render the cart
 const CartPage = ({ cart, removeFromCart }) => {
@@ -12,10 +12,22 @@ const CartPage = ({ cart, removeFromCart }) => {
     return cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
   };
 
-  //Open modal to confirm clearing the cart
+  // Calculate the total sum of items in the cart
+  const calculateTotalSum = () => {
+    return cart.reduce(
+      (total, cartItem) => total + cartItem.price * cartItem.quantity,
+      0
+    );
+  };
+
+  //Open modal to confirm clearing the cart if quantity is more than 1, otherwise remove item
   const handleRemoveClick = (cartItem) => {
-    setSelectedCartItem(cartItem);
-    setShowModal(true);
+    if (cartItem.quantity === 1) {
+      removeFromCart(cartItem);
+    } else {
+      setSelectedCartItem(cartItem);
+      setShowModal(true);
+    }
   };
 
   const closeModal = () => {
@@ -96,16 +108,25 @@ const CartPage = ({ cart, removeFromCart }) => {
             ))}
           </div>
           <div className="col-md-4 summary border-left border-right">
-            <div>
-              <h5>Din beställning</h5>
+            <h5>Sammanfattning</h5>
+
+            <div className="cart-summary">
+              <p>Antal varor:{calculateTotalQuantity()}</p>
+              <p>Summa varor:{calculateTotalSum()} Kr</p>
+              <p className="col border-bottom">Frakt: 59kr</p>
+              <p>Totalt att betala:</p>
+              <p>Varav moms:</p>
             </div>
+            <button>
+              <Link to={"/checkout"}>Gå till kassan</Link>
+            </button>
           </div>
         </div>
       ) : (
         <>
           <h4>Inga produkter tillagda</h4>
           <p>
-            Se vårat <Link to={"/products"}>sortiment</Link>
+            Se vårt <Link to={"/products"}>sortiment</Link>
           </p>
         </>
       )}
