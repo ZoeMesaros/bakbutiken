@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./cart.scss";
+import CartModal from "../../components/NavBar/CartModal/CartModal";
 
-//Cart page component to render the cart
-const CartPage = () => {
-  const [cart, setCart] = useState([]);
-
-  //Get the cart from localStorage
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(storedCart);
-  }, []);
-
-  //Calculate the total amount of items in the cart
+// Cart page component to render the cart
+const CartPage = ({ cart, removeFromCart }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCartItem, setSelectedCartItem] = useState(null);
+  // Calculate the total amount of items in the cart
   const calculateTotalQuantity = () => {
     return cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+  };
+
+  //Open modal to confirm clearing the cart
+  const handleRemoveClick = (cartItem) => {
+    setSelectedCartItem(cartItem);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedCartItem(null);
   };
 
   return (
@@ -78,7 +84,12 @@ const CartPage = () => {
                     {cartItem.quantity * cartItem.price} Kr
                   </div>
                   <div className="col">
-                    <span className="close">&#10005;</span>
+                    <span
+                      className="close"
+                      onClick={() => handleRemoveClick(cartItem)}
+                    >
+                      &#10005;
+                    </span>
                   </div>
                 </div>
               </div>
@@ -97,6 +108,13 @@ const CartPage = () => {
             Se vårat <Link to={"/products"}>sortiment</Link>
           </p>
         </>
+      )}
+      {showModal && (
+        <CartModal
+          cartItem={selectedCartItem}
+          removeFromCart={removeFromCart}
+          closeModal={closeModal}
+        />
       )}
     </div>
   );

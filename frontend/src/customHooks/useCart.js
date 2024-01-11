@@ -35,22 +35,26 @@ const useCart = () => {
     });
   };
 
-  //Functionality to remove a product from the cart
+  // Functionality to remove a product from the cart
   const handleRemoveFromCart = (product) => {
     setCart((prevCart) => {
       const existingItemIndex = prevCart.findIndex(
         (item) => item._id === product._id
       );
 
-      //If the product exists, decrease the quantity or remove it
-      if (existingItemIndex !== -1) {
-        const updatedCart = [...prevCart];
-        updatedCart[existingItemIndex].quantity -= 1;
-
+      // If the product exists and quantity is 1 or greater, remove the item
+      if (
+        existingItemIndex !== -1 &&
+        prevCart[existingItemIndex].quantity > 1
+      ) {
+        const updatedCart = prevCart.filter((item) => item._id !== product._id);
         updateLocalStorage(updatedCart);
         return updatedCart;
       } else {
-        return prevCart;
+        //Update localStorage with the modified cart
+        const updatedCart = prevCart.filter((item) => item._id !== product._id);
+        updateLocalStorage(updatedCart);
+        return updatedCart;
       }
     });
   };
