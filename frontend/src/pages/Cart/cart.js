@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./cart.scss";
 
+//Cart page component to render the cart
 const CartPage = () => {
   const [cart, setCart] = useState([]);
 
+  //Get the cart from localStorage
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);
   }, []);
 
+  //Calculate the total amount of items in the cart
   const calculateTotalQuantity = () => {
     return cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
   };
@@ -38,6 +41,7 @@ const CartPage = () => {
                 <div className="col">Antal</div>
                 <div className="col">À-pris </div>
                 <div className="col">Summa</div>
+                <div className="col"></div>
               </div>
             </div>
             {cart.map((cartItem, index) => (
@@ -71,7 +75,10 @@ const CartPage = () => {
                     </div>
                   </div>
                   <div className="col">
-                    {cartItem.quantity * cartItem.price}
+                    {cartItem.quantity * cartItem.price} Kr
+                  </div>
+                  <div className="col">
+                    <span className="close">&#10005;</span>
                   </div>
                 </div>
               </div>

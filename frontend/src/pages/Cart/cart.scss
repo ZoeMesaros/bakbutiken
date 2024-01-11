@@ -27,7 +27,18 @@
     padding: 3rem;
   }
   .text-muted {
-    margin-right: 2rem;
     justify-content: center;
+  }
+
+  .align-items-center .col {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .col span.close {
+    font-size: 1.3rem;
+    color: red;
   }
 }

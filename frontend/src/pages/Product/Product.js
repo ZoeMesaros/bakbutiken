@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./product.scss";
-import useCart from "../../customHooks/useCart";
 
+//Single product component to render a single product
 const SingleProductPage = ({ addToCart }) => {
-  const { handleAddToCart } = useCart();
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const { slug } = useParams();
 
+  //Fetch a single product based on slug name
   useEffect(() => {
     const fetchSingleProduct = async () => {
       try {
@@ -26,6 +26,7 @@ const SingleProductPage = ({ addToCart }) => {
     fetchSingleProduct();
   }, [slug]);
 
+  //Add to cart funcitonality with timed notification
   const AddToCart = () => {
     addToCart(product);
 
@@ -38,10 +39,12 @@ const SingleProductPage = ({ addToCart }) => {
     }, 7000);
   };
 
+  //Toggle specification accordion
   const toggleSpecifications = () => {
     setSpecificationsOpen(!specificationsOpen);
   };
 
+  //Toggle materials accordion
   const toggleMaterials = () => {
     setMaterialsOpen(!materialsOpen);
   };
@@ -71,7 +74,7 @@ const SingleProductPage = ({ addToCart }) => {
                 Lägg till i kundvagnen
               </button>
               {showNotification && (
-                <p className="product-added show">Produkten lades till</p>
+                <p className="product-added show">Produkten tillagd</p>
               )}
             </div>
           </div>
