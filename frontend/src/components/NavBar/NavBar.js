@@ -32,21 +32,16 @@ const NavBar = ({ cart }) => {
               </a>
             </button>
             <button>
-              <Link to={"/cart"}>
-                <a
-                  href="https://github.com/mdbootstrap/bootstrap-material-design"
-                  target="_blank"
-                >
-                  <i className="fas fa-shopping-cart m-1 me-md-2"></i>
-                  <p className="d-none d-md-block mb-0">
-                    Kundvagn
-                    {cart.length > 0 && (
-                      <span className={`item${cartLength ? "-symbol" : ""}`}>
-                        <i className="fa-solid fa-circle"></i>
-                      </span>
-                    )}
-                  </p>
-                </a>
+              <Link to="/cart">
+                <i className="fas fa-shopping-cart m-1 me-md-2"></i>
+                <p className="d-none d-md-block mb-0">
+                  Kundvagn
+                  {cart.length > 0 && (
+                    <span className={`item${cartLength ? "-symbol" : ""}`}>
+                      <i className="fa-solid fa-circle"></i>
+                    </span>
+                  )}
+                </p>
               </Link>
             </button>
           </div>

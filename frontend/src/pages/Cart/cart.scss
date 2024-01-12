@@ -1,8 +1,15 @@
 .cart-page {
   padding: 6rem 20rem;
+  overflow: hidden;
 
   @media (max-width: 1500px) {
     padding: 6rem 5rem;
+  }
+
+  .row .col-md-8 {
+    max-height: 50rem;
+    overflow: scroll;
+    scroll-behavior: smooth;
   }
 
   .cart-title {
@@ -19,10 +26,6 @@
     .img-fluid {
       max-width: 50%;
       height: auto;
-
-      /*       & img {
-        width: 1.5rem;
-      } */
     }
   }
 
@@ -35,6 +38,36 @@
   .summary {
     background-color: rgb(243, 243, 243);
     padding: 3rem;
+    & button {
+      margin-top: 3rem;
+      color: rgba(0, 0, 0, 0.923);
+      padding: 0.5rem 3rem;
+      font-size: 15px;
+      border-radius: 5px;
+      font-weight: 600;
+      outline: 4px solid #d0ebde;
+      outline-offset: 2px;
+      background-color: #d0ebde;
+      border: none;
+      &:hover {
+        background-color: #bfdccf;
+      }
+      & a {
+        all: unset;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .summary {
+      & p {
+        font-size: 17px;
+        text-align: left;
+      }
+      & h5 {
+        margin-bottom: 4rem;
+      }
+    }
   }
 
   .text-muted {

@@ -9,7 +9,10 @@ const CartPage = ({ cart, removeFromCart }) => {
   const [selectedCartItem, setSelectedCartItem] = useState(null);
   // Calculate the total amount of items in the cart
   const calculateTotalQuantity = () => {
-    return cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+    return cart.reduce(
+      (total, cartItem) => total + Number(cartItem.quantity || 0),
+      0
+    );
   };
 
   // Calculate the total sum of items in the cart
@@ -134,21 +137,29 @@ const CartPage = ({ cart, removeFromCart }) => {
             ))}
           </div>
           <div className="col-md-4 summary border-left border-right">
-            <h5>Sammanfattning</h5>
-
             <div className="cart-summary">
-              <p>Antal varor:{calculateTotalQuantity()}</p>
-              <p>Summa varor:{calculateTotalSum()} Kr</p>
-              <p className="col border-bottom">Frakt: 59kr</p>
-              <p>Totalt att betala:{calculateTotalSumWithShipping()}</p>
+              <h5>Sammanfattning</h5>
               <p>
-                {`Varav moms 25% :`}
-                {calculateTotalSumWithTax()} kr
+                Antal varor:&nbsp;<strong>{calculateTotalQuantity()}</strong>
               </p>
+              <p>
+                Summa varor:&nbsp;<strong>{calculateTotalSum()} Kr</strong>
+              </p>
+              <p className="col border-bottom">
+                Frakt:&nbsp;<strong>59kr</strong>
+              </p>
+              <p>
+                Totalt att betala:
+                <strong>&nbsp;{calculateTotalSumWithShipping()}</strong>
+              </p>
+              <p>
+                {`Varav moms 25%:`}
+                <strong>&nbsp;{calculateTotalSumWithTax()} kr</strong>
+              </p>
+              <button>
+                <Link to={"/checkout"}>Gå till kassan</Link>
+              </button>
             </div>
-            <button>
-              <Link to={"/checkout"}>Gå till kassan</Link>
-            </button>
           </div>
         </div>
       ) : (
