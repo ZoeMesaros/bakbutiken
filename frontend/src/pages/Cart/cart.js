@@ -20,6 +20,32 @@ const CartPage = ({ cart, removeFromCart }) => {
     );
   };
 
+  //Calculate tax based on total sum
+  const calculateTotalSumWithTax = () => {
+    const totalItems = cart.reduce(
+      (total, cartItem) => total + cartItem.price * cartItem.quantity,
+      0
+    );
+
+    //Fixed tax of 25% of the total sum of products
+    const taxRate = 0.25;
+
+    return totalItems * taxRate;
+  };
+
+  //Calculate the total sum with shipping
+  const calculateTotalSumWithShipping = () => {
+    const totalItems = cart.reduce(
+      (total, cartItem) => total + cartItem.price * cartItem.quantity,
+      0
+    );
+
+    //Fixed shipping fee
+    const shippingPrice = 59;
+
+    return totalItems + shippingPrice;
+  };
+
   //Open modal to confirm clearing the cart if quantity is more than 1, otherwise remove item
   const handleRemoveClick = (cartItem) => {
     if (cartItem.quantity === 1) {
@@ -114,8 +140,11 @@ const CartPage = ({ cart, removeFromCart }) => {
               <p>Antal varor:{calculateTotalQuantity()}</p>
               <p>Summa varor:{calculateTotalSum()} Kr</p>
               <p className="col border-bottom">Frakt: 59kr</p>
-              <p>Totalt att betala:</p>
-              <p>Varav moms:</p>
+              <p>Totalt att betala:{calculateTotalSumWithShipping()}</p>
+              <p>
+                {`Varav moms 25% :`}
+                {calculateTotalSumWithTax()} kr
+              </p>
             </div>
             <button>
               <Link to={"/checkout"}>Gå till kassan</Link>
@@ -126,7 +155,7 @@ const CartPage = ({ cart, removeFromCart }) => {
         <>
           <h4>Inga produkter tillagda</h4>
           <p>
-            Se vårt <Link to={"/products"}>sortiment</Link>
+            <Link to={"/products"}>Gå till sortiment</Link>
           </p>
         </>
       )}

@@ -1,40 +1,53 @@
 .cart-page {
-  padding: 6rem 5rem;
+  padding: 6rem 20rem;
+
+  @media (max-width: 1500px) {
+    padding: 6rem 5rem;
+  }
+
   .cart-title {
     margin-bottom: 2rem;
   }
+
   .main {
     margin: 0;
-    padding: 2vh 0;
+    padding: 1vh 0;
     width: 100%;
   }
+
   .col-2 {
     .img-fluid {
-      max-width: 100%;
+      max-width: 50%;
       height: auto;
-      & img {
-        width: 3.5rem;
-      }
+
+      /*       & img {
+        width: 1.5rem;
+      } */
     }
   }
+
   .item-price-sale {
     color: red;
     text-decoration: line-through;
     margin-right: 1rem;
   }
+
   .summary {
     background-color: rgb(243, 243, 243);
     padding: 3rem;
   }
+
   .text-muted {
     justify-content: center;
   }
 
-  .align-items-center .col {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .align-items-center {
+    .col {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .col span.close {
