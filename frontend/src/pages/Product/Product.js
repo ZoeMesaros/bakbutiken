@@ -4,11 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import "./product.scss";
 
 //Single product component to render a single product
-const SingleProductPage = ({ cart, qty, addToCart, removeFromCart }) => {
+const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
+  const [existingCartItem, setExistingCartItem] = useState(null);
   const { slug } = useParams();
 
   //Fetch a single product based on slug name
@@ -19,11 +19,8 @@ const SingleProductPage = ({ cart, qty, addToCart, removeFromCart }) => {
         const existingCartItem = cart.find(
           (item) => item._id === response.data._id
         );
-        const productWithQuantity = {
-          ...response.data,
-          quantity: existingCartItem ? existingCartItem.quantity : 0,
-        };
-        setProduct(productWithQuantity);
+        setProduct(response.data);
+        setExistingCartItem(existingCartItem);
       } catch (error) {
         setProduct(null);
         console.error("Error fetching product:", error);
@@ -32,17 +29,13 @@ const SingleProductPage = ({ cart, qty, addToCart, removeFromCart }) => {
     fetchSingleProduct();
   }, [slug, cart]);
 
-  //Add to cart funcitonality with timed notification
+  //Add to cart funcitonality
   const AddToCart = () => {
-    addToCart(product);
-
-    setTimeout(() => {
-      setShowNotification(true);
-    }, 300);
-
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 7000);
+    if (existingCartItem && existingCartItem.quantity < product.inStock) {
+      addToCart(product);
+    } else if (!existingCartItem) {
+      addToCart(product);
+    }
   };
 
   const RemoveFromCart = () => {
@@ -83,17 +76,16 @@ const SingleProductPage = ({ cart, qty, addToCart, removeFromCart }) => {
               <button className="btn card-btn" onClick={AddToCart}>
                 Lägg till i kundvagnen
               </button>
-              {qty > 0 && (
+              {existingCartItem && existingCartItem.quantity >= 1 && (
                 <div className="qty-container">
                   <button onClick={RemoveFromCart}>-</button>
-                  <span>{product.quantity}</span>
+                  <span>{existingCartItem.quantity}</span>
                   <button onClick={AddToCart}>+</button>
                 </div>
               )}
             </div>
-            {showNotification && (
-              <p className="product-added show">Produkten tillagd</p>
-            )}
+            <br></br>
+            <p>Antal varor i lager: {product.inStock}</p>
           </div>
           <div className="product-description">
             <p>{product.desc}</p>

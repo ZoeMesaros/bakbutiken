@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 const useCart = () => {
   const [cart, setCart] = useState([]);
-  const [ShowQuantity, setShowQuantity] = useState(false);
 
   //Load the cart from localStorage when the component mounts
   useEffect(() => {
@@ -27,12 +26,10 @@ const useCart = () => {
         const updatedCart = [...prevCart];
         updatedCart[existingItemIndex].quantity += 1;
         updateLocalStorage(updatedCart);
-        setShowQuantity(true);
         return updatedCart;
       } else {
         const updatedCart = [...prevCart, { ...product, quantity: 1 }];
         updateLocalStorage(updatedCart);
-        setShowQuantity(true);
         return updatedCart;
       }
     });
@@ -71,7 +68,6 @@ const useCart = () => {
 
   return {
     cart,
-    ShowQuantity,
     handleAddToCart,
     handleRemoveSingleProduct,
     handleRemoveFromCart,

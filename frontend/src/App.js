@@ -12,7 +12,6 @@ import CartPage from "./pages/Cart/cart";
 function App() {
   const {
     cart,
-    ShowQuantity,
     handleAddToCart,
     handleRemoveFromCart,
     handleRemoveSingleProduct,
@@ -32,7 +31,6 @@ function App() {
           element={
             <SingleProductPage
               cart={cart}
-              qty={ShowQuantity}
               addToCart={handleAddToCart}
               removeFromCart={handleRemoveSingleProduct}
             />
