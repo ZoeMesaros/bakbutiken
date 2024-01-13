@@ -50,15 +50,12 @@
 
   .add-to-cart button {
     color: rgba(0, 0, 0, 0.923);
-    padding: 0.4rem;
+
     font-size: 15px;
-    border-radius: 5px;
+
     font-weight: 600;
-    outline: 4px solid #d0ebde;
     outline-offset: 2px;
     background-color: #d0ebde;
-    border: none;
-
     &:hover {
       background-color: #bfdccf;
     }
@@ -72,7 +69,33 @@
   }
 
   .add-to-cart-container {
+    width: 55%;
+    display: flex;
+    align-items: center;
     position: relative;
+    padding: 0.4rem;
+    border-radius: 5px;
+    outline: 4px solid #d0ebde;
+    outline-offset: 2px;
+    background-color: #d0ebde;
+    border: none;
+    .card-btn span {
+      background-color: rgb(255, 255, 255);
+      padding: 8px;
+    }
+    .qty-container {
+      border-radius: 5px;
+      outline: 1px solid #e7e7e7;
+      & button {
+        background-color: white;
+        margin: 8px;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 800;
+      }
+    }
   }
 
   .product-added {

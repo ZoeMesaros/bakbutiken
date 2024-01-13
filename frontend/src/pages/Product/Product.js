@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import "./product.scss";
 
 //Single product component to render a single product
-const SingleProductPage = ({ addToCart }) => {
+const SingleProductPage = ({ cart, qty, addToCart, removeFromCart }) => {
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
@@ -16,15 +16,21 @@ const SingleProductPage = ({ addToCart }) => {
     const fetchSingleProduct = async () => {
       try {
         const response = await axios.get(`/api/products/${slug}`);
-        setProduct(response.data);
+        const existingCartItem = cart.find(
+          (item) => item._id === response.data._id
+        );
+        const productWithQuantity = {
+          ...response.data,
+          quantity: existingCartItem ? existingCartItem.quantity : 0,
+        };
+        setProduct(productWithQuantity);
       } catch (error) {
         setProduct(null);
         console.error("Error fetching product:", error);
       }
     };
-
     fetchSingleProduct();
-  }, [slug]);
+  }, [slug, cart]);
 
   //Add to cart funcitonality with timed notification
   const AddToCart = () => {
@@ -37,6 +43,10 @@ const SingleProductPage = ({ addToCart }) => {
     setTimeout(() => {
       setShowNotification(false);
     }, 7000);
+  };
+
+  const RemoveFromCart = () => {
+    removeFromCart(product);
   };
 
   //Toggle specification accordion
@@ -73,10 +83,17 @@ const SingleProductPage = ({ addToCart }) => {
               <button className="btn card-btn" onClick={AddToCart}>
                 Lägg till i kundvagnen
               </button>
-              {showNotification && (
-                <p className="product-added show">Produkten tillagd</p>
+              {qty > 0 && (
+                <div className="qty-container">
+                  <button onClick={RemoveFromCart}>-</button>
+                  <span>{product.quantity}</span>
+                  <button onClick={AddToCart}>+</button>
+                </div>
               )}
             </div>
+            {showNotification && (
+              <p className="product-added show">Produkten tillagd</p>
+            )}
           </div>
           <div className="product-description">
             <p>{product.desc}</p>

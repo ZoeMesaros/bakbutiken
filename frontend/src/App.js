@@ -10,7 +10,13 @@ import SingleProductPage from "./pages/Product/Product";
 import CartPage from "./pages/Cart/cart";
 
 function App() {
-  const { cart, handleAddToCart, handleRemoveFromCart } = useCart();
+  const {
+    cart,
+    ShowQuantity,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleRemoveSingleProduct,
+  } = useCart();
 
   return (
     <main className="App">
@@ -23,7 +29,14 @@ function App() {
         />
         <Route
           path="/products/:slug"
-          element={<SingleProductPage addToCart={handleAddToCart} />}
+          element={
+            <SingleProductPage
+              cart={cart}
+              qty={ShowQuantity}
+              addToCart={handleAddToCart}
+              removeFromCart={handleRemoveSingleProduct}
+            />
+          }
         />
         <Route
           path="/cart"

@@ -2,7 +2,7 @@
   padding: 0rem 3rem;
   align-items: center;
   display: grid;
-  grid-template-columns: 16rem auto;
+  grid-template-columns: 16rem auto 3rem;
   grid-template-rows: 9rem;
   height: 9rem;
 
@@ -106,4 +106,8 @@
 #main-nav li {
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.nav-link {
+  cursor: pointer;
 }

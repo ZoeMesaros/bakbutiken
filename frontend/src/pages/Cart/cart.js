@@ -102,7 +102,9 @@ const CartPage = ({ cart, removeFromCart }) => {
                     />
                   </div>
                   <div className="col">
-                    <div className="row text-muted">{cartItem.name}</div>
+                    <Link to={`/products/${cartItem.slug}`}>
+                      <div className="row text-muted">{cartItem.name}</div>
+                    </Link>
                   </div>
                   <div className="col">{cartItem.quantity}</div>
                   <div className="col">

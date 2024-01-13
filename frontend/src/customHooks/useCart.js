@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const useCart = () => {
   const [cart, setCart] = useState([]);
+  const [ShowQuantity, setShowQuantity] = useState(false);
 
   //Load the cart from localStorage when the component mounts
   useEffect(() => {
@@ -26,12 +27,36 @@ const useCart = () => {
         const updatedCart = [...prevCart];
         updatedCart[existingItemIndex].quantity += 1;
         updateLocalStorage(updatedCart);
+        setShowQuantity(true);
         return updatedCart;
       } else {
         const updatedCart = [...prevCart, { ...product, quantity: 1 }];
         updateLocalStorage(updatedCart);
+        setShowQuantity(true);
         return updatedCart;
       }
+    });
+  };
+
+  const handleRemoveSingleProduct = (product) => {
+    setCart((prevCart) => {
+      const existingItemIndex = prevCart.findIndex(
+        (item) => item._id === product._id
+      );
+
+      if (existingItemIndex !== -1) {
+        const updatedCart = [...prevCart];
+        if (updatedCart[existingItemIndex].quantity > 1) {
+          updatedCart[existingItemIndex].quantity -= 1;
+        } else {
+          updatedCart.splice(existingItemIndex, 1);
+        }
+
+        updateLocalStorage(updatedCart);
+        return updatedCart;
+      }
+
+      return prevCart;
     });
   };
 
@@ -46,7 +71,9 @@ const useCart = () => {
 
   return {
     cart,
+    ShowQuantity,
     handleAddToCart,
+    handleRemoveSingleProduct,
     handleRemoveFromCart,
   };
 };
