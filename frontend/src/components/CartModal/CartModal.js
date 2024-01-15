@@ -1,4 +1,6 @@
 import "./cartmodal.scss";
+
+//Modal to confirm the removal of more than 1 item
 const CartModal = ({ cartItem, removeFromCart, closeModal }) => {
   const handleConfirm = () => {
     removeFromCart(cartItem);

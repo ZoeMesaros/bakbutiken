@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./cart.scss";
 import CartModal from "../../components/CartModal/CartModal";
 
-// Cart page component to render the cart
+// Cart page
 const CartPage = ({ cart, removeFromCart }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedCartItem, setSelectedCartItem] = useState(null);

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./product.scss";
 
-//Single product component to render a single product
+//Single product page based on slug name
 const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);

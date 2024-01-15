@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// Custom hook to handle all cart functionality
 const useCart = () => {
   const [cart, setCart] = useState([]);
 

@@ -4,6 +4,7 @@ import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/images/bakbutiken.png";
 
+// Navigation menu
 const NavBar = ({ cart }) => {
   const [cartLength, setCartLength] = useState(cart.length);
 
