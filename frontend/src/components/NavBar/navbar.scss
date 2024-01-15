@@ -17,6 +17,19 @@
 
   .header-button {
     display: none;
+    position: relative;
+
+    .mb-0 {
+      text-align: center;
+      margin: 0;
+      position: relative;
+      p {
+        margin: 0;
+      }
+      span {
+        display: absolute;
+      }
+    }
 
     @media (min-width: 768px) {
       height: 9rem;
@@ -24,9 +37,30 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      .btn-cart {
+        padding: 5px 12px;
+        margin: 5px;
+        border: 1px solid rgb(142, 173, 168);
+        border-radius: 0.5rem;
+        background-color: white;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.705);
+        a {
+          all: unset;
+          padding-bottom: 0.25rem;
+          padding-top: 0.25rem;
+          align-items: center;
+          display: flex;
+          border-radius: 0.25rem;
+        }
+      }
 
-      button {
+      .btn-cart-btn {
         position: relative;
+        padding-left: 6px;
+        padding-right: 45px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         margin: 5px;
         border: 1px solid rgb(142, 173, 168);
         border-radius: 0.5rem;
@@ -50,22 +84,30 @@
     }
   }
 
-  .item-symbol {
+  .cupcake-img {
     position: absolute;
-    transform: translateX(-5px) translateY(-17px);
-
-    i {
-      transition: 500ms;
-      color: red;
-      width: 15px;
-      height: 15px;
-    }
+    width: 75px;
+    height: 75px;
+    transform: translateX(25px) translateY(-65px);
+    opacity: 75%;
+  }
+  .cart-qty {
+    position: absolute;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+    top: 50%;
+    left: 50%;
+    transform: translate(55px, -14px);
   }
 }
 
 @media (min-width: 768px) {
   .header-nav {
     padding: 0rem 4rem;
+    .header-button {
+      margin: 0;
+      align-items: center;
+    }
   }
 
   .header-logo {

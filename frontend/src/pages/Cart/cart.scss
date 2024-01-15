@@ -1,14 +1,17 @@
 .cart-page {
-  padding: 6rem 20rem;
-  overflow: hidden;
+  padding: 3rem 10rem;
 
   @media (max-width: 1500px) {
-    padding: 6rem 5rem;
+    padding: 2rem 1rem;
+  }
+
+  @media (min-width: 2000px) {
+    padding: 4rem 30rem;
   }
 
   .row .col-md-8 {
     max-height: 50rem;
-    overflow: scroll;
+    overflow-y: scroll;
     scroll-behavior: smooth;
   }
 
@@ -30,6 +33,8 @@
   }
 
   .item-price-sale {
+    word-break: break-all;
+    word-wrap: break-word;
     color: red;
     text-decoration: line-through;
     margin-right: 1rem;
@@ -39,6 +44,10 @@
     background-color: rgb(243, 243, 243);
     padding: 3rem;
     & button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
       margin-top: 3rem;
       color: rgba(0, 0, 0, 0.923);
       padding: 0.5rem 3rem;

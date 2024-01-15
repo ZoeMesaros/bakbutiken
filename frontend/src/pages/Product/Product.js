@@ -72,21 +72,34 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
             )}
           </p>
           <div className="add-to-cart">
-            <div className="add-to-cart-container">
+            <div
+              className={`add-to-cart-container${
+                existingCartItem ? "-added" : ""
+              }`}
+            >
               <button className="btn card-btn" onClick={AddToCart}>
                 Lägg till i kundvagnen
               </button>
               {existingCartItem && existingCartItem.quantity >= 1 && (
                 <div className="qty-container">
-                  <button onClick={RemoveFromCart}>-</button>
+                  <button className="btn" onClick={RemoveFromCart}>
+                    -
+                  </button>
                   <span>{existingCartItem.quantity}</span>
-                  <button onClick={AddToCart}>+</button>
+                  <button
+                    className={`btn${
+                      existingCartItem.quantity >= product.inStock ? "-max" : ""
+                    }`}
+                    onClick={AddToCart}
+                  >
+                    +
+                  </button>
                 </div>
               )}
             </div>
-            <br></br>
-            <p>Antal varor i lager: {product.inStock}</p>
           </div>
+          <br></br>
+          <p className="in-stock">Antal varor i lager: {product.inStock}</p>
           <div className="product-description">
             <p>{product.desc}</p>
           </div>

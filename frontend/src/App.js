@@ -5,9 +5,10 @@ import "./App.css";
 import useCart from "./customHooks/useCart";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage/HomePage";
-import ProductPage from "./pages/Products/Products";
+import ProductsPage from "./pages/Products/Products";
 import SingleProductPage from "./pages/Product/Product";
 import CartPage from "./pages/Cart/cart";
+import CheckoutPage from "./pages/Checkout/Checkout";
 
 function App() {
   const {
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/products"
-          element={<ProductPage addToCart={handleAddToCart} />}
+          element={<ProductsPage addToCart={handleAddToCart} />}
         />
         <Route
           path="/products/:slug"
@@ -42,6 +43,7 @@ function App() {
             <CartPage cart={cart} removeFromCart={handleRemoveFromCart} />
           }
         />
+        <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
       </Routes>
     </main>
   );

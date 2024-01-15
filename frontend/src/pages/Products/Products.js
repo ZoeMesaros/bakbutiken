@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./products.scss";
 
 //All products page
-const ProductPage = () => {
+const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -124,4 +124,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductsPage;

@@ -1,0 +1,19 @@
+.checkout-page {
+  padding: 6rem 20rem;
+  overflow: hidden;
+
+  @media (max-width: 1500px) {
+    padding: 6rem 5rem;
+  }
+
+  .checkout-form-div {
+    display: grid;
+    grid-template-columns: 50% auto;
+    /*     grid-template-rows: 25rem; */
+    height: 30rem;
+    form > .form-input-row > div > input {
+      width: 100%;
+      height: 3rem;
+    }
+  }
+}

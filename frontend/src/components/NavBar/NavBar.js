@@ -3,14 +3,19 @@ import { Link } from "react-router-dom";
 import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/images/bakbutiken.png";
+import cupcakeImg from "../../assets/images/cupcake.png";
 
 // Navigation menu
 const NavBar = ({ cart }) => {
   const [cartLength, setCartLength] = useState(cart.length);
 
-  useEffect(() => {
-    setCartLength(cart.length);
-  }, [cart]);
+  // Calculate the total amount of items in the cart
+  const calculateTotalQuantity = () => {
+    return cart.reduce(
+      (total, cartItem) => total + Number(cartItem.quantity || 0),
+      0
+    );
+  };
 
   return (
     <>
@@ -23,17 +28,20 @@ const NavBar = ({ cart }) => {
             </Link>
           </div>
           <div className="header-button">
-            <button>
+            <button className={`btn-cart${cart.length > 0 ? "-btn" : ""}`}>
               <Link to="/cart">
                 <i className="fas fa-shopping-cart m-1 me-md-2"></i>
-                <p className="d-none d-md-block mb-0">
-                  Kundvagn
+                <div className="d-none d-md-block mb-0">
+                  <p>Kundvagn</p>
                   {cart.length > 0 && (
-                    <span className={`item${cartLength ? "-symbol" : ""}`}>
-                      <i className="fa-solid fa-circle"></i>
-                    </span>
+                    <>
+                      <img src={cupcakeImg} className="cupcake-img" />
+                      <span className={`item${cartLength ? "-symbol" : ""}`}>
+                        <p className="cart-qty">{calculateTotalQuantity()}</p>
+                      </span>
+                    </>
                   )}
-                </p>
+                </div>
               </Link>
             </button>
           </div>

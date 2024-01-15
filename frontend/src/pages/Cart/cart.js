@@ -74,10 +74,8 @@ const CartPage = ({ cart, removeFromCart }) => {
                 <div className="col">
                   <h3>Kundvagn</h3>
                 </div>
-                <div className="col align-self-center text-right text-muted">
+                <div className="col align-self-end text-end text-muted pe-5">
                   {calculateTotalQuantity()} artiklar i kundvagnen
-                  <br />
-                  <br />
                 </div>
               </div>
             </div>
