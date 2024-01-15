@@ -1,19 +1,44 @@
 .checkout-page {
-  padding: 6rem 20rem;
-  overflow: hidden;
+  padding: 3rem 10rem;
 
   @media (max-width: 1500px) {
-    padding: 6rem 5rem;
+    padding: 2rem 1rem;
   }
 
-  .checkout-form-div {
+  @media (min-width: 2000px) {
+    padding: 4rem 30rem;
+  }
+
+  .checkout-cart {
+    height: 70%;
+  }
+
+  .cart-summary {
     display: grid;
-    grid-template-columns: 50% auto;
-    /*     grid-template-rows: 25rem; */
+    grid-template-columns: 80% 20%;
+  }
+
+  .address h5 {
+    padding: 1rem 0rem;
+  }
+
+  .order-info {
+    display: grid;
+    gap: 20px;
     height: 30rem;
-    form > .form-input-row > div > input {
+  }
+
+  #checkout-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    input {
+      padding-left: 10px;
       width: 100%;
       height: 3rem;
+      border-radius: 5px;
+      border: 1px solid rgb(73, 73, 73);
     }
   }
 }
