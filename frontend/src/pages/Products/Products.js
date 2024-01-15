@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import "./products.scss";
 
+//All products page
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const navigate = useNavigate();
 
+  //Fetch all products based on category and current page
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -18,10 +18,7 @@ const ProductPage = () => {
         if (selectedCategory) {
           url = `/api/products/category/${selectedCategory}?page=${currentPage}&limit=12`;
         }
-
-        console.log("Request URL:", url);
         const response = await axios.get(url);
-        console.log("Fetched products:", response.data);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -31,10 +28,12 @@ const ProductPage = () => {
     fetchProducts();
   }, [currentPage, selectedCategory]);
 
+  //Handle page pagnation
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  //Handle change of category
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1);

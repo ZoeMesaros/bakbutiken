@@ -2,11 +2,10 @@
   width: 100%;
   overflow: hidden;
   padding: 0 4rem 2rem;
+  scroll-behavior: smooth;
 
   @media (min-width: 768px) {
-    .product-page {
-      padding: 0 12rem 2rem;
-    }
+    padding: 0 12rem 2rem;
   }
 
   .product-category {
@@ -18,7 +17,8 @@
     flex-wrap: wrap;
     word-wrap: break-word;
     justify-content: space-around;
-    & a {
+
+    a {
       padding: 0.5rem;
       margin-right: 1rem;
       text-decoration: none;
@@ -27,11 +27,12 @@
       cursor: pointer;
       background: transparent;
       transition: background-color 0.3s ease;
-    }
-    & a:hover {
-      background-color: #c0edd8;
-      border-radius: 15px;
-      padding: 0.5rem;
+
+      &:hover {
+        background-color: #c0edd8;
+        border-radius: 15px;
+        padding: 0.5rem;
+      }
     }
   }
 
@@ -69,6 +70,7 @@
     justify-content: center;
     margin: 0 auto;
     margin-top: 1rem;
+
     &-item {
       box-sizing: border-box;
       padding: 1rem;
@@ -78,10 +80,12 @@
       align-items: center;
       width: 19rem;
       margin: 0 auto;
-      & a {
+
+      a {
         all: unset;
         cursor: pointer;
       }
+
       .card {
         height: 100%;
         background-color: rgb(255, 255, 255);
@@ -102,7 +106,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          & span {
+
+          span {
             color: rgb(0, 0, 0);
             font-weight: 600;
           }
@@ -110,7 +115,8 @@
 
         .card-image {
           text-align: center;
-          & img {
+
+          img {
             height: auto;
             max-width: 100%;
             vertical-align: middle;
@@ -155,24 +161,27 @@
             }
           }
 
-          & a {
+          a {
             all: unset;
           }
 
           .btn {
-            color: rgba(0, 0, 0, 0.7);
-            padding: 0.8rem;
+            color: rgba(0, 0, 0, 0.923);
+            padding: 0.4rem;
             font-size: 15px;
-            border-radius: 10px;
+            border-radius: 5px;
             font-weight: 600;
             display: block;
             width: 100%;
+            outline: 4px solid #d0ebde;
+            outline-offset: 2px;
+
             cursor: pointer;
             background: transparent;
             background-color: #d0ebde;
 
             &:hover {
-              background-color: #c0edd8;
+              background-color: #bfdccf;
             }
           }
         }

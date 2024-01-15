@@ -3,37 +3,51 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./product.scss";
 
-const SingleProductPage = () => {
+//Single product page based on slug name
+const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
-  const [cart, setCart] = useState([]);
+  const [existingCartItem, setExistingCartItem] = useState(null);
   const { slug } = useParams();
 
+  //Fetch a single product based on slug name
   useEffect(() => {
     const fetchSingleProduct = async () => {
       try {
         const response = await axios.get(`/api/products/${slug}`);
+        const existingCartItem = cart.find(
+          (item) => item._id === response.data._id
+        );
         setProduct(response.data);
+        setExistingCartItem(existingCartItem);
       } catch (error) {
         setProduct(null);
         console.error("Error fetching product:", error);
       }
     };
-
     fetchSingleProduct();
-  }, [slug]);
+  }, [slug, cart]);
 
-  const handleAddToCart = () => {
-    setCart([...cart, product]);
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    localStorage.setItem("cart", JSON.stringify([...storedCart, product]));
+  //Add to cart funcitonality
+  const AddToCart = () => {
+    if (existingCartItem && existingCartItem.quantity < product.inStock) {
+      addToCart(product);
+    } else if (!existingCartItem) {
+      addToCart(product);
+    }
   };
 
+  const RemoveFromCart = () => {
+    removeFromCart(product);
+  };
+
+  //Toggle specification accordion
   const toggleSpecifications = () => {
     setSpecificationsOpen(!specificationsOpen);
   };
 
+  //Toggle materials accordion
   const toggleMaterials = () => {
     setMaterialsOpen(!materialsOpen);
   };
@@ -58,9 +72,20 @@ const SingleProductPage = () => {
             )}
           </p>
           <div className="add-to-cart">
-            <button className="btn card-btn" onClick={handleAddToCart}>
-              Lägg till i kundvagnen
-            </button>
+            <div className="add-to-cart-container">
+              <button className="btn card-btn" onClick={AddToCart}>
+                Lägg till i kundvagnen
+              </button>
+              {existingCartItem && existingCartItem.quantity >= 1 && (
+                <div className="qty-container">
+                  <button onClick={RemoveFromCart}>-</button>
+                  <span>{existingCartItem.quantity}</span>
+                  <button onClick={AddToCart}>+</button>
+                </div>
+              )}
+            </div>
+            <br></br>
+            <p>Antal varor i lager: {product.inStock}</p>
           </div>
           <div className="product-description">
             <p>{product.desc}</p>

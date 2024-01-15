@@ -1,46 +1,76 @@
 .header-nav {
   padding: 0rem 3rem;
   align-items: center;
-  grid-template-columns: 16rem auto;
   display: grid;
+  grid-template-columns: 16rem auto 3rem;
   grid-template-rows: 9rem;
   height: 9rem;
-}
 
-.header-button {
-  display: none;
+  .header-logo {
+    img {
+      width: 12rem;
+      height: auto;
+      align-self: center;
+      scroll-margin-right: auto;
+    }
+  }
+
+  .header-button {
+    display: none;
+
+    @media (min-width: 768px) {
+      height: 9rem;
+      justify-self: right;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      button {
+        position: relative;
+        margin: 5px;
+        border: 1px solid rgb(142, 173, 168);
+        border-radius: 0.5rem;
+        background-color: white;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.705);
+
+        a {
+          all: unset;
+          padding-bottom: 0.25rem;
+          padding-top: 0.25rem;
+          align-items: center;
+          display: flex;
+          border-radius: 0.25rem;
+        }
+      }
+
+      button:hover {
+        background-color: #fbf9f9;
+      }
+    }
+  }
+
+  .item-symbol {
+    position: absolute;
+    transform: translateX(-5px) translateY(-17px);
+
+    i {
+      transition: 500ms;
+      color: red;
+      width: 15px;
+      height: 15px;
+    }
+  }
 }
 
 @media (min-width: 768px) {
   .header-nav {
     padding: 0rem 4rem;
   }
-  .header-button {
-    height: 9rem;
-    justify-self: right;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    & button {
-      margin: 5px;
-      border: 1px solid rgb(142, 173, 168);
-      border-radius: 0.5rem;
-      background-color: white;
-      align-items: center;
-      color: rgba(0, 0, 0, 0.705);
-      & a {
-        all: unset;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        padding-bottom: 0.25rem;
-        padding-top: 0.25rem;
-        align-items: center;
-        display: flex;
-        border-radius: 0.25rem;
-      }
-    }
-    & button:hover {
-      background-color: #fbf9f9;
+
+  .header-logo {
+    img {
+      width: 15rem;
     }
   }
 }
@@ -51,10 +81,8 @@
 
 #mobile-nav {
   padding-left: 2rem;
-}
 
-@media (min-width: 768px) {
-  #mobile-nav {
+  @media (min-width: 768px) {
     display: none;
   }
 }
@@ -63,36 +91,23 @@
   margin-left: auto;
 }
 
-.navbar-light {
-  margin: 0 2rem;
-}
-
 .header-button-mobile {
   margin-bottom: 1rem;
   display: flex;
   gap: 5px;
 
-  & button {
+  button {
     background-color: white;
     width: 3rem;
     border-radius: 9%;
   }
 }
 
-@media (min-width: 768px) {
-  .header-logo img {
-    width: 15rem;
-  }
-}
-
-.header-logo img {
-  width: 12rem;
-  height: auto;
-  align-self: center;
-  scroll-margin-right: auto;
-}
-
 #main-nav li {
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.nav-link {
+  cursor: pointer;
 }

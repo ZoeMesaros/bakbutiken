@@ -1,9 +1,17 @@
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/images/bakbutiken.png";
 
-const NavBar = () => {
+// Navigation menu
+const NavBar = ({ cart }) => {
+  const [cartLength, setCartLength] = useState(cart.length);
+
+  useEffect(() => {
+    setCartLength(cart.length);
+  }, [cart]);
+
   return (
     <>
       <header>
@@ -16,23 +24,16 @@ const NavBar = () => {
           </div>
           <div className="header-button">
             <button>
-              <a
-                href="https://github.com/mdbootstrap/bootstrap-material-design"
-                target="_blank"
-              >
-                <i className="fas fa-user-alt m-1 me-md-2"></i>
-                <p className="d-none d-md-block mb-0">Logga in</p>
-              </a>
-            </button>
-            <button>
-              <Link to={"/cart"}>
-                <a
-                  href="https://github.com/mdbootstrap/bootstrap-material-design"
-                  target="_blank"
-                >
-                  <i className="fas fa-shopping-cart m-1 me-md-2"></i>
-                  <p className="d-none d-md-block mb-0">Kundvagn</p>
-                </a>
+              <Link to="/cart">
+                <i className="fas fa-shopping-cart m-1 me-md-2"></i>
+                <p className="d-none d-md-block mb-0">
+                  Kundvagn
+                  {cart.length > 0 && (
+                    <span className={`item${cartLength ? "-symbol" : ""}`}>
+                      <i className="fa-solid fa-circle"></i>
+                    </span>
+                  )}
+                </p>
               </Link>
             </button>
           </div>
