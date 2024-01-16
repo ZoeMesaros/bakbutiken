@@ -140,20 +140,21 @@ const CartPage = ({ cart, removeFromCart }) => {
             <div className="cart-summary">
               <h5>Sammanfattning</h5>
               <p>
-                Antal varor:&nbsp;<strong>{calculateTotalQuantity()}</strong>
+                Antal varor:&nbsp;<strong>{calculateTotalQuantity()} st</strong>
               </p>
               <p>
-                Summa varor:&nbsp;<strong>{calculateTotalSum()} Kr</strong>
+                Summa varor:&nbsp;<strong>{calculateTotalSum()} kr</strong>
               </p>
               <p className="col border-bottom">
-                Frakt:&nbsp;<strong>59kr</strong>
+                Frakt (standard):&nbsp;<strong>59 kr</strong>
               </p>
               <p>
-                Totalt att betala:
-                <strong>&nbsp;{calculateTotalSumWithShipping()}</strong>
+                <strong>
+                  Totalt att betala: &nbsp;{calculateTotalSumWithShipping()} kr
+                </strong>
               </p>
               <p>
-                {`Varav moms 25%:`}
+                Varav moms:
                 <strong>&nbsp;{calculateTotalSumWithTax()} kr</strong>
               </p>
               <button>

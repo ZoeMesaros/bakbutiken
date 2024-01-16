@@ -41,7 +41,9 @@
   }
 
   .summary {
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(249, 249, 249);
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 5px;
     padding: 3rem;
     & button {
       display: flex;
