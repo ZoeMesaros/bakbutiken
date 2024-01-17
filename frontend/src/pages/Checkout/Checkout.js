@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useKlarna from "../../customHooks/useKlarna";
 import "./checkout.scss";
+import parcel from "../../assets/images/parcel.png";
+import parcelTruck from "../../assets/images/parcel-truck.png";
 
 //Checkout page
 const CheckoutPage = ({ cart }) => {
@@ -68,6 +71,8 @@ const CheckoutPage = ({ cart }) => {
     return totalItems + shippingCost;
   };
 
+  const { startKlarnaCheckout } = useKlarna();
+
   return (
     <div className="checkout-page">
       <h3 className="mx-5">Kassa</h3>
@@ -131,7 +136,7 @@ const CheckoutPage = ({ cart }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col cart-summary border-top">
+            <div className="col mx-5 cart-summary border-top">
               <p>
                 Summa varor:&nbsp;&nbsp;
                 <strong>{calculateTotalSum().toLocaleString()} kr</strong>
@@ -309,6 +314,7 @@ const CheckoutPage = ({ cart }) => {
               </div>
               <p>Ombud</p>
               <p>59 kr</p>
+              <img src={parcel} />
             </label>
             <label className="shipping-div" htmlFor="field-home">
               <div>
@@ -322,6 +328,40 @@ const CheckoutPage = ({ cart }) => {
               </div>
               <p>Hemleverans</p>
               <p>150 kr</p>
+              <img src={parcelTruck} />
+            </label>
+          </div>
+          <h5 className="shipping-title">Betalsätt</h5>
+          <div className="shipping-options">
+            <label className="shipping-div" htmlFor="field-standard">
+              <div>
+                <input
+                  {...register("payment_method")}
+                  type="radio"
+                  value="standard"
+                  id="field-standard"
+                  checked={
+                    watchShippingMethod === "standard" || !watchShippingMethod
+                  }
+                />
+              </div>
+              <p>Klarna</p>
+              <button onClick={startKlarnaCheckout}>
+                <img src={parcel} />
+              </button>
+            </label>
+            <label className="shipping-div" htmlFor="field-home">
+              <div>
+                <input
+                  {...register("payment_method")}
+                  type="radio"
+                  value="homed"
+                  id="field-home"
+                  defaultChecked={watchShippingMethod === "homed"}
+                />
+              </div>
+              <p>Paypal</p>
+              <img src={parcelTruck} />
             </label>
           </div>
         </form>
