@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/images/bakbutiken.png";
-import cupcakeImg from "../../assets/images/cupcake.png";
+import cartImg from "../../assets/images/cart.png";
+import cartItemImg from "../../assets/images/cart-item.png";
 
 // Navigation menu
 const NavBar = ({ cart }) => {
@@ -28,18 +29,19 @@ const NavBar = ({ cart }) => {
             </Link>
           </div>
           <div className="header-button">
-            <button className={`btn-cart${cart.length > 0 ? "-btn" : ""}`}>
+            <button className={`btn-cart`}>
               <Link to="/cart">
-                <i className="fas fa-shopping-cart m-1 me-md-2"></i>
                 <div className="d-none d-md-block mb-0">
                   <p>Kundvagn</p>
-                  {cart.length > 0 && (
+                  {cart.length > 0 ? (
                     <>
-                      <img src={cupcakeImg} className="cupcake-img" />
-                      <span className={`item${cartLength ? "-symbol" : ""}`}>
-                        <p className="cart-qty">{calculateTotalQuantity()}</p>
-                      </span>
+                      <img src={cartItemImg} className="cart-img" />
+                      <span
+                        className={`item${cartLength ? "-symbol" : ""}`}
+                      ></span>
                     </>
+                  ) : (
+                    <img src={cartImg} className="cart-img" />
                   )}
                 </div>
               </Link>

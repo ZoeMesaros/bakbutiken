@@ -66,19 +66,15 @@ const CartPage = ({ cart, removeFromCart }) => {
 
   return (
     <div className="cart-page">
+      <h3 className="mx-5">Kundvagn</h3>
+      <div className="col-md-7 text-muted pe-1 pb-3">
+        <strong>
+          <h5>{calculateTotalQuantity()} artiklar i kundvagnen</h5>
+        </strong>
+      </div>
       {cart.length > 0 ? (
-        <div className="row">
+        <div className="row mx-5">
           <div className="col-md-8 cart">
-            <div className="cart-title">
-              <div className="row">
-                <div className="col">
-                  <h3>Kundvagn</h3>
-                </div>
-                <div className="col align-self-end text-end text-muted pe-5">
-                  {calculateTotalQuantity()} artiklar i kundvagnen
-                </div>
-              </div>
-            </div>
             <div className="row border-top border-bottom">
               <div className="row main align-items-center">
                 <div className="col-2"></div>
@@ -136,7 +132,7 @@ const CartPage = ({ cart, removeFromCart }) => {
               </div>
             ))}
           </div>
-          <div className="col-md-4 summary border-left border-right">
+          <div className="col summary border-left border-right">
             <div className="cart-summary">
               <h5>Sammanfattning</h5>
               <p>

@@ -1,6 +1,6 @@
 .checkout-page {
   background-color: rgba(241, 229, 213, 0.241);
-  padding: 3rem 10rem;
+  padding: 3rem 15rem;
   min-height: 100vh;
 
   @media (max-width: 1500px) {
@@ -23,6 +23,16 @@
 
   #bg-color {
     background-color: white;
+    max-height: 20rem;
+    overflow-y: scroll;
+  }
+
+  .item-price-sale {
+    word-break: break-all;
+    word-wrap: break-word;
+    color: red;
+    text-decoration: line-through;
+    margin-right: 1rem;
   }
 
   .row.no-gutters {
@@ -42,12 +52,14 @@
   .row .cart {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
-    min-height: 18vh;
-  }
+    min-height: 8vh;
 
-  .row .cart img {
-    width: 25%;
-    margin: 15px;
+    img {
+      width: 15%;
+      margin-left: 2rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   .address h5 {
@@ -63,6 +75,7 @@
   .adress-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
     input {
       padding-left: 10px;
       width: 100%;
@@ -74,21 +87,47 @@
 
   .shipping-options {
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    .shipping-div {
-      height: 4rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      background-color: white;
+    display: grid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    grid-template-columns: 1fr;
+  }
+
+  .shipping-div {
+    margin: 0.2rem;
+    height: 4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    align-items: center;
+    padding-left: 1rem;
+    display: grid;
+    grid-template-columns: 2rem auto 3rem;
+    & input {
+      width: 25px;
+      height: 25px;
     }
+
+    p {
+      padding-top: 10px;
+      padding-left: 15px;
+      font-size: 20px;
+    }
+  }
+
+  #field-standard,
+  #field-home {
+    margin-right: 8px;
   }
 
   .cart-summary {
     text-align: right;
-    line-height: 17px;
+    line-height: 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 2rem;
-    padding: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1.2rem;
+    padding-bottom: 0.2rem;
+    padding-right: 2rem;
   }
 
   .checkout-form-div {

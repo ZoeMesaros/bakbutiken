@@ -23,9 +23,11 @@
       text-align: center;
       margin: 0;
       position: relative;
+
       p {
         margin: 0;
       }
+
       span {
         display: absolute;
       }
@@ -37,27 +39,10 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      .btn-cart {
-        padding: 5px 12px;
-        margin: 5px;
-        border: 1px solid rgb(142, 173, 168);
-        border-radius: 0.5rem;
-        background-color: white;
-        align-items: center;
-        color: rgba(0, 0, 0, 0.705);
-        a {
-          all: unset;
-          padding-bottom: 0.25rem;
-          padding-top: 0.25rem;
-          align-items: center;
-          display: flex;
-          border-radius: 0.25rem;
-        }
-      }
 
-      .btn-cart-btn {
+      .btn-cart {
         position: relative;
-        padding-left: 6px;
+        padding-left: 10px;
         padding-right: 45px;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -84,35 +69,26 @@
     }
   }
 
-  .cupcake-img {
+  .cart-img {
     position: absolute;
-    width: 75px;
-    height: 75px;
-    transform: translateX(25px) translateY(-65px);
+    width: 32px;
+    height: 32px;
+    transform: translate(37px, -31px);
     opacity: 75%;
   }
-  .cart-qty {
-    position: absolute;
-    font-weight: 600;
-    color: rgb(0, 0, 0);
-    top: 50%;
-    left: 50%;
-    transform: translate(55px, -14px);
-  }
-}
 
-@media (min-width: 768px) {
-  .header-nav {
-    padding: 0rem 4rem;
+  @media (min-width: 768px) {
+    padding: 0rem 10%;
+
     .header-button {
       margin: 0;
       align-items: center;
     }
-  }
 
-  .header-logo {
-    img {
-      width: 15rem;
+    .header-logo {
+      img {
+        width: 15rem;
+      }
     }
   }
 }

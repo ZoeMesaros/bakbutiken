@@ -70,7 +70,7 @@ const CheckoutPage = ({ cart }) => {
 
   return (
     <div className="checkout-page">
-      <h3>Kassa</h3>
+      <h3 className="mx-5">Kassa</h3>
       <h5 className="col mx-5 summary-title">Sammanfattning</h5>
       {cart.length > 0 ? (
         <>
@@ -131,26 +131,27 @@ const CheckoutPage = ({ cart }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col mx-5 cart-summary border-top">
+            <div className="col cart-summary border-top">
               <p>
-                Summa varor:&nbsp;&nbsp;&nbsp;
-                <strong>{calculateTotalSum()} kr</strong>
+                Summa varor:&nbsp;&nbsp;
+                <strong>{calculateTotalSum().toLocaleString()} kr</strong>
               </p>
               <p className="col border-bottom">
-                Frakt:&nbsp;&nbsp;&nbsp;<strong>{shippingCost} kr</strong>
+                Frakt:&nbsp;&nbsp;<strong>{shippingCost} kr</strong>
               </p>
               <p>
                 <strong>
                   <h5>
-                    Totalt att betala:&nbsp;&nbsp;&nbsp;
-                    {calculateTotalSumWithShipping()} kr
+                    Totalt att betala:&nbsp;&nbsp;
+                    {calculateTotalSumWithShipping().toLocaleString()} kr
                   </h5>
                 </strong>
               </p>
               <p>
                 Varav moms:
                 <strong>
-                  &nbsp;&nbsp;&nbsp;{calculateTotalSumWithTax()} kr
+                  &nbsp;&nbsp;
+                  {calculateTotalSumWithTax().toLocaleString()} kr
                 </strong>
               </p>
             </div>
@@ -294,8 +295,8 @@ const CheckoutPage = ({ cart }) => {
           </div>
           <h5 className="shipping-title">Fraktalternativ</h5>
           <div className="shipping-options">
-            <div className="shipping-div">
-              <label htmlFor="field-standard">
+            <label className="shipping-div" htmlFor="field-standard">
+              <div>
                 <input
                   {...register("shipping_method")}
                   type="radio"
@@ -305,11 +306,12 @@ const CheckoutPage = ({ cart }) => {
                     watchShippingMethod === "standard" || !watchShippingMethod
                   }
                 />
-                Ombud 59 kr
-              </label>
-            </div>
-            <div className="shipping-div">
-              <label htmlFor="field-home">
+              </div>
+              <p>Ombud</p>
+              <p>59 kr</p>
+            </label>
+            <label className="shipping-div" htmlFor="field-home">
+              <div>
                 <input
                   {...register("shipping_method")}
                   type="radio"
@@ -317,9 +319,10 @@ const CheckoutPage = ({ cart }) => {
                   id="field-home"
                   defaultChecked={watchShippingMethod === "homed"}
                 />
-                Hemleverans 150 kr
-              </label>
-            </div>
+              </div>
+              <p>Hemleverans</p>
+              <p>150 kr</p>
+            </label>
           </div>
         </form>
       </div>
