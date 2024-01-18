@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useKlarna from "../../customHooks/useKlarna";
 import "./checkout.scss";
 import parcel from "../../assets/images/parcel.png";
 import parcelTruck from "../../assets/images/parcel-truck.png";
+import visa from "../../assets/images/visa.png";
+import masterCard from "../../assets/images/mastercard.png";
 
 //Checkout page
 const CheckoutPage = ({ cart }) => {
   const [shippingCost, setShippingCost] = useState(59);
+  const [paymentMethod, setPaymentMethod] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+
   const {
     register,
     handleSubmit,
@@ -21,6 +30,7 @@ const CheckoutPage = ({ cart }) => {
   };
 
   const watchShippingMethod = watch("shipping_method");
+  const watchPaymentMethod = watch("payment_method");
 
   useEffect(() => {
     if (watchShippingMethod === "standard") {
@@ -28,15 +38,13 @@ const CheckoutPage = ({ cart }) => {
     } else if (watchShippingMethod === "homed") {
       setShippingCost(150);
     }
-  }, [watchShippingMethod]);
 
-  // Calculate the total amount of items in the cart
-  const calculateTotalQuantity = () => {
-    return cart.reduce(
-      (total, cartItem) => total + Number(cartItem.quantity || 0),
-      0
-    );
-  };
+    if (watchPaymentMethod === "card") {
+      setPaymentMethod("kort");
+    } else if (watchPaymentMethod === "swish") {
+      setPaymentMethod("swish");
+    }
+  }, [watchShippingMethod, watchPaymentMethod]);
 
   // Calculate the total sum of items in the cart
   const calculateTotalSum = () => {
@@ -70,8 +78,6 @@ const CheckoutPage = ({ cart }) => {
 
     return totalItems + shippingCost;
   };
-
-  const { startKlarnaCheckout } = useKlarna();
 
   return (
     <div className="checkout-page">
@@ -144,14 +150,14 @@ const CheckoutPage = ({ cart }) => {
               <p className="col border-bottom">
                 Frakt:&nbsp;&nbsp;<strong>{shippingCost} kr</strong>
               </p>
-              <p>
-                <strong>
-                  <h5>
+              <h5>
+                <p>
+                  <strong>
                     Totalt att betala:&nbsp;&nbsp;
                     {calculateTotalSumWithShipping().toLocaleString()} kr
-                  </h5>
-                </strong>
-              </p>
+                  </strong>
+                </p>
+              </h5>
               <p>
                 Varav moms:
                 <strong>
@@ -314,7 +320,7 @@ const CheckoutPage = ({ cart }) => {
               </div>
               <p>Ombud</p>
               <p>59 kr</p>
-              <img src={parcel} />
+              <img src={parcel} alt="" />
             </label>
             <label className="shipping-div" htmlFor="field-home">
               <div>
@@ -328,42 +334,83 @@ const CheckoutPage = ({ cart }) => {
               </div>
               <p>Hemleverans</p>
               <p>150 kr</p>
-              <img src={parcelTruck} />
+              <img src={parcelTruck} alt="" />
             </label>
           </div>
-          <h5 className="shipping-title">Betalsätt</h5>
-          <div className="shipping-options">
-            <label className="shipping-div" htmlFor="field-standard">
+          <h5 className="payment-title">Betalsätt</h5>
+          <div className="payment-options">
+            <label className="payment-div" htmlFor="field-standard">
               <div>
                 <input
                   {...register("payment_method")}
                   type="radio"
-                  value="standard"
-                  id="field-standard"
-                  checked={
-                    watchShippingMethod === "standard" || !watchShippingMethod
-                  }
+                  value="card"
+                  id="field-card"
+                  checked={watchPaymentMethod === "card" || !watchPaymentMethod}
+                  onClick={toggleAccordion}
                 />
               </div>
-              <p>Klarna</p>
-              <button onClick={startKlarnaCheckout}>
-                <img src={parcel} />
-              </button>
+              <p>Betalkort</p>
+              <div className="cards-container">
+                <img className="visa" src={visa} alt="" />
+                <img className="master" src={masterCard} alt="" />
+              </div>
             </label>
-            <label className="shipping-div" htmlFor="field-home">
+            {isOpen && (
+              <div className="accordion-content">
+                <div className="credit-card-info">
+                  {/* Credit Card Details */}
+                  <div>
+                    <label htmlFor="creditCard">Kortnummer</label>
+                    <input
+                      {...register("creditCard", { required: true })}
+                      type="text"
+                      placeholder="1234 5678 9012 3456"
+                      id="creditCard"
+                    />
+                  </div>
+
+                  {/* Expiry Date */}
+                  <div>
+                    <label htmlFor="expiryDate">Giltigt till:</label>
+                    <input
+                      {...register("expiryDate", { required: true })}
+                      type="text"
+                      id="expiryDate"
+                      placeholder="MM/ÅÅ"
+                    />
+                  </div>
+
+                  {/* CVV */}
+                  <div>
+                    <label htmlFor="cvv">CVV/CVC</label>
+                    <input
+                      {...register("cvv", { required: true })}
+                      type="text"
+                      id="cvv"
+                      placeholder="3 siffror"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            <label className="payment-div" htmlFor="field-swish">
               <div>
                 <input
                   {...register("payment_method")}
                   type="radio"
-                  value="homed"
-                  id="field-home"
-                  defaultChecked={watchShippingMethod === "homed"}
+                  value="swish"
+                  id="field-swish"
+                  defaultChecked={watchPaymentMethod === "swish"}
+                  onClick={toggleAccordion}
                 />
               </div>
-              <p>Paypal</p>
-              <img src={parcelTruck} />
+              <p>Swish</p>
+              <img />
             </label>
           </div>
+          <h3>Total kostnad: {calculateTotalSumWithShipping()}</h3>
+          <button>Betala med {watchPaymentMethod}</button>
         </form>
       </div>
     </div>

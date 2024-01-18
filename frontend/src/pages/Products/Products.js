@@ -58,7 +58,7 @@ const ProductsPage = () => {
                     {product.onSale && <span>REA</span>}
                   </div>
                   <div className="card-image">
-                    <img src={product.img} />
+                    <img src={product.img} alt={product.name} />
                   </div>
                   <div className="card-content">
                     <div className="card-text">

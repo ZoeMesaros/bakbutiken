@@ -110,6 +110,36 @@ dbo.connectToServer((err) => {
       res.status(500).send("Internal Server Error");
     }
   }); */
+
+  const swishApiUrl =
+    "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+
+  // Handle Swish payment request
+  app.post("/api/swish/payment", async (req, res) => {
+    try {
+      // Construct your Swish payment request data
+      const paymentData = {
+        // ... (your payment request data)
+      };
+
+      // Make a POST request to Swish API
+      const response = await axios.post(swishApiUrl, paymentData, {
+        headers: {
+          "Content-Type": "application/json",
+          // Add any necessary headers or authentication headers
+        },
+      });
+
+      console.log("Swish Response:", response.data);
+      res.json(response.data);
+    } catch (error) {
+      console.error(
+        "Error initiating Swish payment:",
+        error.response?.data || error.message
+      );
+      res.status(error.response?.status || 500).send("Internal Server Error");
+    }
+  });
 });
 
 app.listen(port, () => {

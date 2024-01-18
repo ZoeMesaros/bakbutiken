@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -12,21 +11,6 @@ import CartPage from "./pages/Cart/Cart";
 import CheckoutPage from "./pages/Checkout/Checkout";
 
 function App() {
-  const [productInfo, setProductInfo] = useState([]);
-
-  useEffect(() => {
-    const fetchProductInfo = async () => {
-      try {
-        const response = await axios.get("/api/products");
-        setProductInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching product information:", error);
-      }
-    };
-
-    fetchProductInfo();
-  }, []);
-
   const {
     cart,
     handleAddToCart,
@@ -59,10 +43,7 @@ function App() {
             <CartPage cart={cart} removeFromCart={handleRemoveFromCart} />
           }
         />
-        <Route
-          path="/checkout"
-          element={<CheckoutPage cart={cart} productInfo={productInfo} />}
-        />
+        <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
       </Routes>
     </main>
   );
