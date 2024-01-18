@@ -1,7 +1,7 @@
 .checkout-page {
   background-color: rgba(241, 229, 213, 0.241);
   padding: 3rem 15rem;
-  min-height: 100vh;
+  min-height: 170vh;
 
   @media (max-width: 1500px) {
     padding: 2rem 1rem;
@@ -15,9 +15,16 @@
     padding-bottom: 2rem;
   }
 
+  .page-title,
   .summary-title,
-  .info-title,
-  .shipping-title {
+  .info-title {
+    padding-bottom: 1rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
+  .shipping-title,
+  .payment-title {
     padding-bottom: 1rem;
   }
 
@@ -53,9 +60,11 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     min-height: 6vh;
+    padding: 1rem;
+    background-color: white;
 
     img {
-      width: 15%;
+      width: 25%;
       margin-left: 2rem;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
@@ -75,7 +84,7 @@
   .adress-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-
+    margin-bottom: 1rem;
     input {
       padding-left: 10px;
       width: 100%;
@@ -91,6 +100,7 @@
     display: grid;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     grid-template-columns: 1fr;
+    margin-bottom: 3rem;
   }
 
   .shipping-div {
@@ -132,9 +142,6 @@
       padding-top: 10px;
       padding-left: 15px;
       font-size: 20px;
-      /*       &:nth-child(3) {
-        text-align: right;
-      } */
     }
     & img {
       width: 35px;
@@ -162,5 +169,31 @@
   .checkout-form-div {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
+  }
+
+  .accordion-content {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    .credit-card-info {
+      label {
+        padding-left: 30px;
+      }
+      input {
+        padding-left: 30px;
+        width: 100%;
+        height: 3rem;
+        border-radius: 5px;
+        border: 1px solid rgba(182, 182, 182, 0.2);
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cart,
+    .cart-summary,
+    .order-info {
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
   }
 }

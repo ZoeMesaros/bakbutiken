@@ -111,6 +111,28 @@ dbo.connectToServer((err) => {
     }
   }); */
 
+  //Get a single product by slug name
+  app.get("/api/products/:slug", async (req, res) => {
+    const productSlug = req.params.slug;
+
+    try {
+      const db_connect = dbo.getDb();
+      const product = await db_connect
+        .collection("products")
+        .findOne({ slug: productSlug });
+
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      res.json(product);
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
   const swishApiUrl =
     "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
 

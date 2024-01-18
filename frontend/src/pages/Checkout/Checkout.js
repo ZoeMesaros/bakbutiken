@@ -39,7 +39,7 @@ const CheckoutPage = ({ cart }) => {
       setShippingCost(150);
     }
 
-    if (watchPaymentMethod === "card") {
+    if (watchPaymentMethod === "kort") {
       setPaymentMethod("kort");
     } else if (watchPaymentMethod === "swish") {
       setPaymentMethod("swish");
@@ -81,12 +81,12 @@ const CheckoutPage = ({ cart }) => {
 
   return (
     <div className="checkout-page">
-      <h3 className="mx-5">Kassa</h3>
-      <h5 className="col mx-5 summary-title">Sammanfattning</h5>
+      <h3 className=" page-title">Kassa</h3>
+      <h5 className="summary-title">Sammanfattning</h5>
       {cart.length > 0 ? (
         <>
           <div className="row">
-            <div className="col mx-5 cart">
+            <div className="col cart">
               <div className="row" id="bg-color">
                 <div className="row main align-items-center">
                   <div className="col-2"></div>
@@ -142,7 +142,7 @@ const CheckoutPage = ({ cart }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col mx-5 cart-summary border-top">
+            <div className="col cart-summary border-top">
               <p>
                 Summa varor:&nbsp;&nbsp;
                 <strong>{calculateTotalSum().toLocaleString()} kr</strong>
@@ -151,12 +151,7 @@ const CheckoutPage = ({ cart }) => {
                 Frakt:&nbsp;&nbsp;<strong>{shippingCost} kr</strong>
               </p>
               <h5>
-                <p>
-                  <strong>
-                    Totalt att betala:&nbsp;&nbsp;
-                    {calculateTotalSumWithShipping().toLocaleString()} kr
-                  </strong>
-                </p>
+                <p></p>
               </h5>
               <p>
                 Varav moms:
@@ -176,8 +171,8 @@ const CheckoutPage = ({ cart }) => {
           </p>
         </>
       )}
-      <h5 className="col mx-5 info-title">Uppgifter</h5>
-      <div className="col mx-5 order-info">
+      <h5 className="info-title">Uppgifter</h5>
+      <div className="col order-info">
         <form id="checkout-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="adress-form">
             <div className="col checkout-form-div">
@@ -344,9 +339,9 @@ const CheckoutPage = ({ cart }) => {
                 <input
                   {...register("payment_method")}
                   type="radio"
-                  value="card"
+                  value="kort"
                   id="field-card"
-                  checked={watchPaymentMethod === "card" || !watchPaymentMethod}
+                  checked={watchPaymentMethod === "kort" || !watchPaymentMethod}
                   onClick={toggleAccordion}
                 />
               </div>
@@ -357,7 +352,7 @@ const CheckoutPage = ({ cart }) => {
               </div>
             </label>
             {isOpen && (
-              <div className="accordion-content">
+              <div className="col accordion-content">
                 <div className="credit-card-info">
                   {/* Credit Card Details */}
                   <div>
@@ -409,8 +404,9 @@ const CheckoutPage = ({ cart }) => {
               <img />
             </label>
           </div>
-          <h3>Total kostnad: {calculateTotalSumWithShipping()}</h3>
-          <button>Betala med {watchPaymentMethod}</button>
+          <p>Totalt att betala</p>
+          <h2>{calculateTotalSumWithShipping()} kr</h2>
+          <button type="submit">Betala med {watchPaymentMethod}</button>
         </form>
       </div>
     </div>

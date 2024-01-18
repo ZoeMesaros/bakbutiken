@@ -67,7 +67,7 @@ const CartPage = ({ cart, removeFromCart }) => {
   return (
     <div className="cart-page">
       <h3 className="mx-5">Kundvagn</h3>
-      <div className="col-md-7 text-muted pe-1 pb-3">
+      <div className="col-md-7 text-muted pe-1 pb-3 mx-5">
         <strong>
           <h5>{calculateTotalQuantity()} artiklar i kundvagnen</h5>
         </strong>

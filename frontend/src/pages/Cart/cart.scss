@@ -12,10 +12,8 @@
   }
 
   .row .col-md-8 {
-    max-height: 50rem;
-    overflow-y: scroll;
+    min-height: 15rem;
     scroll-behavior: smooth;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   .cart-title {
