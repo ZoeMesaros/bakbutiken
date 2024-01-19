@@ -107,7 +107,7 @@
     grid-template-columns: 2rem auto 5.5rem 3rem;
   }
 
-  .payment-div {
+  .payment-div-card {
     grid-template-columns: 2rem auto 7rem;
     .cards-container {
       display: flex;
@@ -125,8 +125,27 @@
     }
   }
 
+  .payment-div-swish {
+    grid-template-columns: 2rem auto 3rem;
+    .cards-container {
+      display: flex;
+      img {
+        margin-right: 20px;
+        width: auto;
+        height: 15px;
+      }
+      .master {
+        height: 23px;
+      }
+      .visa {
+        margin-top: 5px;
+      }
+    }
+  }
+
   .shipping-div,
-  .payment-div {
+  .payment-div-card,
+  .payment-div-swish {
     margin: 0.2rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     background-color: white;

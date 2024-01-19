@@ -6,6 +6,7 @@ import parcel from "../../assets/images/parcel.png";
 import parcelTruck from "../../assets/images/parcel-truck.png";
 import visa from "../../assets/images/visa.png";
 import masterCard from "../../assets/images/mastercard.png";
+import swish from "../../assets/images/swish.png";
 
 //Checkout page
 const CheckoutPage = ({ cart }) => {
@@ -334,7 +335,7 @@ const CheckoutPage = ({ cart }) => {
           </div>
           <h5 className="payment-title">Betalsätt</h5>
           <div className="payment-options">
-            <label className="payment-div" htmlFor="field-standard">
+            <label className="payment-div-card" htmlFor="field-standard">
               <div>
                 <input
                   {...register("payment_method")}
@@ -389,7 +390,7 @@ const CheckoutPage = ({ cart }) => {
                 </div>
               </div>
             )}
-            <label className="payment-div" htmlFor="field-swish">
+            <label className="payment-div-swish" htmlFor="field-swish">
               <div>
                 <input
                   {...register("payment_method")}
@@ -401,7 +402,7 @@ const CheckoutPage = ({ cart }) => {
                 />
               </div>
               <p>Swish</p>
-              <img />
+              <img className="swish" src={swish} />
             </label>
           </div>
           <p>Totalt att betala</p>
