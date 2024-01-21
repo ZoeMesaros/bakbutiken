@@ -17,11 +17,6 @@ const port = process.env.PORT || 5000;
 
 const dbo = require("./db/conn");
 
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
-
 // Connect to MongoDB
 dbo.connectToServer((err) => {
   if (err) {
@@ -30,7 +25,6 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
-
   //Get a single product by slug name
   app.get("/api/products/:slug", async (req, res) => {
     const productSlug = req.params.slug;
