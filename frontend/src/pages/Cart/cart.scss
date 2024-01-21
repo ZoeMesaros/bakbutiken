@@ -1,14 +1,18 @@
 .cart-page {
-  padding: 6rem 20rem;
-  overflow: hidden;
+  padding: 3rem 15rem;
+  min-height: calc(100vh - 12.6rem);
+  background-color: rgba(241, 229, 213, 0.241);
 
   @media (max-width: 1500px) {
-    padding: 6rem 5rem;
+    padding: 2rem 1rem;
+  }
+
+  @media (min-width: 2000px) {
+    padding: 4rem 25rem;
   }
 
   .row .col-md-8 {
-    max-height: 50rem;
-    overflow: scroll;
+    min-height: 15rem;
     scroll-behavior: smooth;
   }
 
@@ -16,30 +20,44 @@
     margin-bottom: 2rem;
   }
 
+  h3 {
+    padding-bottom: 1.5rem;
+  }
+
   .main {
     margin: 0;
     padding: 1vh 0;
     width: 100%;
+    background-color: white;
   }
 
   .col-2 {
     .img-fluid {
       max-width: 50%;
       height: auto;
+      margin-left: 2rem;
     }
   }
 
   .item-price-sale {
+    word-break: break-all;
+    word-wrap: break-word;
     color: red;
     text-decoration: line-through;
     margin-right: 1rem;
   }
 
   .summary {
-    background-color: rgb(243, 243, 243);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 5px;
     padding: 3rem;
     & button {
-      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      margin-top: 5rem;
       color: rgba(0, 0, 0, 0.923);
       padding: 0.5rem 3rem;
       font-size: 15px;

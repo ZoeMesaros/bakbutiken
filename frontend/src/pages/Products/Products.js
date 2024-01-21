@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./products.scss";
 
 //All products page
-const ProductPage = () => {
+const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -52,13 +52,13 @@ const ProductPage = () => {
         <div className="cards">
           {products.map((product) => (
             <div className="cards-item" key={product._id}>
-              <Link to={`/products/${product.slug}`}>
+              {product.inStock === 0 ? (
                 <div className="card">
                   <div className={`sale${product.onSale ? "-item" : ""} `}>
                     {product.onSale && <span>REA</span>}
                   </div>
                   <div className="card-image">
-                    <img src={product.img} />
+                    <img src={product.img} alt={product.name} />
                   </div>
                   <div className="card-content">
                     <div className="card-text">
@@ -82,11 +82,53 @@ const ProductPage = () => {
                         )}
                       </p>
                     </div>
-
-                    <button className="btn card-btn">Läs mer</button>
+                    <button className="btn soldout" disabled>
+                      Slutsålt
+                    </button>
                   </div>
                 </div>
-              </Link>
+              ) : (
+                <Link to={`/products/${product.slug}`}>
+                  <div className="card">
+                    <div className={`sale${product.onSale ? "-item" : ""} `}>
+                      {product.onSale && <span>REA</span>}
+                    </div>
+                    <div className="card-image">
+                      <img src={product.img} alt={product.name} />
+                    </div>
+                    <div className="card-content">
+                      <div className="card-text">
+                        <h2 className="card-title">{product.name}</h2>
+                        <p
+                          className={`card-price ${
+                            product.onSale ? "-sale" : ""
+                          }`}
+                        >
+                          <span
+                            className={`item-price${
+                              product.onSale ? "-sale" : ""
+                            }`}
+                          >
+                            {product.price} Kr
+                          </span>
+                          {product.onSale && (
+                            <span className="sale-price">
+                              &nbsp; {product.salePrice} Kr
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                      {product.inStock === 0 ? (
+                        <button className="btn soldout" disabled>
+                          Slutsålt
+                        </button>
+                      ) : (
+                        <button className="btn card-btn">Läs mer</button>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              )}
             </div>
           ))}
         </div>
@@ -124,4 +166,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductsPage;

@@ -19,6 +19,7 @@
     justify-content: space-around;
 
     a {
+      border-radius: 15px;
       padding: 0.5rem;
       margin-right: 1rem;
       text-decoration: none;
@@ -183,6 +184,19 @@
             &:hover {
               background-color: #bfdccf;
             }
+          }
+
+          .btn.soldout {
+            background-color: #e2e2e2;
+            color: rgb(0, 0, 0);
+            padding: 0.4rem;
+            font-size: 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: block;
+            width: 100%;
+            outline: 4px solid #d3dbd7;
+            outline-offset: 2px;
           }
         }
       }

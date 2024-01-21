@@ -4,10 +4,17 @@ const { ObjectId } = require("mongodb");
 const app = express();
 require("dotenv").config({ path: __dirname + "/config.env" });
 
-app.use(cors());
+const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 const port = process.env.PORT || 5000;
 
-// Import and initialize dbo before using it in routes
 const dbo = require("./db/conn");
 
 // Connect to MongoDB
@@ -18,7 +25,6 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
-
   //Get a single product by slug name
   app.get("/api/products/:slug", async (req, res) => {
     const productSlug = req.params.slug;
@@ -110,6 +116,88 @@ dbo.connectToServer((err) => {
       res.status(500).send("Internal Server Error");
     }
   }); */
+
+  //Get a single product by slug name
+  app.get("/api/products/:slug", async (req, res) => {
+    const productSlug = req.params.slug;
+
+    try {
+      const db_connect = dbo.getDb();
+      const product = await db_connect
+        .collection("products")
+        .findOne({ slug: productSlug });
+
+      if (!product) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      res.json(product);
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
+  // Update inStock amount for a product by slug
+  app.put("/api/products/:slug/update-stock", async (req, res) => {
+    const productSlug = req.params.slug;
+    const { inStock } = req.body;
+
+    try {
+      const db_connect = dbo.getDb();
+
+      // Find the product by slug and update the inStock value
+      const result = await db_connect
+        .collection("products")
+        .updateOne({ slug: productSlug }, { $set: { inStock } });
+
+      if (result.matchedCount === 0) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      res.json({ message: "Stock updated successfully" });
+    } catch (error) {
+      console.error("Error updating stock:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
+  // Update stock endpoint
+  app.put("/api/products/update-stock", async (req, res) => {
+    console.log("Received a PUT request to /api/products/update-stock");
+
+    const cartItems = req.body;
+    console.log("Received cart items:", cartItems);
+
+    try {
+      const db_connect = dbo.getDb();
+
+      // Loop through each item in the cart and update the stock
+      for (const cartItem of cartItems) {
+        const result = await db_connect
+          .collection("products")
+          .updateOne(
+            { _id: new ObjectId(cartItem._id) },
+            { $inc: { inStock: -cartItem.quantity } }
+          );
+
+        // Check if the product was found and updated successfully
+        if (result.matchedCount === 0) {
+          console.log("Product not found for ID:", cartItem._id);
+          res.status(404).json({ error: "Product not found" });
+          return;
+        }
+      }
+
+      console.log("Stock updated successfully");
+      res.json({ message: "Stock updated successfully" });
+    } catch (error) {
+      console.error("Error updating stock:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 });
 
 app.listen(port, () => {
