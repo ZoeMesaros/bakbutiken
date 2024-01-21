@@ -9,6 +9,7 @@ import ProductsPage from "./pages/Products/Products";
 import SingleProductPage from "./pages/Product/Product";
 import CartPage from "./pages/Cart/Cart";
 import CheckoutPage from "./pages/Checkout/Checkout";
+import SuccessPage from "./pages/Success/Success";
 
 function App() {
   const {
@@ -16,6 +17,7 @@ function App() {
     handleAddToCart,
     handleRemoveFromCart,
     handleRemoveSingleProduct,
+    clearCart,
   } = useCart();
 
   return (
@@ -43,7 +45,11 @@ function App() {
             <CartPage cart={cart} removeFromCart={handleRemoveFromCart} />
           }
         />
-        <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
+        <Route
+          path="/checkout"
+          element={<CheckoutPage cart={cart} clearCart={clearCart} />}
+        />
+        <Route path="/success" element={<SuccessPage />} />
       </Routes>
     </main>
   );

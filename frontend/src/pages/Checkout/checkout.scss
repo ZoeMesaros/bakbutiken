@@ -168,6 +168,29 @@
     }
   }
 
+  .payment-section {
+    p,
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      font-size: 25px;
+    }
+    .paybutton {
+      margin-top: 1rem;
+      height: 3.5rem;
+      border-radius: 10px;
+      background-color: rgb(26, 177, 26);
+      color: white;
+      font-size: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .paybutton:hover {
+      background-color: rgb(25, 191, 45);
+    }
+  }
+
   #field-standard,
   #field-home {
     margin-right: 8px;
