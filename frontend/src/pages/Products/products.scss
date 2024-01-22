@@ -9,6 +9,7 @@
   }
 
   .product-category {
+    max-width: 100%; // Set to 100% to center regardless of screen width
     min-height: 2rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -16,12 +17,14 @@
     display: flex;
     flex-wrap: wrap;
     word-wrap: break-word;
-    justify-content: space-around;
+    justify-content: center; // Center horizontally
+    align-items: center;
 
     a {
       border-radius: 15px;
       padding: 0.5rem;
-      margin-right: 1rem;
+      margin-right: 3rem;
+      margin-left: 3rem;
       text-decoration: none;
       font-size: 15px;
       font-weight: 600;
@@ -198,6 +201,8 @@
             outline: 4px solid #d3dbd7;
             outline-offset: 2px;
           }
+
+          margin-top: auto;
         }
       }
     }
@@ -214,4 +219,27 @@
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+
+  .pagination {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+
+    .page-item {
+      a {
+        text-decoration: none;
+        color: #000;
+        font-size: 16px;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        background-color: #d0ebde;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #bfdccf;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
