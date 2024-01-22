@@ -1,54 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import "./homepage.scss";
 import offersBg from "../../assets/images/offers-bg.jpg";
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true);
-      try {
-        let url = `/api/products?page=${currentPage}&limit=12`;
-
-        if (selectedCategory) {
-          url = `/api/products/category/${selectedCategory}?page=${currentPage}&limit=12`;
-        }
-        const response = await axios.get(url);
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, [currentPage, selectedCategory]);
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-  const handleCategoryClick = (category) => {
-    console.log("Handling category click:", category);
-    setSelectedCategory(category);
-    setCurrentPage(1);
-
-    const targetURL = `/products${category ? `?category=${category}` : ""}`;
-    console.log("Target URL:", targetURL);
-
-    navigate(targetURL, {
-      replace: true,
-    });
-  };
-
   const cardBannerStyle = {
     backgroundImage: `url(${offersBg})`,
     backgroundSize: "cover",
@@ -75,9 +28,9 @@ const HomePage = () => {
                   Oavsett hur långt du har kommit som hemmabagare finns det
                   alltid något nytt att upptäcka.
                 </p>
-                <button onClick={() => handleCategoryClick("")}>
+                <a href="/products" class="btn btn-light shadow-0 text-grey">
                   Visa alla produkter
-                </button>
+                </a>
               </div>
             </div>
           </main>
@@ -92,9 +45,9 @@ const HomePage = () => {
                   Utforska vårt utbud av kakdekorationer som passar till
                   vardagen så väl som till fest
                 </p>
-                <button onClick={() => handleCategoryClick("decorations")}>
+                <a href="/products" class="btn btn-light shadow-0 text-grey">
                   Visa mer
-                </button>
+                </a>
               </div>
             </div>
           </aside>

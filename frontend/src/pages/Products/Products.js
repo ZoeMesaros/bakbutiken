@@ -2,42 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./products.scss";
+import useProductFetch from "../../customHooks/fetchProducts";
 
 //All products page
 const ProductsPage = () => {
-  const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  //Fetch all products based on category and current page
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let url = `/api/products?page=${currentPage}&limit=12`;
-
-        if (selectedCategory) {
-          url = `/api/products/category/${selectedCategory}?page=${currentPage}&limit=12`;
-        }
-        const response = await axios.get(url);
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
-  }, [currentPage, selectedCategory]);
-
-  //Handle page pagnation
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-  //Handle change of category
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
-  };
+  const {
+    products,
+    currentPage,
+    selectedCategory,
+    handlePageChange,
+    handleCategoryClick,
+  } = useProductFetch();
 
   return (
     <>
