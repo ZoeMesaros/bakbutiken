@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage/HomePage";
 import ProductsPage from "./pages/Products/Products";
 import SingleProductPage from "./pages/Product/Product";
-import CartPage from "./pages/Cart/Cart";
+import CartPage from "./pages/Cart/cart";
 import CheckoutPage from "./pages/Checkout/Checkout";
 import SuccessPage from "./pages/Success/Success";
 

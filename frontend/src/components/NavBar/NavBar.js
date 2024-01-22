@@ -22,16 +22,40 @@ const NavBar = ({ cart }) => {
     <>
       <header>
         {/* Main header */}
-        <div className="header-nav">
+        <div className="container-xl header-nav">
           <div className="header-logo">
             <Link to={"/"}>
               <img src={logo} alt="Bakbutiken" />
             </Link>
           </div>
+          <div className="main-nav-items text-center">
+            <Nav id="main-navbar">
+              <Nav.Item>
+                <Link to={"/"} className="nav-link">
+                  Hem
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to={"/products"} className="nav-link">
+                  Produkter
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to={"/products"} className="nav-link">
+                  Om oss
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to={"/products"} className="nav-link">
+                  Kontakt
+                </Link>
+              </Nav.Item>
+            </Nav>
+          </div>
           <div className="header-button">
             <button className={`btn-cart`}>
               <Link to="/cart">
-                <div className="d-none d-md-block mb-0">
+                <div className="d-md-block mb-0">
                   <p>Kundvagn</p>
                   {cart.length > 0 ? (
                     <>
@@ -52,7 +76,7 @@ const NavBar = ({ cart }) => {
         <Navbar expand="md" variant="light" className="border">
           <Container>
             <Navbar.Toggle aria-controls="navbarNav" />
-            <Navbar.Collapse id="navbarNav">
+            <Navbar.Collapse id="navbarNav" className="justify-content-center">
               <Nav className="mx-auto">
                 <Nav.Item>
                   <Link to={"/"} className="nav-link">
