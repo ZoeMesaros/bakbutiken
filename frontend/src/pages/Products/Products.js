@@ -16,96 +16,108 @@ const ProductsPage = () => {
 
   return (
     <>
-      <div className="product-page">
-        <div className="product-category">
-          <a onClick={() => handleCategoryClick("")}>Alla</a>
-          <a onClick={() => handleCategoryClick("pans")}>Bakformar</a>
-          <a onClick={() => handleCategoryClick("utensils")}>Verktyg</a>
-          <a onClick={() => handleCategoryClick("bowls")}>Skålar</a>
-          <a onClick={() => handleCategoryClick("decorations")}>Dekoration</a>
-        </div>
-        <div className="cards">
-          {products.map((product) => (
-            <div className="cards-item" key={product._id}>
-              {product.inStock === 0 ? (
-                <div className="card">
-                  <div className={`sale${product.onSale ? "-item" : ""} `}>
-                    {product.onSale && <span>REA</span>}
-                  </div>
-                  <div className="card-image">
-                    <img src={product.img} alt={product.name} />
-                  </div>
-                  <div className="card-content">
-                    <div className="card-text">
-                      <h2 className="card-title">{product.name}</h2>
-                      <p
-                        className={`card-price ${
-                          product.onSale ? "-sale" : ""
-                        }`}
-                      >
-                        <span
-                          className={`item-price${
-                            product.onSale ? "-sale" : ""
-                          }`}
+      <div className="container align-items-center">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="product-page">
+              <div className="product-category">
+                <a onClick={() => handleCategoryClick("")}>Alla</a>
+                <a onClick={() => handleCategoryClick("pans")}>Bakformar</a>
+                <a onClick={() => handleCategoryClick("utensils")}>Verktyg</a>
+                <a onClick={() => handleCategoryClick("bowls")}>Skålar</a>
+                <a onClick={() => handleCategoryClick("decorations")}>
+                  Dekoration
+                </a>
+              </div>
+              <div className="cards">
+                {products.map((product) => (
+                  <div className="cards-item" key={product._id}>
+                    {product.inStock === 0 ? (
+                      <div className="card">
+                        <div
+                          className={`sale${product.onSale ? "-item" : ""} `}
                         >
-                          {product.price} Kr
-                        </span>
-                        {product.onSale && (
-                          <span className="sale-price">
-                            &nbsp; {product.salePrice} Kr
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <button className="btn soldout" disabled>
-                      Slutsålt
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <Link to={`/products/${product.slug}`}>
-                  <div className="card">
-                    <div className={`sale${product.onSale ? "-item" : ""} `}>
-                      {product.onSale && <span>REA</span>}
-                    </div>
-                    <div className="card-image">
-                      <img src={product.img} alt={product.name} />
-                    </div>
-                    <div className="card-content">
-                      <div className="card-text">
-                        <h2 className="card-title">{product.name}</h2>
-                        <p
-                          className={`card-price ${
-                            product.onSale ? "-sale" : ""
-                          }`}
-                        >
-                          <span
-                            className={`item-price${
-                              product.onSale ? "-sale" : ""
-                            }`}
-                          >
-                            {product.price} Kr
-                          </span>
-                          {product.onSale && (
-                            <span className="sale-price">
-                              &nbsp; {product.salePrice} Kr
-                            </span>
-                          )}
-                        </p>
+                          {product.onSale && <span>REA</span>}
+                        </div>
+                        <div className="card-image">
+                          <img src={product.img} alt={product.name} />
+                        </div>
+                        <div className="card-content">
+                          <div className="card-text">
+                            <h2 className="card-title">{product.name}</h2>
+                            <p
+                              className={`card-price ${
+                                product.onSale ? "-sale" : ""
+                              }`}
+                            >
+                              <span
+                                className={`item-price${
+                                  product.onSale ? "-sale" : ""
+                                }`}
+                              >
+                                {product.price} Kr
+                              </span>
+                              {product.onSale && (
+                                <span className="sale-price">
+                                  &nbsp; {product.salePrice} Kr
+                                </span>
+                              )}
+                            </p>
+                          </div>
+                          <button className="btn soldout" disabled>
+                            Slutsålt
+                          </button>
+                        </div>
                       </div>
-                      {product.inStock === 0 ? (
-                        <button className="btn soldout" disabled>
-                          Slutsålt
-                        </button>
-                      ) : (
-                        <button className="btn card-btn">Läs mer</button>
-                      )}
-                    </div>
+                    ) : (
+                      <Link to={`/products/${product.slug}`}>
+                        <div className="card">
+                          <div
+                            className={`sale${product.onSale ? "-item" : ""} `}
+                          >
+                            {product.onSale && <span>REA</span>}
+                          </div>
+                          <div className="card-image">
+                            <img src={product.img} alt={product.name} />
+                          </div>
+                          <div className="card-content">
+                            <div className="card-text">
+                              <h2 className="card-title">{product.name}</h2>
+                              <p
+                                className={`card-price ${
+                                  product.onSale ? "-sale" : ""
+                                }`}
+                              >
+                                <span
+                                  className={`item-price${
+                                    product.onSale ? "-sale" : ""
+                                  }`}
+                                >
+                                  {product.price} Kr
+                                </span>
+                                {product.onSale && (
+                                  <span className="sale-price">
+                                    &nbsp; {product.salePrice} Kr
+                                  </span>
+                                )}
+                              </p>
+                            </div>
+                            {product.inStock === 0 ? (
+                              <button className="btn soldout" disabled>
+                                Slutsålt
+                              </button>
+                            ) : (
+                              <button className="btn card-btn">Läs mer</button>
+                            )}
+                          </div>
+                        </div>
+                      </Link>
+                    )}
                   </div>
-                </Link>
-              )}
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
       <nav className="pag-nav">
