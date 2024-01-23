@@ -1,14 +1,8 @@
 .cart-page {
-  padding: 3rem 15rem;
-  min-height: calc(100vh - 12.6rem);
-  background-color: rgba(241, 229, 213, 0.241);
-
-  @media (max-width: 1500px) {
-    padding: 2rem 1rem;
-  }
-
-  @media (min-width: 2000px) {
-    padding: 4rem 25rem;
+  .container {
+    padding-top: 3rem;
+    background-color: white;
+    min-height: 88vh;
   }
 
   .row .col-md-8 {
@@ -51,13 +45,17 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: white;
     border-radius: 5px;
-    padding: 3rem;
+    padding: 2rem;
+    text-align: center;
+    h5 {
+      margin-bottom: 2rem;
+    }
     & button {
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      margin-top: 5rem;
+      margin-top: 2.5rem;
       color: rgba(0, 0, 0, 0.923);
       padding: 0.5rem 3rem;
       font-size: 15px;
@@ -72,18 +70,6 @@
       }
       & a {
         all: unset;
-      }
-    }
-  }
-
-  @media (min-width: 768px) {
-    .summary {
-      & p {
-        font-size: 17px;
-        text-align: left;
-      }
-      & h5 {
-        margin-bottom: 4rem;
       }
     }
   }

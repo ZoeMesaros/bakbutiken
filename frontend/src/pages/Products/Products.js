@@ -16,11 +16,11 @@ const ProductsPage = () => {
 
   return (
     <>
-      <div className="container align-items-center">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="product-page">
-              <div className="product-category">
+      <div className="product-page">
+        <div className="container align-items-center">
+          <div className="row">
+            <div className="col-md-6 col-lg-4 mx-auto">
+              <div className="col product-category">
                 <a onClick={() => handleCategoryClick("")}>Alla</a>
                 <a onClick={() => handleCategoryClick("pans")}>Bakformar</a>
                 <a onClick={() => handleCategoryClick("utensils")}>Verktyg</a>
@@ -70,7 +70,10 @@ const ProductsPage = () => {
                         </div>
                       </div>
                     ) : (
-                      <Link to={`/products/${product.slug}`}>
+                      <Link
+                        to={`/products/${product.slug}`}
+                        className="hover-effect"
+                      >
                         <div className="card">
                           <div
                             className={`sale${product.onSale ? "-item" : ""} `}
@@ -117,38 +120,38 @@ const ProductsPage = () => {
                 ))}
               </div>
             </div>
+            <nav className="pag-nav">
+              <ul className="pagination">
+                {currentPage > 1 && (
+                  <li
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange(currentPage - 1);
+                    }}
+                    className="page-item"
+                  >
+                    <a className="page-link">Föregående</a>
+                  </li>
+                )}
+                <li className="page-item">
+                  <a className="page-link">{currentPage}</a>
+                </li>
+                {products.length === 12 && (
+                  <li
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange(currentPage + 1);
+                    }}
+                    className="page-item"
+                  >
+                    <a className="page-link">Nästa</a>
+                  </li>
+                )}
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
-      <nav className="pag-nav">
-        <ul className="pagination">
-          {currentPage > 1 && (
-            <li
-              onClick={(e) => {
-                e.preventDefault();
-                handlePageChange(currentPage - 1);
-              }}
-              className="page-item"
-            >
-              <a className="page-link">Föregående</a>
-            </li>
-          )}
-          <li className="page-item">
-            <a className="page-link">{currentPage}</a>
-          </li>
-          {products.length === 12 && (
-            <li
-              onClick={(e) => {
-                e.preventDefault();
-                handlePageChange(currentPage + 1);
-              }}
-              className="page-item"
-            >
-              <a className="page-link">Nästa</a>
-            </li>
-          )}
-        </ul>
-      </nav>
     </>
   );
 };

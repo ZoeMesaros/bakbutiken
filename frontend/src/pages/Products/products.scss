@@ -1,27 +1,21 @@
-.row {
-  background-color: white;
-  width: 100%;
-}
-
 .product-page {
   width: 100%;
-  padding: 0 4rem 2rem;
   scroll-behavior: smooth;
 
-  @media (min-width: 768px) {
-    padding: 0 12rem 2rem;
+  .row {
+    background-color: white;
+    min-height: 85vh;
+    border-radius: 0 0 15px 15px;
   }
 
   .product-category {
-    max-width: 100%; // Set to 100% to center regardless of screen width
+    max-width: 100%;
     min-height: 2rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
-    word-wrap: break-word;
-    justify-content: center; // Center horizontally
+    justify-content: center;
     align-items: center;
 
     a {
@@ -49,26 +43,41 @@
       grid-template-columns: repeat(1, 1fr);
       max-width: 760px;
     }
+    .product-category {
+      flex-wrap: wrap;
+      word-wrap: break-word;
+    }
   }
 
   @media (min-width: 650px) and (max-width: 980px) {
     .cards {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
       max-width: 980px;
+    }
+    .product-category {
+      flex-wrap: wrap;
+      word-wrap: break-word;
     }
   }
 
   @media (min-width: 980px) and (max-width: 1300px) {
     .cards {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       max-width: 1300px;
     }
   }
 
-  @media (min-width: 1300px) {
+  @media (min-width: 1300px) and (max-width: 1600px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1600px;
+    }
+  }
+
+  @media (min-width: 1600px) {
     .cards {
       grid-template-columns: repeat(4, 1fr);
-      max-width: 1300px;
+      max-width: 1900px;
     }
   }
 
@@ -98,7 +107,7 @@
         height: 100%;
         background-color: rgb(255, 255, 255);
         border-radius: 0.25rem;
-        box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgb(255, 255, 255);
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -246,4 +255,17 @@
       }
     }
   }
+}
+
+.cards-item {
+  transition: transform 0.7s cubic-bezier(0.2, 0.5, 0.2, 1); /* Adjust the cubic-bezier values for the desired effect */
+}
+
+.cards-item:hover {
+  transform: scale(1.07); /* You can adjust the scale factor as needed */
+}
+
+.cards-item:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }

@@ -1,14 +1,8 @@
 .checkout-page {
-  background-color: rgba(241, 229, 213, 0.241);
-  padding: 3rem 15rem;
-  min-height: 200vh;
-
-  @media (max-width: 1500px) {
-    padding: 2rem 1rem;
-  }
-
-  @media (min-width: 2000px) {
-    padding: 4rem 40rem;
+  .container {
+    padding-top: 3rem;
+    background-color: white;
+    min-height: 150vh;
   }
 
   h3 {
@@ -19,8 +13,6 @@
   .summary-title,
   .info-title {
     padding-bottom: 1rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
   }
 
   .shipping-title,
@@ -54,6 +46,7 @@
 
   .row {
     --bs-gutter-x: unset;
+    margin: 0;
   }
 
   .row .cart {
@@ -65,7 +58,7 @@
 
     img {
       width: 25%;
-      margin-left: 2rem;
+      margin-left: 25%;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
@@ -181,13 +174,14 @@
       margin-top: 1rem;
       height: 3.5rem;
       border-radius: 10px;
-      background-color: rgb(26, 177, 26);
+      border: none;
+      background-color: #78a46a;
       color: white;
       font-size: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
     .paybutton:hover {
-      background-color: rgb(25, 191, 45);
+      background-color: rgba(99, 164, 107, 0.893);
     }
   }
 
@@ -234,6 +228,13 @@
     .cart,
     .cart-summary,
     .order-info {
+      padding-bottom: 1rem;
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+    .page-title,
+    .summary-title,
+    .info-title {
       margin-left: 5rem;
       margin-right: 5rem;
     }

@@ -151,6 +151,7 @@
       max-height: 80%;
       max-width: 80%;
       object-fit: cover;
+      border-radius: 10%;
     }
   }
 
@@ -165,7 +166,9 @@
 
   @media (max-width: 768px) {
     height: auto;
-    margin: 3rem 3rem;
+    margin-top: 3rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
     padding: 2rem 2rem;
 
     a {

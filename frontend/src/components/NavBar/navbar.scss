@@ -1,5 +1,12 @@
 header {
   background-color: white;
+
+  @media (min-width: 576px) {
+    .header-nav {
+      padding: 0rem 2rem;
+    }
+  }
+
   .header-nav {
     align-items: center;
     display: grid;
@@ -73,7 +80,6 @@ header {
     }
 
     @media (min-width: 768px) {
-      grid-template-columns: 11rem auto 8.2rem;
       .header-logo {
         img {
           width: 12rem;
