@@ -2,30 +2,127 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./products.scss";
+import allProducts from "../../assets/images/all-products.jpg";
+import utensils from "../../assets/images/utensils.jpg";
+import pans from "../../assets/images/pans.jpg";
+import decorations from "../../assets/images/decorations.jpg";
 import useProductFetch from "../../customHooks/fetchProducts";
+
+const cardBannerAll = {
+  backgroundImage: `url(${allProducts})`,
+  backgroundSize: "cover",
+  backgroundPosition: "100% 45%",
+};
+
+const cardBannerUtensils = {
+  backgroundImage: `url(${utensils})`,
+  backgroundSize: "cover",
+  backgroundPosition: "100% 35%",
+};
+
+const cardBannerPans = {
+  backgroundImage: `url(${pans})`,
+  backgroundSize: "cover",
+  backgroundPosition: "100% 55%",
+};
+
+const cardBannerBowls = {
+  backgroundImage: `url(${allProducts})`,
+  backgroundSize: "cover",
+  backgroundPosition: "100% 100%",
+};
+
+const cardBannerDecorations = {
+  backgroundImage: `url(${decorations})`,
+  backgroundSize: "cover",
+  backgroundPosition: "100% 40%",
+};
 
 //All products page
 const ProductsPage = () => {
-  const {
-    products,
-    currentPage,
-    selectedCategory,
-    handlePageChange,
-    handleCategoryClick,
-  } = useProductFetch();
+  const { products, currentPage, handlePageChange, handleCategoryClick } =
+    useProductFetch();
+
+  const [category, setCategory] = useState("");
+
+  const updateBanner = (category) => {
+    setCategory(category);
+  };
+
+  const getBanner = () => {
+    switch (category) {
+      case "pans":
+        return cardBannerPans;
+      case "utensils":
+        return cardBannerUtensils;
+      case "decorations":
+        return cardBannerDecorations;
+      case "bowls":
+        return cardBannerBowls;
+      default:
+        return cardBannerAll;
+    }
+  };
+
+  const handleAllCategoryClick = () => {
+    handleCategoryClick("");
+    updateBanner("");
+  };
 
   return (
     <>
       <div className="product-page">
         <div className="container align-items-center">
+          <div className="row mx-auto">
+            <main className="row category-row">
+              <div className="card-banner p-2 rounded-5" style={getBanner()}>
+                <div style={{ height: "150px" }}>
+                  {/*     <h2 className="text-color">
+                    Fantastiska produkter med <br />
+                    de bästa erbjudandena
+                  </h2>
+                  <p className="text-color">
+                    Oavsett hur långt du har kommit som hemmabagare finns det
+                    alltid något nytt att upptäcka.
+                  </p> */}
+                </div>
+              </div>
+            </main>
+          </div>
           <div className="row items-row">
             <div className="col-md-6 col-lg-4 mx-auto">
               <div className="col product-category">
-                <a onClick={() => handleCategoryClick("")}>Alla</a>
-                <a onClick={() => handleCategoryClick("pans")}>Bakformar</a>
-                <a onClick={() => handleCategoryClick("utensils")}>Verktyg</a>
-                <a onClick={() => handleCategoryClick("bowls")}>Skålar</a>
-                <a onClick={() => handleCategoryClick("decorations")}>
+                <a onClick={() => handleAllCategoryClick("")}>Alla</a>
+                <a
+                  onClick={() => {
+                    handleAllCategoryClick("pans");
+                    updateBanner("pans");
+                  }}
+                >
+                  Bakformar
+                </a>
+                <a
+                  onClick={() => {
+                    handleAllCategoryClick("utensils");
+                    updateBanner("utensils");
+                  }}
+                >
+                  Verktyg
+                </a>
+                <a
+                  onClick={() => {
+                    handleAllCategoryClick("bowls");
+                    updateBanner("bowls");
+                  }}
+                >
+                  Skålar
+                </a>
+                <a
+                  onClick={() => {
+                    handleAllCategoryClick("decorations");
+                    updateBanner("decorations");
+                  }}
+                >
                   Dekoration
                 </a>
               </div>

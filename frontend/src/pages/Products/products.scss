@@ -1,12 +1,18 @@
 .items-row {
   background-color: white;
-  width: 100%;
   min-height: calc(100vh - 15rem);
 }
-
 .product-page {
   width: 100%;
   scroll-behavior: smooth;
+
+  .category-row {
+    background-color: white;
+    .text-color {
+      color: rgb(7, 20, 18);
+      text-shadow: 8px 5px 6px rgba(255, 255, 255, 0.9);
+    }
+  }
 
   .product-category {
     max-width: 100%;
@@ -46,6 +52,9 @@
     .product-category {
       flex-wrap: wrap;
       word-wrap: break-word;
+    }
+    .card-banner {
+      display: none;
     }
   }
 

@@ -8,24 +8,19 @@ const HomePage = () => {
     backgroundPosition: "100% 7%",
   };
 
-  /*   const textStyle = {
-    color: "black",
-    textShadow: "2px 2px 2px rgba(0, 0, 0, 0.6)",
-  }; */
-
   return (
     <div className="home-page">
       <div className="container">
-        <div className="row">
-          <section className="mt-2 pt-3">
-            <div className="row gx-3">
-              <main className="col-lg-9">
+        <div className="row mx-1">
+          <section className="mt-2 pt-3 ">
+            <div className="row">
+              <main className="col ">
                 <div
                   className="card-banner p-5 rounded-5"
                   style={cardBannerStyle}
                 >
                   <div style={{ maxWidth: "500px" }}>
-                    <h2 className="text-grey" /* style={textStyle} */>
+                    <h2 className="text-grey">
                       Fantastiska produkter med <br />
                       de bästa erbjudandena
                     </h2>
