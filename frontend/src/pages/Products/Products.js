@@ -18,7 +18,7 @@ const ProductsPage = () => {
     <>
       <div className="product-page">
         <div className="container align-items-center">
-          <div className="row">
+          <div className="row items-row">
             <div className="col-md-6 col-lg-4 mx-auto">
               <div className="col product-category">
                 <a onClick={() => handleCategoryClick("")}>Alla</a>
@@ -120,8 +120,14 @@ const ProductsPage = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="container align-items-center">
+        <div className="row summary-row">
+          <div className="col-md-6 col-lg-8 mx-auto">
             <nav className="pag-nav">
-              <ul className="pagination">
+              <ul className="pagination ">
                 {currentPage > 1 && (
                   <li
                     onClick={(e) => {

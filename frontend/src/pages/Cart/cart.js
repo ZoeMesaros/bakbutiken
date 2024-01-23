@@ -67,125 +67,121 @@ const CartPage = ({ cart, removeFromCart }) => {
   return (
     <div className="cart-page">
       <div className="container">
-        <div className="row">
-          <h3 className="mx-5">Kundvagn</h3>
-          {cart.length > 0 ? (
-            <>
-              <div className="col-md-7 text-muted pe-1 pb-3 mx-5">
-                <strong>
-                  <h5>{calculateTotalQuantity()} artiklar i kundvagnen</h5>
-                </strong>
-              </div>
-              <div className="row mx-auto">
-                <div className="col cart">
-                  <div className="row border-top border-bottom">
-                    <div className="row main align-items-center">
-                      <div className="col-2"></div>
-                      <div className="col">Artikel</div>
-                      <div className="col">Antal</div>
-                      <div className="col">À-pris </div>
-                      <div className="col">Summa</div>
-                      <div className="col"></div>
-                    </div>
+        <h3>Kundvagn</h3>
+        {cart.length > 0 ? (
+          <>
+            <div className="col-md-7 text-muted pe-1 pb-3 mx-5">
+              <strong>
+                <h5>{calculateTotalQuantity()} artiklar i kundvagnen</h5>
+              </strong>
+            </div>
+            <div className="row mx-auto" id="cart-row">
+              <div className="col cart">
+                <div className="row border-top border-bottom">
+                  <div className="row main align-items-center">
+                    <div className="col-2"></div>
+                    <div className="col">Artikel</div>
+                    <div className="col">Antal</div>
+                    <div className="col">À-pris </div>
+                    <div className="col">Summa</div>
+                    <div className="col"></div>
                   </div>
-                  {cart.map((cartItem, index) => (
-                    <div className="row border-top border-bottom" key={index}>
-                      <div className="row main align-items-center">
-                        <div className="col-2">
-                          <img
-                            className="img-fluid"
-                            src={cartItem.img}
-                            alt={cartItem.name}
-                          />
-                        </div>
-                        <div className="col">
-                          <Link to={`/products/${cartItem.slug}`}>
-                            <div className="row text-muted">
-                              {cartItem.name}
-                            </div>
-                          </Link>
-                        </div>
-                        <div className="col">{cartItem.quantity}</div>
-                        <div className="col">
-                          <div className="price-container">
-                            <span
-                              className={`item-price${
-                                cartItem.onSale ? "-sale" : ""
-                              }`}
-                            >
-                              {cartItem.price} Kr
-                            </span>
-                            {cartItem.onSale && (
-                              <span className="sale-price">
-                                {cartItem.salePrice} Kr
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="col">
-                          {cartItem.quantity * cartItem.price} Kr
-                        </div>
-                        <div className="col">
+                </div>
+                {cart.map((cartItem, index) => (
+                  <div className="row border-top border-bottom" key={index}>
+                    <div className="row main align-items-center">
+                      <div className="col-2">
+                        <img
+                          className="img-fluid"
+                          src={cartItem.img}
+                          alt={cartItem.name}
+                        />
+                      </div>
+                      <div className="col">
+                        <Link to={`/products/${cartItem.slug}`}>
+                          <div className="row text-muted">{cartItem.name}</div>
+                        </Link>
+                      </div>
+                      <div className="col">{cartItem.quantity}</div>
+                      <div className="col">
+                        <div className="price-container">
                           <span
-                            className="close"
-                            onClick={() => handleRemoveClick(cartItem)}
+                            className={`item-price${
+                              cartItem.onSale ? "-sale" : ""
+                            }`}
                           >
-                            &#10005;
+                            {cartItem.price} Kr
                           </span>
+                          {cartItem.onSale && (
+                            <span className="sale-price">
+                              {cartItem.salePrice} Kr
+                            </span>
+                          )}
                         </div>
                       </div>
+                      <div className="col">
+                        {cartItem.quantity * cartItem.price} Kr
+                      </div>
+                      <div className="col">
+                        <span
+                          className="close"
+                          onClick={() => handleRemoveClick(cartItem)}
+                        >
+                          &#10005;
+                        </span>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                <div className="col-md-4 summary border-left border-right">
-                  <div className="cart-summary">
-                    <h5>Sammanfattning</h5>
-                    <p>
-                      Antal varor:&nbsp;
-                      <strong>{calculateTotalQuantity()} st</strong>
-                    </p>
-                    <p>
-                      Summa varor:&nbsp;
-                      <strong>{calculateTotalSum()} kr</strong>
-                    </p>
-                    <p className="col border-bottom">
-                      Frakt (standard):&nbsp;<strong>59 kr</strong>
-                    </p>
-                    <p>
-                      <strong>
-                        Totalt att betala: &nbsp;
-                        {calculateTotalSumWithShipping()} kr
-                      </strong>
-                    </p>
-                    <p>
-                      Varav moms:
-                      <strong>&nbsp;{calculateTotalSumWithTax()} kr</strong>
-                    </p>
-                    <button>
-                      <Link to={"/checkout"}>Gå till kassan</Link>
-                    </button>
                   </div>
+                ))}
+              </div>
+              <div className="col-md-4 summary border-left border-right">
+                <div className="cart-summary">
+                  <h5>Sammanfattning</h5>
+                  <p>
+                    Antal varor:&nbsp;
+                    <strong>{calculateTotalQuantity()} st</strong>
+                  </p>
+                  <p>
+                    Summa varor:&nbsp;
+                    <strong>{calculateTotalSum()} kr</strong>
+                  </p>
+                  <p className="col border-bottom">
+                    Frakt (standard):&nbsp;<strong>59 kr</strong>
+                  </p>
+                  <p>
+                    <strong>
+                      Totalt att betala: &nbsp;
+                      {calculateTotalSumWithShipping()} kr
+                    </strong>
+                  </p>
+                  <p>
+                    Varav moms:
+                    <strong>&nbsp;{calculateTotalSumWithTax()} kr</strong>
+                  </p>
+                  <button>
+                    <Link to={"/checkout"}>Gå till kassan</Link>
+                  </button>
                 </div>
               </div>
-            </>
-          ) : (
-            <>
-              <div className="col mx-5">
-                <h4>Inga produkter tillagda</h4>
-                <p>
-                  <Link to={"/products"}>Gå till sortiment</Link>
-                </p>
-              </div>
-            </>
-          )}
-          {showModal && (
-            <CartModal
-              cartItem={selectedCartItem}
-              removeFromCart={removeFromCart}
-              closeModal={closeModal}
-            />
-          )}
-        </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="col mx-5">
+              <h4>Inga produkter tillagda</h4>
+              <p>
+                <Link to={"/products"}>Gå till sortiment</Link>
+              </p>
+            </div>
+          </>
+        )}
+        {showModal && (
+          <CartModal
+            cartItem={selectedCartItem}
+            removeFromCart={removeFromCart}
+            closeModal={closeModal}
+          />
+        )}
       </div>
     </div>
   );

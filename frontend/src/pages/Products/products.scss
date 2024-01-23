@@ -1,12 +1,12 @@
+.items-row {
+  background-color: white;
+  width: 100%;
+  min-height: 95vh;
+}
+
 .product-page {
   width: 100%;
   scroll-behavior: smooth;
-
-  .row {
-    background-color: white;
-    min-height: 85vh;
-    border-radius: 0 0 15px 15px;
-  }
 
   .product-category {
     max-width: 100%;
@@ -228,10 +228,16 @@
   }
 }
 
+.summary-row {
+  width: 100%;
+  background-color: white;
+}
+
 .pag-nav {
+  padding-top: 2rem;
+  background-color: white;
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
 
   .pagination {
     list-style: none;
