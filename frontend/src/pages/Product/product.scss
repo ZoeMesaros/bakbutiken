@@ -2,12 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 13rem);
-  padding: 4rem 4rem;
-  position: relative;
+
+  .container {
+    .row {
+      background-color: white;
+      min-height: calc(100vh - 9rem);
+    }
+  }
 
   a {
-    position: absolute;
     top: 5rem;
     left: 15%;
     margin: 1rem;
