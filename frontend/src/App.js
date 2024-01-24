@@ -25,12 +25,10 @@ function App() {
       <NavBar cart={cart} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:category?" element={<ProductsPage />} />
         <Route
-          path="/products"
-          element={<ProductsPage addToCart={handleAddToCart} />}
-        />
-        <Route
-          path="/products/:slug"
+          path="/products/:category/:slug"
           element={
             <SingleProductPage
               cart={cart}

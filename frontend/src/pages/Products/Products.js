@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./products.scss";
+import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
 import utensils from "../../assets/images/utensils.jpg";
 import pans from "../../assets/images/pans.jpg";
 import decorations from "../../assets/images/decorations.jpg";
-import useProductFetch from "../../customHooks/fetchProducts";
 
 const cardBannerAll = {
   backgroundImage: `url(${allProducts})`,
@@ -40,17 +40,45 @@ const cardBannerDecorations = {
 
 //All products page
 const ProductsPage = () => {
-  const { products, currentPage, handlePageChange, handleCategoryClick } =
+  const { products, currentPage, handlePageChange, setProducts } =
     useProductFetch();
+  const { category } = useParams();
 
-  const [category, setCategory] = useState("");
+  const [currentCategory, setCurrentCategory] = useState("");
 
-  const updateBanner = (category) => {
-    setCategory(category);
+  useEffect(() => {
+    fetchProductsByCategory(category || "");
+  }, [category]);
+
+  useEffect(() => {
+    if (category !== currentCategory) {
+      fetchProductsByCategory(category || "");
+    }
+  }, [category, currentCategory]);
+
+  const fetchProductsByCategory = async (selectedCategory) => {
+    try {
+      const url = selectedCategory
+        ? `/api/products/category/${selectedCategory}`
+        : "/api/products";
+
+      const response = await axios.get(url);
+      setCurrentCategory(selectedCategory);
+      // Update state with the fetched products
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      // Handle error, perhaps set an error state in your component
+    }
+  };
+
+  const handleAllCategoryClick = () => {
+    setCurrentCategory("");
+    fetchProductsByCategory(""); // Fetch all products
   };
 
   const getBanner = () => {
-    switch (category) {
+    switch (currentCategory) {
       case "pans":
         return cardBannerPans;
       case "utensils":
@@ -64,67 +92,64 @@ const ProductsPage = () => {
     }
   };
 
-  const handleAllCategoryClick = () => {
-    handleCategoryClick("");
-    updateBanner("");
-  };
-
   return (
     <>
       <div className="product-page">
         <div className="container align-items-center">
-          <div className="row mx-auto">
+          {/* <div className="row mx-auto">
             <main className="row category-row">
               <div className="card-banner p-2 rounded-5" style={getBanner()}>
                 <div style={{ height: "150px" }}>
-                  {/*     <h2 className="text-color">
+                  <h2 className="text-color">
                     Fantastiska produkter med <br />
                     de bästa erbjudandena
                   </h2>
                   <p className="text-color">
                     Oavsett hur långt du har kommit som hemmabagare finns det
                     alltid något nytt att upptäcka.
-                  </p> */}
+                  </p>
                 </div>
               </div>
             </main>
-          </div>
+          </div> */}
           <div className="row items-row">
             <div className="col-md-6 col-lg-4 mx-auto">
               <div className="col product-category">
-                <a onClick={() => handleAllCategoryClick("")}>Alla</a>
-                <a
-                  onClick={() => {
-                    handleAllCategoryClick("pans");
-                    updateBanner("pans");
-                  }}
+                <Link
+                  to="/products"
+                  onClick={() => handleAllCategoryClick("")}
+                  className="hover-effect"
+                >
+                  Alla
+                </Link>
+                <Link
+                  to="/products/pans"
+                  onClick={() => handleAllCategoryClick("pans")}
+                  className="hover-effect"
                 >
                   Bakformar
-                </a>
-                <a
-                  onClick={() => {
-                    handleAllCategoryClick("utensils");
-                    updateBanner("utensils");
-                  }}
+                </Link>
+                <Link
+                  to="/products/utensils"
+                  onClick={() => handleAllCategoryClick("utensils")}
+                  className="hover-effect"
                 >
                   Verktyg
-                </a>
-                <a
-                  onClick={() => {
-                    handleAllCategoryClick("bowls");
-                    updateBanner("bowls");
-                  }}
+                </Link>
+                <Link
+                  to="/products/bowls"
+                  onClick={() => handleAllCategoryClick("bowls")}
+                  className="hover-effect"
                 >
                   Skålar
-                </a>
-                <a
-                  onClick={() => {
-                    handleAllCategoryClick("decorations");
-                    updateBanner("decorations");
-                  }}
+                </Link>
+                <Link
+                  to="/products/decorations"
+                  onClick={() => handleAllCategoryClick("decorations")}
+                  className="hover-effect"
                 >
                   Dekoration
-                </a>
+                </Link>
               </div>
               <div className="cards">
                 {products.map((product) => (
@@ -168,7 +193,7 @@ const ProductsPage = () => {
                       </div>
                     ) : (
                       <Link
-                        to={`/products/${product.slug}`}
+                        to={`/products/${product.category}/${product.slug}`}
                         className="hover-effect"
                       >
                         <div className="card">

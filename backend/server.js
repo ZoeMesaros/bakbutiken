@@ -25,15 +25,16 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
-  //Get a single product by slug name
-  app.get("/api/products/:slug", async (req, res) => {
+  // Get a single product by category and slug
+  app.get("/api/products/category/:category/:slug", async (req, res) => {
+    const category = req.params.category;
     const productSlug = req.params.slug;
 
     try {
       const db_connect = dbo.getDb();
       const product = await db_connect
         .collection("products")
-        .findOne({ slug: productSlug });
+        .findOne({ category, slug: productSlug });
 
       if (!product) {
         res.status(404).json({ error: "Product not found" });
@@ -116,28 +117,6 @@ dbo.connectToServer((err) => {
       res.status(500).send("Internal Server Error");
     }
   }); */
-
-  //Get a single product by slug name
-  app.get("/api/products/:slug", async (req, res) => {
-    const productSlug = req.params.slug;
-
-    try {
-      const db_connect = dbo.getDb();
-      const product = await db_connect
-        .collection("products")
-        .findOne({ slug: productSlug });
-
-      if (!product) {
-        res.status(404).json({ error: "Product not found" });
-        return;
-      }
-
-      res.json(product);
-    } catch (error) {
-      console.error("Error fetching product:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  });
 
   // Update inStock amount for a product by slug
   app.put("/api/products/:slug/update-stock", async (req, res) => {

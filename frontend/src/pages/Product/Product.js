@@ -3,19 +3,22 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./product.scss";
 
-//Single product page based on slug name
 const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const [product, setProduct] = useState({});
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
   const [existingCartItem, setExistingCartItem] = useState(null);
-  const { slug } = useParams();
 
-  //Fetch a single product based on slug name
+  // Use useParams to get both category and slug
+  const { category, slug } = useParams();
+
   useEffect(() => {
     const fetchSingleProduct = async () => {
       try {
-        const response = await axios.get(`/api/products/${slug}`);
+        // Adjust the API endpoint to include both category and slug
+        const response = await axios.get(
+          `/api/products/category/${category}/${slug}`
+        );
         const existingCartItem = cart.find(
           (item) => item._id === response.data._id
         );
@@ -27,7 +30,7 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
       }
     };
     fetchSingleProduct();
-  }, [slug, cart]);
+  }, [category, slug, cart]);
 
   //Add to cart funcitonality
   const AddToCart = () => {
@@ -51,6 +54,10 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const toggleMaterials = () => {
     setMaterialsOpen(!materialsOpen);
   };
+
+  if (!product) {
+    return <p>Loading...</p>; // or return an error message
+  }
 
   return (
     <div className="single-product-page">

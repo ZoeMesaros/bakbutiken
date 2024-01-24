@@ -1,5 +1,6 @@
 import "./homepage.scss";
 import offersBg from "../../assets/images/offers-bg.jpg";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const cardBannerStyle = {
@@ -48,12 +49,7 @@ const HomePage = () => {
                       Utforska vårt utbud av kakdekorationer som passar till
                       vardagen så väl som till fest
                     </p>
-                    <a
-                      href="/products"
-                      className="btn btn-light shadow-0 text-grey"
-                    >
-                      Visa mer
-                    </a>
+                    <Link to="/products/decorations">Visa mer</Link>
                   </div>
                 </div>
               </aside>
