@@ -1,8 +1,16 @@
+import React, { useEffect } from "react";
 import "./homepage.scss";
 import offersBg from "../../assets/images/offers-bg.jpg";
+import useProductFetch from "../../customHooks/fetchProducts";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
+  const { latestProducts, fetchLatestProducts } = useProductFetch();
+
+  useEffect(() => {
+    fetchLatestProducts();
+  }, [fetchLatestProducts]);
+
   const cardBannerStyle = {
     backgroundImage: `url(${offersBg})`,
     backgroundSize: "cover",
@@ -29,12 +37,12 @@ const HomePage = () => {
                       Oavsett hur långt du har kommit som hemmabagare finns det
                       alltid något nytt att upptäcka.
                     </p>
-                    <a
-                      href="/products"
+                    <Link
+                      to="/products"
                       className="btn btn-light shadow-0 text-grey"
                     >
                       Visa alla produkter
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </main>
@@ -49,10 +57,59 @@ const HomePage = () => {
                       Utforska vårt utbud av kakdekorationer som passar till
                       vardagen så väl som till fest
                     </p>
-                    <Link to="/products/decorations">Visa mer</Link>
+                    <Link
+                      to="/products/decorations"
+                      className="btn btn-light shadow-0 text-grey"
+                    >
+                      Visa mer
+                    </Link>
                   </div>
                 </div>
               </aside>
+            </div>
+            <div className="row">
+              <div className="latest-cards">
+                {latestProducts.map((product) => (
+                  <div className="card" key={product._id}>
+                    <div className={`sale${product.onSale ? "-item" : ""} `}>
+                      {product.onSale && <span>REA</span>}
+                    </div>
+                    <div className="card-image">
+                      <img src={product.img} alt={product.name} />
+                    </div>
+                    <div className="card-content">
+                      <div className="card-text">
+                        <h2 className="card-title">{product.name}</h2>
+                        <p
+                          className={`card-price ${
+                            product.onSale ? "-sale" : ""
+                          }`}
+                        >
+                          <span
+                            className={`item-price${
+                              product.onSale ? "-sale" : ""
+                            }`}
+                          >
+                            {product.price} Kr
+                          </span>
+                          {product.onSale && (
+                            <span className="sale-price">
+                              &nbsp; {product.salePrice} Kr
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                      {product.inStock === 0 ? (
+                        <button className="btn soldout" disabled>
+                          Slutsålt
+                        </button>
+                      ) : (
+                        <button className="btn card-btn">Läs mer</button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </div>

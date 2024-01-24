@@ -25,6 +25,26 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
+  // Get the 5 latest added products
+  app.get("/api/products/latest", async (req, res) => {
+    const limit = parseInt(req.query.limit) || 5;
+
+    try {
+      const db_connect = dbo.getDb();
+      const latestProducts = await db_connect
+        .collection("products")
+        .find()
+        .sort({ dateAdded: -1 })
+        .limit(limit)
+        .toArray();
+
+      res.json(latestProducts);
+    } catch (error) {
+      console.error("Error fetching latest products:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
   // Get a single product by category and slug
   app.get("/api/products/category/:category/:slug", async (req, res) => {
     const category = req.params.category;
@@ -89,84 +109,51 @@ dbo.connectToServer((err) => {
     }
   });
 
-  //Get a single product by ID
-  /*   app.get("/api/products/:id", async (req, res) => {
-    const productId = req.params.id;
-
-    if (!ObjectId.isValid(productId)) {
-      res.status(400).json({ error: "Invalid product ID format" });
-      return;
-    }
-
-    try {
-      console.log("Requested Product ID:", productId);
-      const db_connect = dbo.getDb();
-      const product = await db_connect
-        .collection("products")
-        .findOne({ _id: new ObjectId(productId) });
-
-      if (!product) {
-        console.log("Product not found for ID:", productId);
-        res.status(404).json({ error: "Product not found" });
-        return;
-      }
-
-      res.json(product);
-    } catch (error) {
-      console.error("Error fetching product:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  }); */
-
-  // Update inStock amount for a product by slug
-  app.put("/api/products/:slug/update-stock", async (req, res) => {
-    const productSlug = req.params.slug;
-    const { inStock } = req.body;
-
-    try {
-      const db_connect = dbo.getDb();
-
-      // Find the product by slug and update the inStock value
-      const result = await db_connect
-        .collection("products")
-        .updateOne({ slug: productSlug }, { $set: { inStock } });
-
-      if (result.matchedCount === 0) {
-        res.status(404).json({ error: "Product not found" });
-        return;
-      }
-
-      res.json({ message: "Stock updated successfully" });
-    } catch (error) {
-      console.error("Error updating stock:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  });
-
   // Update stock endpoint
-  app.put("/api/products/update-stock", async (req, res) => {
-    console.log("Received a PUT request to /api/products/update-stock");
+  app.put("/api/products/:slugOrBatch/update-stock", async (req, res) => {
+    console.log(
+      "Received a PUT request to /api/products/:slugOrBatch/update-stock"
+    );
 
+    const identifier = req.params.slugOrBatch;
     const cartItems = req.body;
     console.log("Received cart items:", cartItems);
 
     try {
       const db_connect = dbo.getDb();
 
-      // Loop through each item in the cart and update the stock
-      for (const cartItem of cartItems) {
+      // If identifier is a slug, update stock for a single product
+      if (ObjectId.isValid(identifier)) {
+        // Update stock for a single product
         const result = await db_connect
           .collection("products")
           .updateOne(
-            { _id: new ObjectId(cartItem._id) },
-            { $inc: { inStock: -cartItem.quantity } }
+            { _id: new ObjectId(identifier) },
+            { $inc: { inStock: -cartItems[0].quantity } }
           );
 
         // Check if the product was found and updated successfully
         if (result.matchedCount === 0) {
-          console.log("Product not found for ID:", cartItem._id);
+          console.log("Product not found for ID:", identifier);
           res.status(404).json({ error: "Product not found" });
           return;
+        }
+      } else {
+        // Loop through each item in the cart and update the stock for multiple products
+        for (const cartItem of cartItems) {
+          const result = await db_connect
+            .collection("products")
+            .updateOne(
+              { _id: new ObjectId(cartItem._id) },
+              { $inc: { inStock: -cartItem.quantity } }
+            );
+
+          // Check if the product was found and updated successfully
+          if (result.matchedCount === 0) {
+            console.log("Product not found for ID:", cartItem._id);
+            res.status(404).json({ error: "Product not found" });
+            return;
+          }
         }
       }
 
