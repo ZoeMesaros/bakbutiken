@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import "./products.scss";
@@ -38,47 +38,31 @@ const cardBannerDecorations = {
   backgroundPosition: "100% 40%",
 };
 
-//All products page
+// All products page
 const ProductsPage = () => {
-  const { products, currentPage, handlePageChange, setProducts } =
-    useProductFetch();
+  const {
+    products,
+    currentPage,
+    handlePageChange,
+    handleCategoryClickHook,
+    selectedCategory,
+  } = useProductFetch();
   const { category } = useParams();
 
-  const [currentCategory, setCurrentCategory] = useState("");
-
   useEffect(() => {
-    fetchProductsByCategory(category || "");
-  }, [category]);
+    handleCategoryClickHook(category || "");
+  }, [category, handleCategoryClickHook]);
 
-  useEffect(() => {
-    if (category !== currentCategory) {
-      fetchProductsByCategory(category || "");
-    }
-  }, [category, currentCategory]);
-
-  const fetchProductsByCategory = async (selectedCategory) => {
-    try {
-      const url = selectedCategory
-        ? `/api/products/category/${selectedCategory}`
-        : "/api/products";
-
-      const response = await axios.get(url);
-      setCurrentCategory(selectedCategory);
-      // Update state with the fetched products
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      // Handle error, perhaps set an error state in your component
-    }
-  };
-
-  const handleAllCategoryClick = () => {
-    setCurrentCategory("");
-    fetchProductsByCategory(""); // Fetch all products
-  };
+  const handleAllCategoryClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      handleCategoryClickHook("");
+    },
+    [handleCategoryClickHook]
+  );
 
   const getBanner = () => {
-    switch (currentCategory) {
+    switch (selectedCategory) {
       case "pans":
         return cardBannerPans;
       case "utensils":
@@ -117,37 +101,21 @@ const ProductsPage = () => {
               <div className="col product-category">
                 <Link
                   to="/products"
-                  onClick={() => handleAllCategoryClick("")}
+                  onClick={handleAllCategoryClick}
                   className="hover-effect"
                 >
                   Alla
                 </Link>
-                <Link
-                  to="/products/pans"
-                  onClick={() => handleAllCategoryClick("pans")}
-                  className="hover-effect"
-                >
+                <Link to="/products/pans" className="hover-effect">
                   Bakformar
                 </Link>
-                <Link
-                  to="/products/utensils"
-                  onClick={() => handleAllCategoryClick("utensils")}
-                  className="hover-effect"
-                >
+                <Link to="/products/utensils" className="hover-effect">
                   Verktyg
                 </Link>
-                <Link
-                  to="/products/bowls"
-                  onClick={() => handleAllCategoryClick("bowls")}
-                  className="hover-effect"
-                >
+                <Link to="/products/bowls" className="hover-effect">
                   Skålar
                 </Link>
-                <Link
-                  to="/products/decorations"
-                  onClick={() => handleAllCategoryClick("decorations")}
-                  className="hover-effect"
-                >
+                <Link to="/products/decorations" className="hover-effect">
                   Dekoration
                 </Link>
               </div>

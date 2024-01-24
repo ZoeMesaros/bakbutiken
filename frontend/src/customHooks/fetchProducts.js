@@ -1,3 +1,5 @@
+// useProductFetch.js
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -22,11 +24,16 @@ const useProductFetch = () => {
     }
   };
 
+  useEffect(() => {
+    fetchProducts();
+  }, [selectedCategory, currentPage]);
+
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClickHook = (category) => {
+    console.log("handleCategoryClickHook is called");
     setSelectedCategory(category);
   };
 
@@ -35,9 +42,8 @@ const useProductFetch = () => {
     currentPage,
     selectedCategory,
     fetchProducts,
-    setProducts,
     handlePageChange,
-    handleCategoryClick,
+    handleCategoryClickHook,
   };
 };
 

@@ -11,7 +11,7 @@ import swish from "../../assets/images/swish.png";
 //Checkout page
 const CheckoutPage = ({ cart, clearCart }) => {
   const [shippingCost, setShippingCost] = useState(59);
-  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("kort");
   const [isOpen, setIsOpen] = useState(true);
 
   const navigate = useNavigate();
@@ -450,7 +450,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                     <h2>{calculateTotalSumWithShipping()} kr</h2>
                     <div className="row">
                       <button className="paybutton" type="submit">
-                        Betala med {watchPaymentMethod}
+                        Betala med {paymentMethod}
                       </button>
                     </div>
                   </div>
