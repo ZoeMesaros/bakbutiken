@@ -41,7 +41,7 @@ const NavBar = ({ cart }) => {
                 </Link>
               </Nav.Item>
               <Nav.Item>
-                <Link to={"/products"} className="nav-link">
+                <Link to={"/about"} className="nav-link">
                   Om oss
                 </Link>
               </Nav.Item>
@@ -89,7 +89,7 @@ const NavBar = ({ cart }) => {
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/products"} className="nav-link">
+                  <Link to={"/about"} className="nav-link">
                     Om oss
                   </Link>
                 </Nav.Item>

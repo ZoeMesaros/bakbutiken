@@ -25,6 +25,8 @@
     align-items: center;
 
     a {
+      color: rgb(30, 30, 30);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       border-radius: 15px;
       padding: 0.5rem;
       margin-right: 3rem;
@@ -207,7 +209,7 @@
             background-color: #d0ebde;
 
             &:hover {
-              background-color: #bfdccf;
+              background-color: #abd6c2;
             }
           }
 

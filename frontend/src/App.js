@@ -10,6 +10,7 @@ import SingleProductPage from "./pages/Product/Product";
 import CartPage from "./pages/Cart/cart";
 import CheckoutPage from "./pages/Checkout/Checkout";
 import SuccessPage from "./pages/Success/Success";
+import AboutPage from "./pages/About/About";
 
 function App() {
   const {
@@ -48,6 +49,7 @@ function App() {
           element={<CheckoutPage cart={cart} clearCart={clearCart} />}
         />
         <Route path="/success" element={<SuccessPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </main>
   );
