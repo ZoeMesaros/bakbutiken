@@ -1,7 +1,10 @@
 .items-row {
   background-color: white;
   min-height: calc(100vh - 15rem);
+  margin-left: 0;
+  margin-right: 0;
 }
+
 .product-page {
   width: 100%;
   scroll-behavior: smooth;
@@ -12,6 +15,11 @@
       color: rgb(7, 20, 18);
       text-shadow: 8px 5px 6px rgba(255, 255, 255, 0.9);
     }
+  }
+
+  .product-page .container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   .product-category {

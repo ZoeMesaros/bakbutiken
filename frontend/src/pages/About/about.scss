@@ -1,6 +1,25 @@
 .about-page {
   .container {
-    min-height: 88vh;
+    min-height: 89vh;
     background-color: white;
+    .about-title {
+      margin-top: 2rem;
+    }
+    .about-text {
+      margin-top: 2rem;
+    }
+    .about-text-2 {
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .about-title {
+        margin-top: 7rem;
+        margin-bottom: 2rem;
+      }
+      .about-text {
+        margin-top: 3rem;
+      }
+    }
   }
 }

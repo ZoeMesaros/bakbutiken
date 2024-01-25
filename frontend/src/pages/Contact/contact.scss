@@ -1,0 +1,34 @@
+.contact-page {
+  .container {
+    min-height: 84vh;
+    background-color: white;
+    .contact-title {
+      margin-top: 2rem;
+    }
+    .btn {
+      color: rgba(0, 0, 0, 0.923);
+      padding: 0.4rem;
+      font-size: 15px;
+      border-radius: 5px;
+      font-weight: 600;
+      display: block;
+      width: 100%;
+      outline: 4px solid #d0ebde;
+      outline-offset: 2px;
+
+      cursor: pointer;
+      background: transparent;
+      background-color: #d0ebde;
+
+      &:hover {
+        background-color: #abd6c2;
+      }
+    }
+    @media (min-width: 768px) {
+      .contact-title {
+        margin-top: 7rem;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
