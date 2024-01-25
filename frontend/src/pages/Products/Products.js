@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "./products.scss";
 import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
@@ -49,6 +49,8 @@ const ProductsPage = () => {
   } = useProductFetch();
   const { category } = useParams();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     handleCategoryClickHook(category || "");
   }, [category, handleCategoryClickHook]);
@@ -57,8 +59,9 @@ const ProductsPage = () => {
     (e) => {
       e.preventDefault();
       handleCategoryClickHook("");
+      navigate("/products");
     },
-    [handleCategoryClickHook]
+    [handleCategoryClickHook, navigate]
   );
 
   const getBanner = () => {

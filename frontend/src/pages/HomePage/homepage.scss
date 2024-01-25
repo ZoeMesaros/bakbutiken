@@ -1,183 +1,175 @@
 .home-page {
   .container {
-    background-color: rgb(255, 255, 255);
     min-height: 88vh;
+    background-color: white;
+  }
+
+  .latest-section {
+    margin-top: 2rem;
+  }
+
+  .latest-products {
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 1rem;
+
+    .cards-item {
+      box-sizing: border-box;
+      padding: 1rem;
+      height: 100%;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      width: 19rem;
+      margin: 0 auto;
+
+      a {
+        all: unset;
+        cursor: pointer;
+      }
+
+      .card {
+        height: 100%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 0.25rem;
+        border: 1px solid rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        .sale-item {
+          position: absolute;
+          background-color: rgb(160, 232, 133);
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          right: 0;
+          margin: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          span {
+            color: rgb(0, 0, 0);
+            font-weight: 600;
+          }
+        }
+
+        .card-image {
+          text-align: center;
+
+          img {
+            height: auto;
+            max-width: 100%;
+            vertical-align: middle;
+            padding: 10px;
+          }
+        }
+
+        .card-content {
+          padding: 1rem;
+          background: rgb(255, 255, 255);
+
+          .card-text {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+
+            .card-title {
+              font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+              font-size: 1.1rem;
+              font-weight: 600;
+              letter-spacing: 1px;
+              margin: 0px;
+              text-align: left;
+            }
+
+            .card-price {
+              color: rgb(0, 0, 0);
+              font-size: 0.875rem;
+              line-height: 1.5;
+              margin-bottom: 1.25rem;
+              font-weight: 600;
+
+              .sale-price {
+                text-decoration: none;
+              }
+            }
+
+            .item-price-sale {
+              color: rgb(237, 7, 7);
+              text-decoration: line-through;
+            }
+          }
+
+          a {
+            all: unset;
+          }
+
+          .btn {
+            color: rgba(0, 0, 0, 0.923);
+            padding: 0.4rem;
+            font-size: 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: block;
+            width: 100%;
+            outline: 4px solid #d0ebde;
+            outline-offset: 2px;
+
+            cursor: pointer;
+            background: transparent;
+            background-color: #d0ebde;
+
+            &:hover {
+              background-color: #bfdccf;
+            }
+          }
+
+          .btn.soldout {
+            background-color: #e2e2e2;
+            color: rgb(0, 0, 0);
+            padding: 0.4rem;
+            font-size: 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: block;
+            width: 100%;
+            outline: 4px solid #d3dbd7;
+            outline-offset: 2px;
+          }
+
+          margin-top: auto;
+        }
+      }
+    }
+
+    @media (max-width: 760px) {
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 760px;
+    }
+
     @media (min-width: 650px) and (max-width: 980px) {
-      .latest-cards {
-        grid-template-columns: repeat(1, 1fr);
-        max-width: 980px;
-      }
-      .product-category {
-        flex-wrap: wrap;
-        word-wrap: break-word;
-      }
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 980px;
     }
 
     @media (min-width: 980px) and (max-width: 1300px) {
-      .latest-cards {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 1300px;
-      }
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 1300px;
     }
 
     @media (min-width: 1300px) and (max-width: 1600px) {
-      .latest-cards {
-        grid-template-columns: repeat(3, 1fr);
-        max-width: 1600px;
-      }
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1600px;
     }
 
     @media (min-width: 1600px) {
-      .latest-cards {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 1900px;
-      }
-    }
-
-    .latest-cards {
-      display: grid;
-      gap: 15px;
-      justify-content: center;
-      margin: 0 auto;
-      margin-top: 1rem;
-
-      &-item {
-        box-sizing: border-box;
-        padding: 1rem;
-        height: 100%;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        width: 19rem;
-        margin: 0 auto;
-
-        a {
-          all: unset;
-          cursor: pointer;
-        }
-
-        .card {
-          height: 100%;
-          background-color: rgb(255, 255, 255);
-          border-radius: 0.25rem;
-          border: 1px solid rgb(255, 255, 255);
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-
-          .sale-item {
-            position: absolute;
-            background-color: rgb(160, 232, 133);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            right: 0;
-            margin: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            span {
-              color: rgb(0, 0, 0);
-              font-weight: 600;
-            }
-          }
-
-          .card-image {
-            text-align: center;
-
-            img {
-              height: auto;
-              max-width: 100%;
-              vertical-align: middle;
-              padding: 15px;
-            }
-          }
-
-          .card-content {
-            padding: 1rem;
-            background: rgb(255, 255, 255);
-
-            .card-text {
-              padding-left: 0.5rem;
-              padding-right: 0.5rem;
-              display: flex;
-              justify-content: space-between;
-
-              .card-title {
-                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-                font-size: 1.1rem;
-                font-weight: 600;
-                letter-spacing: 1px;
-                margin: 0px;
-                text-align: left;
-              }
-
-              .card-price {
-                color: rgb(0, 0, 0);
-                font-size: 0.875rem;
-                line-height: 1.5;
-                margin-bottom: 1.25rem;
-                font-weight: 600;
-
-                .sale-price {
-                  text-decoration: none;
-                }
-              }
-
-              .item-price-sale {
-                color: rgb(237, 7, 7);
-                text-decoration: line-through;
-              }
-            }
-
-            a {
-              all: unset;
-            }
-
-            .btn {
-              color: rgba(0, 0, 0, 0.923);
-              padding: 0.4rem;
-              font-size: 15px;
-              border-radius: 5px;
-              font-weight: 600;
-              display: block;
-              width: 100%;
-              outline: 4px solid #d0ebde;
-              outline-offset: 2px;
-
-              cursor: pointer;
-              background: transparent;
-              background-color: #d0ebde;
-
-              &:hover {
-                background-color: #bfdccf;
-              }
-            }
-
-            .btn.soldout {
-              background-color: #e2e2e2;
-              color: rgb(0, 0, 0);
-              padding: 0.4rem;
-              font-size: 15px;
-              border-radius: 5px;
-              font-weight: 600;
-              display: block;
-              width: 100%;
-              outline: 4px solid #d3dbd7;
-              outline-offset: 2px;
-            }
-
-            margin-top: auto;
-          }
-        }
-      }
-
-      @media (max-width: 659px) {
-        .latest-cards {
-          grid-template-columns: 1fr;
-        }
-      }
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1900px;
     }
   }
 }

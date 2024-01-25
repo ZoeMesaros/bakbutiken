@@ -8,7 +8,6 @@ const useProductFetch = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [latestProducts, setLatestProducts] = useState([]);
 
   const fetchProducts = async () => {
     try {
@@ -25,21 +24,9 @@ const useProductFetch = () => {
     }
   };
 
-  const fetchLatestProducts = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/products/latest?limit=5"
-      );
-      setLatestProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching latest products:", error);
-    }
-  };
-
   useEffect(() => {
     fetchProducts();
-    fetchLatestProducts();
-  }, [selectedCategory, currentPage, fetchLatestProducts]);
+  }, [selectedCategory, currentPage]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -53,9 +40,7 @@ const useProductFetch = () => {
     products,
     currentPage,
     selectedCategory,
-    latestProducts,
     fetchProducts,
-    fetchLatestProducts,
     handlePageChange,
     handleCategoryClickHook,
   };

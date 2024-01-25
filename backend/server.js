@@ -25,25 +25,6 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
-  // Get the 5 latest added products
-  app.get("/api/products/latest", async (req, res) => {
-    const limit = parseInt(req.query.limit) || 5;
-
-    try {
-      const db_connect = dbo.getDb();
-      const latestProducts = await db_connect
-        .collection("products")
-        .find()
-        .sort({ dateAdded: -1 })
-        .limit(limit)
-        .toArray();
-
-      res.json(latestProducts);
-    } catch (error) {
-      console.error("Error fetching latest products:", error);
-      res.status(500).send("Internal Server Error");
-    }
-  });
 
   // Get a single product by category and slug
   app.get("/api/products/category/:category/:slug", async (req, res) => {

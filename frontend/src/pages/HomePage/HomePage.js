@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import "./homepage.scss";
 import offersBg from "../../assets/images/offers-bg.jpg";
-import useProductFetch from "../../customHooks/fetchProducts";
 import { Link } from "react-router-dom";
+import useProductFetch from "../../customHooks/fetchProducts";
 
 const HomePage = () => {
-  const { latestProducts, fetchLatestProducts } = useProductFetch();
+  const { products } = useProductFetch();
 
-  useEffect(() => {
-    fetchLatestProducts();
-  }, [fetchLatestProducts]);
+  //Display the 4 latest added items based on date added
+  const latestProducts = products
+    .slice(0, 4) // Limit to the first 5 items
+    .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)); // Sort by dateAdded
 
   const cardBannerStyle = {
     backgroundImage: `url(${offersBg})`,
@@ -67,45 +68,48 @@ const HomePage = () => {
                 </div>
               </aside>
             </div>
-            <div className="row">
-              <div className="latest-cards">
+            <div className="latest-section">
+              <h3>Nyheter</h3>
+              <div className="latest-products">
                 {latestProducts.map((product) => (
-                  <div className="card" key={product._id}>
-                    <div className={`sale${product.onSale ? "-item" : ""} `}>
-                      {product.onSale && <span>REA</span>}
-                    </div>
-                    <div className="card-image">
-                      <img src={product.img} alt={product.name} />
-                    </div>
-                    <div className="card-content">
-                      <div className="card-text">
-                        <h2 className="card-title">{product.name}</h2>
-                        <p
-                          className={`card-price ${
-                            product.onSale ? "-sale" : ""
-                          }`}
-                        >
-                          <span
-                            className={`item-price${
+                  <div className="cards-item" key={product._id}>
+                    <div className="card">
+                      <div className={`sale${product.onSale ? "-item" : ""} `}>
+                        {product.onSale && <span>REA</span>}
+                      </div>
+                      <div className="card-image">
+                        <img src={product.img} alt={product.name} />
+                      </div>
+                      <div className="card-content">
+                        <div className="card-text">
+                          <h2 className="card-title">{product.name}</h2>
+                          <p
+                            className={`card-price ${
                               product.onSale ? "-sale" : ""
                             }`}
                           >
-                            {product.price} Kr
-                          </span>
-                          {product.onSale && (
-                            <span className="sale-price">
-                              &nbsp; {product.salePrice} Kr
+                            <span
+                              className={`item-price${
+                                product.onSale ? "-sale" : ""
+                              }`}
+                            >
+                              {product.price} Kr
                             </span>
-                          )}
-                        </p>
+                            {product.onSale && (
+                              <span className="sale-price">
+                                &nbsp; {product.salePrice} Kr
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                        {product.inStock === 0 ? (
+                          <button className="btn soldout" disabled>
+                            Slutsålt
+                          </button>
+                        ) : (
+                          <button className="btn card-btn">Läs mer</button>
+                        )}
                       </div>
-                      {product.inStock === 0 ? (
-                        <button className="btn soldout" disabled>
-                          Slutsålt
-                        </button>
-                      ) : (
-                        <button className="btn card-btn">Läs mer</button>
-                      )}
                     </div>
                   </div>
                 ))}
