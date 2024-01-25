@@ -1,4 +1,77 @@
 footer {
-  background-color: #e4f5ed;
+  background-color: #e5efea;
   box-shadow: rgba(144, 144, 144, 0.194) 0px -50px 36px -28px inset;
+  p,
+  h6,
+  a {
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.6px;
+    font-size: 15px;
+  }
+
+  h6 {
+    letter-spacing: 2px;
+  }
+
+  a {
+    color: rgb(112, 112, 112);
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      color: #abd6c2;
+    }
+  }
+
+  .subscribe-form .form-group input {
+    font-family: "Poppins", sans-serif;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border: none !important;
+    outline: none !important;
+    color: rgba(0, 0, 0, 0.3) !important;
+    font-size: 16px;
+  }
+  .form-control {
+    display: block;
+    width: 100%;
+
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .subscribe-form .form-group .submit {
+    color: #484848 !important;
+    display: block;
+    width: 130px;
+    height: 52px;
+    font-size: 15px;
+    background: #d67fa6 !important;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+  }
+  .subscribe-form input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .social-icon {
+    background-color: rgba(255, 255, 255, 0.686);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .social-icon i {
+    color: #d67fa6;
+    font-size: 24px;
+  }
+
+  .footer-social li {
+    list-style: none;
+    margin: 0 10px 0 0;
+    display: inline-block;
+  }
 }
