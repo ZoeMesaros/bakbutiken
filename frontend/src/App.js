@@ -12,6 +12,7 @@ import CheckoutPage from "./pages/Checkout/Checkout";
 import SuccessPage from "./pages/Success/Success";
 import AboutPage from "./pages/About/About";
 import ContactPage from "./pages/Contact/Contact";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
+      <Footer />
     </main>
   );
 }
