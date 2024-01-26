@@ -14,18 +14,23 @@ const CheckoutPage = ({ cart, clearCart }) => {
   const [paymentMethod, setPaymentMethod] = useState("kort");
   const [isOpen, setIsOpen] = useState(true);
 
-  const navigate = useNavigate();
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm();
+
+  const navigate = useNavigate();
+
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const inputValidation = (placeholder, additionalRules = {}) => ({
+    ...additionalRules,
+    required: `${placeholder} är obligatoriskt`,
+  });
 
   // When a purchase is successful, update the stock amount accordingly
   const onSubmit = async (formData) => {
@@ -397,31 +402,68 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         <div className="credit-card-info">
                           {/* Credit Card Details */}
                           <div>
-                            <label htmlFor="creditCard">Kortnummer</label>
+                            {/* Kortnummer */}
+                            {errors.creditCard && (
+                              <span className="form-error">
+                                {errors.creditCard.message}
+                              </span>
+                            )}
                             <input
-                              {...register("creditCard", { required: true })}
+                              {...register(
+                                "creditCard",
+                                inputValidation("Kortnummer", {
+                                  pattern: {
+                                    value: /^\d{16}$/,
+                                    message: "Ogiltigt kortnummer",
+                                  },
+                                })
+                              )}
                               type="text"
                               placeholder="1234 5678 9012 3456"
                               id="creditCard"
                             />
                           </div>
-
-                          {/* Expiry Date */}
                           <div>
-                            <label htmlFor="expiryDate">Giltigt till:</label>
+                            {/* Giltigt till */}
+                            {errors.expiryDate && (
+                              <span className="form-error">
+                                {errors.expiryDate.message}
+                              </span>
+                            )}
                             <input
-                              {...register("expiryDate", { required: true })}
+                              {...register(
+                                "expiryDate",
+                                inputValidation("Giltigt till", {
+                                  pattern: {
+                                    value: /^(0[1-9]|1[0-2])\/\d{2}$/,
+                                    message: "Ogiltigt datumformat",
+                                  },
+                                })
+                              )}
                               type="text"
                               id="expiryDate"
                               placeholder="MM/ÅÅ"
                             />
                           </div>
 
-                          {/* CVV */}
+                          {/* CVV/CVC */}
                           <div>
-                            <label htmlFor="cvv">CVV/CVC</label>
+                            {/* CVV/CVC */}
+                            {errors.cvv && (
+                              <span className="form-error">
+                                {errors.cvv.message}
+                              </span>
+                            )}
                             <input
-                              {...register("cvv", { required: true })}
+                              {...register(
+                                "cvv",
+                                inputValidation("CVV/CVC", {
+                                  pattern: {
+                                    value: /^\d{3}$/,
+                                    message: "Ogiltigt CVV/CVC",
+                                  },
+                                })
+                              )}
                               type="text"
                               id="cvv"
                               placeholder="3 siffror"

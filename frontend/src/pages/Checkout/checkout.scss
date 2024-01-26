@@ -2,7 +2,7 @@
   .container {
     padding-top: 3rem;
     background-color: white;
-    min-height: calc(165vh - 9rem);
+    min-height: calc(150vh - 9rem);
   }
 
   h3 {
@@ -78,13 +78,20 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 1rem;
+    gap: 2px;
     input {
       padding-left: 10px;
       width: 100%;
       height: 3rem;
       border-radius: 5px;
       border: 1px solid rgba(182, 182, 182, 0.2);
+      margin: 2px;
     }
+  }
+
+  .form-error {
+    color: red;
+    padding-left: 0.5rem;
   }
 
   .shipping-options,
@@ -215,6 +222,7 @@
         padding-left: 30px;
       }
       input {
+        margin: 2px;
         padding-left: 30px;
         width: 100%;
         height: 3rem;

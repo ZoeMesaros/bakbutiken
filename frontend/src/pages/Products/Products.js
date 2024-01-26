@@ -119,7 +119,7 @@ const ProductsPage = () => {
                   Skålar
                 </Link>
                 <Link to="/products/decorations" className="hover-effect">
-                  Dekoration
+                  Dekorationer
                 </Link>
               </div>
               <div className="cards">

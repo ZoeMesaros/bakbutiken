@@ -69,7 +69,7 @@ const AboutPage = () => {
                       hitta de perfekta verktygen för dina bakäventyr.
                     </li>
                   </ul>
-
+                  <br></br>
                   <p>
                     Tack för att du valt Bakbutiken. Oavsett om du är en erfaren
                     bagare eller bara börjar är vi här för att stödja din

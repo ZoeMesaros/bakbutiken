@@ -107,7 +107,12 @@ const HomePage = () => {
                             Slutsålt
                           </button>
                         ) : (
-                          <button className="btn card-btn">Läs mer</button>
+                          <Link
+                            className="btn card-btn"
+                            to={`/products/${product.category}/${product.slug}`}
+                          >
+                            Läs mer
+                          </Link>
                         )}
                       </div>
                     </div>

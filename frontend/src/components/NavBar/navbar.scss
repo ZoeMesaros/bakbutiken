@@ -9,11 +9,11 @@ header {
   }
 
   .header-nav {
+    font-family: "Poppins", sans-serif;
     align-items: center;
     display: grid;
     grid-template-columns: 11rem auto 4rem;
     height: 9rem;
-
     .header-logo {
       img {
         max-width: 11rem;
@@ -30,6 +30,9 @@ header {
     .main-nav-items {
       text-align: center;
       width: 100%;
+      .nav-item .nav-link:hover {
+        color: #dce0de;
+      }
     }
 
     .mb-0 {
@@ -91,7 +94,7 @@ header {
       }
       .btn-cart {
         position: relative;
-        width: 8rem;
+        width: 8.5rem;
         padding-left: 10px;
         padding-right: 45px;
         padding-top: 5px;
@@ -117,13 +120,14 @@ header {
           position: absolute;
           width: 32px;
           height: 32px;
-          transform: translate(37px, -30px);
+          transform: translate(42px, -30px);
           opacity: 75%;
         }
       }
       .nav-link {
         color: rgb(28, 28, 28);
         font-size: 17px;
+        font-family: "Poppins", sans-serif;
       }
     }
   }
@@ -143,6 +147,7 @@ header {
 
 .nav-link {
   margin: 0 50px;
+  font-family: "Poppins", sans-serif;
 }
 
 #mobile-nav {
@@ -176,4 +181,5 @@ header {
 
 .nav-link {
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
 }
