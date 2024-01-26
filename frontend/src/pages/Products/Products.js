@@ -8,6 +8,7 @@ import allProducts from "../../assets/images/all-products.jpg";
 import utensils from "../../assets/images/utensils.jpg";
 import pans from "../../assets/images/pans.jpg";
 import decorations from "../../assets/images/decorations.jpg";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const cardBannerAll = {
   backgroundImage: `url(${allProducts})`,
@@ -47,6 +48,7 @@ const ProductsPage = () => {
     handlePageChange,
     handleCategoryClickHook,
     selectedCategory,
+    loading,
   } = useProductFetch();
   const { category } = useParams();
   const navigate = useNavigate();
@@ -85,6 +87,10 @@ const ProductsPage = () => {
         return cardBannerAll;
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>

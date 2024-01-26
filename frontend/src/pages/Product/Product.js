@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import NotFoundPage from "../404/NotFound";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import "./product.scss";
 
 const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
@@ -10,6 +11,7 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const [materialsOpen, setMaterialsOpen] = useState(false);
   const [existingCartItem, setExistingCartItem] = useState(null);
   const [productNotFound, setProductNotFound] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Use useParams to get both category and slug
   const { category, slug } = useParams();
@@ -26,7 +28,9 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
         );
         setProduct(response.data);
         setExistingCartItem(existingCartItem);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         setProduct(null);
         setProductNotFound(true);
         console.error("Error fetching product:", error);
@@ -35,12 +39,16 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
     fetchSingleProduct();
   }, [category, slug, cart]);
 
+  if (loading) {
+    return <LoadingSpinner />; // Display the loading spinner while data is being fetched
+  }
+
   if (productNotFound) {
     return <NotFoundPage />;
   }
 
   if (!product) {
-    return <p>Loading...</p>; // or return an error message
+    return <p>Loading...</p>;
   }
 
   //Add to cart funcitonality

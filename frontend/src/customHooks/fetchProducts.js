@@ -8,6 +8,7 @@ const useProductFetch = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
     try {
@@ -21,6 +22,8 @@ const useProductFetch = () => {
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false); // Set loading to false when the request is completed
     }
   };
 
@@ -40,6 +43,7 @@ const useProductFetch = () => {
     products,
     currentPage,
     selectedCategory,
+    loading,
     fetchProducts,
     handlePageChange,
     handleCategoryClickHook,
