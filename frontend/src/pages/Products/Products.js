@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "./products.scss";
+import NotFoundPage from "../404/NotFound";
 import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
 import utensils from "../../assets/images/utensils.jpg";
@@ -48,7 +49,6 @@ const ProductsPage = () => {
     selectedCategory,
   } = useProductFetch();
   const { category } = useParams();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +63,13 @@ const ProductsPage = () => {
     },
     [handleCategoryClickHook, navigate]
   );
+
+  if (
+    category &&
+    !["pans", "utensils", "decorations", "bowls"].includes(category)
+  ) {
+    return <NotFoundPage />;
+  }
 
   const getBanner = () => {
     switch (selectedCategory) {

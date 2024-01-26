@@ -2,10 +2,19 @@
   .container {
     padding-top: 3rem;
     background-color: white;
-    min-height: calc(150vh - 9rem);
-    .success-animation {
-      width: 100px; // Remove the quotation marks
-      height: 100px; // Remove the quotation marks
+    min-height: calc(71vh - 9rem);
+    font-family: "Poppins", sans-serif;
+    svg {
+      width: 50% !important;
+      height: 50% !important;
+    }
+    .text-center {
+      p {
+        font-size: 17px;
+      }
+      a {
+        color: grey;
+      }
     }
   }
 }

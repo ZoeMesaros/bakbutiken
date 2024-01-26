@@ -13,6 +13,7 @@ import SuccessPage from "./pages/Success/Success";
 import AboutPage from "./pages/About/About";
 import ContactPage from "./pages/Contact/Contact";
 import Footer from "./components/Footer/Footer";
+import NotFoundPage from "./pages/404/NotFound";
 
 function App() {
   const {
@@ -53,6 +54,9 @@ function App() {
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/*" element={<NotFoundPage />} />
+        <Route path="/products/*" element={<NotFoundPage />} />
+        <Route path="/products/:category/*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </main>

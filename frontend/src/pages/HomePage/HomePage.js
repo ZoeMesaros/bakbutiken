@@ -18,6 +18,18 @@ const HomePage = () => {
     backgroundPosition: "100% 7%",
   };
 
+  const categories = [
+    {
+      category: "pans",
+      image: "path/to/pan-image.jpg",
+      title: "Stylish Pan",
+      description: "Discover our latest stylish pans with advanced features.",
+      price: 49.99,
+    },
+    // Add similar data for bowls, utensils, and decorations
+    // ...
+  ];
+
   return (
     <div className="home-page">
       <div className="container">

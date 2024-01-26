@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import NotFoundPage from "../404/NotFound";
 import "./product.scss";
 
 const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
@@ -8,6 +9,7 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
   const [materialsOpen, setMaterialsOpen] = useState(false);
   const [existingCartItem, setExistingCartItem] = useState(null);
+  const [productNotFound, setProductNotFound] = useState(false);
 
   // Use useParams to get both category and slug
   const { category, slug } = useParams();
@@ -26,11 +28,20 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
         setExistingCartItem(existingCartItem);
       } catch (error) {
         setProduct(null);
+        setProductNotFound(true);
         console.error("Error fetching product:", error);
       }
     };
     fetchSingleProduct();
   }, [category, slug, cart]);
+
+  if (productNotFound) {
+    return <NotFoundPage />;
+  }
+
+  if (!product) {
+    return <p>Loading...</p>; // or return an error message
+  }
 
   //Add to cart funcitonality
   const AddToCart = () => {
