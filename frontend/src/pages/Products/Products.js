@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "./products.scss";
@@ -42,35 +42,22 @@ const cardBannerDecorations = {
 
 // All products page
 const ProductsPage = () => {
-  const {
-    products,
-    currentPage,
-    handlePageChange,
-    handleCategoryClickHook,
-    selectedCategory,
-    loading,
-  } = useProductFetch();
   const { category } = useParams();
-  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const selectedCategory = category || "";
+
+  const { products, loading } = useProductFetch(selectedCategory, currentPage);
 
   useEffect(() => {
-    handleCategoryClickHook(category || "");
-  }, [category, handleCategoryClickHook]);
+    setCurrentPage(1);
+  }, [selectedCategory]);
 
-  const handleAllCategoryClick = useCallback(
-    (e) => {
-      e.preventDefault();
-      handleCategoryClickHook("");
-      navigate("/products");
-    },
-    [handleCategoryClickHook, navigate]
-  );
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
-  if (
-    category &&
-    !["pans", "utensils", "decorations", "bowls"].includes(category)
-  ) {
-    return <NotFoundPage />;
+  if (loading) {
+    return <LoadingSpinner />;
   }
 
   const getBanner = () => {
@@ -115,11 +102,7 @@ const ProductsPage = () => {
           <div className="row items-row">
             <div className="col-md-6 col-lg-4 mx-auto">
               <div className="col product-category">
-                <Link
-                  to="/products"
-                  onClick={handleAllCategoryClick}
-                  className="hover-effect"
-                >
+                <Link to="/products" className="hover-effect">
                   Alla
                 </Link>
                 <Link to="/products/pans" className="hover-effect">
@@ -235,28 +218,26 @@ const ProductsPage = () => {
             <nav className="pag-nav">
               <ul className="pagination ">
                 {currentPage > 1 && (
-                  <li
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handlePageChange(currentPage - 1);
-                    }}
-                    className="page-item"
-                  >
-                    <a className="page-link">Föregående</a>
+                  <li className="page-item">
+                    <a
+                      className="page-link"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                      Föregående
+                    </a>
                   </li>
                 )}
                 <li className="page-item">
                   <a className="page-link">{currentPage}</a>
                 </li>
                 {products.length === 12 && (
-                  <li
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handlePageChange(currentPage + 1);
-                    }}
-                    className="page-item"
-                  >
-                    <a className="page-link">Nästa</a>
+                  <li className="page-item">
+                    <a
+                      className="page-link"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                    >
+                      Nästa
+                    </a>
                   </li>
                 )}
               </ul>

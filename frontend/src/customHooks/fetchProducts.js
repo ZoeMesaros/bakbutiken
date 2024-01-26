@@ -1,13 +1,9 @@
-// useProductFetch.js
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 // Custom hook to fetch products
-const useProductFetch = () => {
+const useProductFetch = (selectedCategory, currentPage) => {
   const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
@@ -23,7 +19,7 @@ const useProductFetch = () => {
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
-      setLoading(false); // Set loading to false when the request is completed
+      setLoading(false);
     }
   };
 
@@ -31,23 +27,7 @@ const useProductFetch = () => {
     fetchProducts();
   }, [selectedCategory, currentPage]);
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-  const handleCategoryClickHook = (category) => {
-    setSelectedCategory(category);
-  };
-
-  return {
-    products,
-    currentPage,
-    selectedCategory,
-    loading,
-    fetchProducts,
-    handlePageChange,
-    handleCategoryClickHook,
-  };
+  return { products, loading };
 };
 
 export default useProductFetch;
