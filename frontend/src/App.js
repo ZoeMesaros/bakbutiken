@@ -14,7 +14,6 @@ import AboutPage from "./pages/About/About";
 import ContactPage from "./pages/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import NotFoundPage from "./pages/404/NotFound";
-import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
 function App() {
   const {

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import NotFoundPage from "../404/NotFound";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import "./product.scss";
 
 const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
@@ -87,7 +88,10 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
           </Link>
           <div className="product-info">
             <div className="product-image">
-              <img src={product.imgSingle} alt={product.name} />
+              <ImageComponent
+                imageUrl={product.imgSingle}
+                imageName={product.name}
+              />
             </div>
             <div className="product-details">
               <h2 className="product-name">{product.name}</h2>

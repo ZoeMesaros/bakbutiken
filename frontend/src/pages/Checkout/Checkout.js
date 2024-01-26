@@ -37,7 +37,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
     try {
       console.log("Sending request with data:", cart);
       const response = await fetch(
-        "http://localhost:5000/api/products/update-stock",
+        `http://localhost:5000/api/products/${cart[0]._id}/update-stock`,
         {
           method: "PUT",
           headers: {

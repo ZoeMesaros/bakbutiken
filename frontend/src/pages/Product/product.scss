@@ -153,7 +153,7 @@
     opacity: 1;
   }
 
-  .product-image {
+  /* .product-image {
     text-align: center;
 
     img {
@@ -162,7 +162,7 @@
       object-fit: cover;
       border-radius: 10%;
     }
-  }
+  } */
 
   .product-details {
     display: flex;
@@ -209,7 +209,7 @@
       width: 100%;
     }
 
-    .product-image {
+    /*     .product-image {
       grid-area: image;
       text-align: center;
       display: flex;
@@ -221,7 +221,7 @@
         max-width: 80%;
         object-fit: cover;
       }
-    }
+    } */
     #accordionFlushExample {
       height: auto;
     }
