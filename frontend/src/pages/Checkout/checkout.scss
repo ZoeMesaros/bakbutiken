@@ -1,5 +1,8 @@
 .checkout-page {
   .container {
+    @media (max-width: 768px) {
+      min-height: 218vh;
+    }
     padding-top: 3rem;
     background-color: white;
     min-height: calc(150vh - 9rem);

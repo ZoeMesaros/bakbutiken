@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./homepage.scss";
 import offersBg from "../../assets/images/offers-bg.jpg";
+import pageBg from "../../assets/images/all-products.jpg";
 import { Link } from "react-router-dom";
 import useProductFetch from "../../customHooks/fetchProducts";
 
@@ -24,17 +25,11 @@ const HomePage = () => {
     backgroundPosition: "100% 7%",
   };
 
-  const categories = [
-    {
-      category: "pans",
-      image: "path/to/pan-image.jpg",
-      title: "Stylish Pan",
-      description: "Discover our latest stylish pans with advanced features.",
-      price: 49.99,
-    },
-    // Add similar data for bowls, utensils, and decorations
-    // ...
-  ];
+  const pageBannerStyle = {
+    backgroundImage: `url(${pageBg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "100% 15%",
+  };
 
   return (
     <div className="home-page">
@@ -139,7 +134,10 @@ const HomePage = () => {
               </div>
             </div>
             <section className="pt-5 pb-3">
-              <div className="card p-4 bg-custom">
+              <div
+                className="card p-4 bg-custom page-banner"
+                style={pageBannerStyle}
+              >
                 <div className="row align-items-center">
                   <div className="col">
                     <h4 className="mb-0">

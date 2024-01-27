@@ -5,9 +5,8 @@ import "./products.scss";
 import NotFoundPage from "../404/NotFound";
 import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
-import utensils from "../../assets/images/utensils.jpg";
+import utensils from "../../assets/images/bakbutiken-om.jpg";
 import pans from "../../assets/images/pans.jpg";
-import decorations from "../../assets/images/decorations.jpg";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const cardBannerAll = {
@@ -19,7 +18,7 @@ const cardBannerAll = {
 const cardBannerUtensils = {
   backgroundImage: `url(${utensils})`,
   backgroundSize: "cover",
-  backgroundPosition: "100% 35%",
+  backgroundPosition: "100% 15%",
 };
 
 const cardBannerPans = {
@@ -35,9 +34,9 @@ const cardBannerBowls = {
 };
 
 const cardBannerDecorations = {
-  backgroundImage: `url(${decorations})`,
+  backgroundImage: `url(${utensils})`,
   backgroundSize: "cover",
-  backgroundPosition: "100% 40%",
+  backgroundPosition: "100% 90%",
 };
 
 // All products page
@@ -62,16 +61,71 @@ const ProductsPage = () => {
 
   const getBanner = () => {
     switch (selectedCategory) {
-      case "pans":
+      case "bakformar":
         return cardBannerPans;
-      case "utensils":
+      case "verktyg":
         return cardBannerUtensils;
-      case "decorations":
+      case "dekorationer":
         return cardBannerDecorations;
-      case "bowls":
+      case "skalar":
         return cardBannerBowls;
       default:
         return cardBannerAll;
+    }
+  };
+
+  const renderCategoryBanner = () => {
+    switch (selectedCategory) {
+      case "bakformar":
+        return (
+          <>
+            <h2 className="text-color">Upptäck Fantastiska Bakformar</h2>
+            <p className="text-color">
+              Utforska vårt sortiment av bakformar för att skapa magiska bakverk
+              hemma. Hitta den perfekta formen för ditt nästa bakprojekt!
+            </p>
+          </>
+        );
+      case "verktyg":
+        return (
+          <>
+            <h2 className="text-color">De Bästa Verktygen för Hemmabagaren</h2>
+            <p className="text-color">
+              Upptäck essentiella verktyg för att förbättra dina bakfärdigheter.
+              Vi erbjuder högkvalitativa verktyg för varje hemmabagares behov.
+            </p>
+          </>
+        );
+      case "skalar":
+        return (
+          <>
+            <h2 className="text-color">Stilfulla Skålar för Dina Mästerverk</h2>
+            <p className="text-color">
+              Våra vackra skålar gör inte bara din bakning enklare, utan ger
+              också en extra touch av stil till dina bakverk.
+            </p>
+          </>
+        );
+      case "dekorationer":
+        return (
+          <>
+            <h2 className="text-color">Skapa Magi med Våra Dekorationer</h2>
+            <p className="text-color">
+              Utforska vårt sortiment av dekorationer och ge dina bakverk en
+              fantastisk touch. Låt kreativiteten flöda!
+            </p>
+          </>
+        );
+      default:
+        return (
+          <>
+            <h2 className="text-color">Utforska Vårt Fantastiska Sortiment</h2>
+            <p className="text-color">
+              Oavsett hur långt du har kommit som hemmabagare finns det alltid
+              något nytt att upptäcka. Ta del av våra erbjudanden idag!
+            </p>
+          </>
+        );
     }
   };
 
@@ -83,22 +137,21 @@ const ProductsPage = () => {
     <>
       <div className="product-page">
         <div className="container align-items-center">
-          {/* <div className="row mx-auto">
-            <main className="row category-row">
-              <div className="card-banner p-2 rounded-5" style={getBanner()}>
-                <div style={{ height: "150px" }}>
-                  <h2 className="text-color">
-                    Fantastiska produkter med <br />
-                    de bästa erbjudandena
-                  </h2>
-                  <p className="text-color">
-                    Oavsett hur långt du har kommit som hemmabagare finns det
-                    alltid något nytt att upptäcka.
-                  </p>
+          <div className="row">
+            <main className="row category-row ">
+              <div
+                className="card-banner m-3 p-2 rounded-5"
+                style={getBanner()}
+              >
+                <div
+                  className="default-banner-text"
+                  style={{ height: "150px" }}
+                >
+                  {renderCategoryBanner()}
                 </div>
               </div>
             </main>
-          </div> */}
+          </div>
           <div className="row items-row">
             <div className="col-md-6 col-lg-4 mx-auto">
               <div className="col product-category">
