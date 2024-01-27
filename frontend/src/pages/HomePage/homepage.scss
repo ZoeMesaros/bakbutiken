@@ -7,7 +7,8 @@
       .row > aside {
         margin-top: 2rem;
       }
-      .latest-section h3 {
+      .latest-section,
+      .best-section > h3 {
         text-align: center;
       }
     }
@@ -19,13 +20,29 @@
         letter-spacing: 0.8px;
       }
     }
+
+    .p-4 {
+      background-color: #d67fa6;
+      font-family: "Poppins", sans-serif;
+      box-shadow: rgba(255, 255, 255, 0.194) 0px -50px 36px -28px inset;
+      h4 {
+        font-size: 1.4rem;
+        color: rgb(255, 255, 255);
+      }
+      p {
+        font-size: 1rem;
+        color: rgb(255, 255, 255);
+      }
+    }
   }
 
-  .latest-section {
+  .latest-section,
+  .best-section {
     margin-top: 2rem;
   }
 
-  .latest-products {
+  .latest-products,
+  .best-products {
     display: grid;
     gap: 15px;
     justify-content: center;

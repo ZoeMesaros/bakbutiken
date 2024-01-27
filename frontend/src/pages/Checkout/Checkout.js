@@ -35,33 +35,38 @@ const CheckoutPage = ({ cart, clearCart }) => {
   // When a purchase is successful, update the stock amount accordingly
   const onSubmit = async (formData) => {
     try {
-      console.log("Sending request with data:", cart);
+      const cartData = cart.map(({ _id, quantity }) => ({ _id, quantity }));
+
+      console.log("Sending request with data:", cartData);
+
       const response = await fetch(
-        `http://localhost:5000/api/products/${cart[0]._id}/update-stock`,
+        `http://localhost:5000/api/products/${cart[0]._id}/update-stock-orders`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(cart),
+          body: JSON.stringify(cartData),
         }
       );
 
       if (!response.ok) {
         console.error(
-          "Failed to update stock:",
+          "Failed to update stock and orders:",
           response.status,
           response.statusText
         );
+      } else {
+        const responseData = await response.json();
+        console.log("Server response:", responseData);
       }
-      // Handle successful stock update
-      console.log("Stock updated successfully");
+
+      console.log("Stock and orders updated successfully");
       localStorage.removeItem("cart");
       clearCart();
       navigate("/success");
     } catch (error) {
-      console.error("Error updating stock:", error);
-      // Handle error appropriately
+      console.error("Error updating stock and orders:", error);
     }
     console.log(formData);
   };

@@ -90,61 +90,68 @@ dbo.connectToServer((err) => {
     }
   });
 
-  // Update stock endpoint
-  app.put("/api/products/:slugOrBatch/update-stock", async (req, res) => {
-    console.log(
-      "Received a PUT request to /api/products/:slugOrBatch/update-stock"
-    );
+  // Update stock and orders endpoint when making a successful purchase
+  app.put(
+    "/api/products/:slugOrBatch/update-stock-orders",
+    async (req, res) => {
+      console.log(
+        "Received a PUT request to /api/products/:slugOrBatch/update-stock-orders"
+      );
 
-    const identifier = req.params.slugOrBatch;
-    const cartItems = req.body;
-    console.log("Received cart items:", cartItems);
+      const identifier = req.params.slugOrBatch;
+      const cartItems = req.body;
+      console.log("Received cart items:", cartItems);
 
-    try {
-      const db_connect = dbo.getDb();
+      let result;
 
-      // If identifier is a slug, update stock for a single product
-      if (ObjectId.isValid(identifier)) {
-        // Update stock for a single product
-        const result = await db_connect
-          .collection("products")
-          .updateOne(
+      try {
+        const db_connect = dbo.getDb();
+
+        if (ObjectId.isValid(identifier)) {
+          result = await db_connect.collection("products").updateOne(
             { _id: new ObjectId(identifier) },
-            { $inc: { inStock: -cartItems[0].quantity } }
+            {
+              $inc: {
+                inStock: -cartItems[0].quantity,
+                orders: cartItems[0].quantity,
+              },
+            }
           );
 
-        // Check if the product was found and updated successfully
-        if (result.matchedCount === 0) {
-          console.log("Product not found for ID:", identifier);
-          res.status(404).json({ error: "Product not found" });
-          return;
-        }
-      } else {
-        // Loop through each item in the cart and update the stock for multiple products
-        for (const cartItem of cartItems) {
-          const result = await db_connect
-            .collection("products")
-            .updateOne(
-              { _id: new ObjectId(cartItem._id) },
-              { $inc: { inStock: -cartItem.quantity } }
-            );
-
-          // Check if the product was found and updated successfully
           if (result.matchedCount === 0) {
-            console.log("Product not found for ID:", cartItem._id);
+            console.log("Product not found for ID:", identifier);
             res.status(404).json({ error: "Product not found" });
             return;
           }
-        }
-      }
+        } else {
+          for (const cartItem of cartItems) {
+            result = await db_connect.collection("products").updateOne(
+              { _id: new ObjectId(cartItem._id) },
+              {
+                $inc: {
+                  inStock: -cartItem.quantity,
+                  orders: cartItem.quantity,
+                },
+              }
+            );
 
-      console.log("Stock updated successfully");
-      res.json({ message: "Stock updated successfully" });
-    } catch (error) {
-      console.error("Error updating stock:", error);
-      res.status(500).send("Internal Server Error");
+            if (result.matchedCount === 0) {
+              console.log("Product not found for ID:", cartItem._id);
+              res.status(404).json({ error: "Product not found" });
+              return;
+            }
+          }
+        }
+
+        console.log("Update result:", result);
+        console.log("Stock and orders updated successfully");
+        res.json({ message: "Stock and orders updated successfully" });
+      } catch (error) {
+        console.error("Error updating stock and orders:", error);
+        res.status(500).send("Internal Server Error");
+      }
     }
-  });
+  );
 });
 
 app.listen(port, () => {

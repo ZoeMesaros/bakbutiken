@@ -12,6 +12,12 @@ const HomePage = () => {
     .slice(0, 4) // Limit to the first 5 items
     .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)); // Sort by dateAdded
 
+  // Display the 4 best-selling items based on items ordered
+  const bestSellingProducts = products
+    .slice()
+    .sort((a, b) => b.orders - a.orders)
+    .slice(0, 4);
+
   const cardBannerStyle = {
     backgroundImage: `url(${offersBg})`,
     backgroundSize: "cover",
@@ -84,6 +90,74 @@ const HomePage = () => {
               <h3>Nyheter</h3>
               <div className="latest-products">
                 {latestProducts.map((product) => (
+                  <div className="cards-item" key={product._id}>
+                    <div className="card">
+                      <div className={`sale${product.onSale ? "-item" : ""} `}>
+                        {product.onSale && <span>REA</span>}
+                      </div>
+                      <div className="card-image">
+                        <img src={product.img} alt={product.name} />
+                      </div>
+                      <div className="card-content">
+                        <div className="card-text">
+                          <h2 className="card-title">{product.name}</h2>
+                          <p
+                            className={`card-price ${
+                              product.onSale ? "-sale" : ""
+                            }`}
+                          >
+                            <span
+                              className={`item-price${
+                                product.onSale ? "-sale" : ""
+                              }`}
+                            >
+                              {product.price} Kr
+                            </span>
+                            {product.onSale && (
+                              <span className="sale-price">
+                                &nbsp; {product.salePrice} Kr
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                        {product.inStock === 0 ? (
+                          <button className="btn soldout" disabled>
+                            Slutsålt
+                          </button>
+                        ) : (
+                          <Link
+                            className="btn card-btn"
+                            to={`/produkter/${product.category}/${product.slug}`}
+                          >
+                            Läs mer
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <section className="pt-5 pb-3">
+              <div className="card p-4 bg-custom">
+                <div className="row align-items-center">
+                  <div className="col">
+                    <h4 className="mb-0">
+                      Utforska vårt sortiment av högkvalitativa
+                      bakningsprodukter
+                    </h4>
+                    <p className="mb-0">
+                      Hitta allt du behöver för att skapa läckra bakverk och
+                      njut av en fantastisk bakningsupplevelse.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div className="best-section pb-5">
+              <h3>Bästsäljare</h3>
+              <div className="best-products">
+                {bestSellingProducts.map((product) => (
                   <div className="cards-item" key={product._id}>
                     <div className="card">
                       <div className={`sale${product.onSale ? "-item" : ""} `}>
