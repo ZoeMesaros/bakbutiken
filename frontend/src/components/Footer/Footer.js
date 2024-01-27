@@ -57,16 +57,16 @@ const Footer = () => {
             <h6 className="text-uppercase font-weight-bold mb-4">Produkter</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <Link to={"/products/pans"}>Bakformar</Link>
+                <Link to={"/produkter/bakformar"}>Bakformar</Link>
               </li>
               <li className="mb-2">
-                <Link to={"/products/utensils"}>Verktyg</Link>
+                <Link to={"/produkter/verktyg"}>Verktyg</Link>
               </li>
               <li className="mb-2">
-                <Link to={"/products/bowls"}>Skålar</Link>
+                <Link to={"/produkter/skalar"}>Skålar</Link>
               </li>
               <li className="mb-2">
-                <Link to={"/products/decorations"}>Dekorationer</Link>
+                <Link to={"/produkter/dekorationer"}>Dekorationer</Link>
               </li>
             </ul>
           </div>
@@ -77,13 +77,13 @@ const Footer = () => {
                 <Link to={"/"}>Hem</Link>
               </li>
               <li className="mb-2">
-                <Link to={"/products"}>Produkter</Link>
+                <Link to={"/produkter"}>Produkter</Link>
               </li>
               <li className="mb-2">
-                <Link to={"/about"}>Om oss</Link>
+                <Link to={"/om-oss"}>Om oss</Link>
               </li>
               <li className="mb-2">
-                <Link to={"/contact"}>Kontakt</Link>
+                <Link to={"/kontakt"}>Kontakt</Link>
               </li>
             </ul>
           </div>

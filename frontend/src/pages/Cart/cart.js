@@ -159,7 +159,7 @@ const CartPage = ({ cart, removeFromCart }) => {
                     <strong>&nbsp;{calculateTotalSumWithTax()} kr</strong>
                   </p>
                   <button>
-                    <Link to={"/checkout"}>Gå till kassan</Link>
+                    <Link to={"/kassa"}>Gå till kassan</Link>
                   </button>
                 </div>
               </div>

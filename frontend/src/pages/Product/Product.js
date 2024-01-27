@@ -83,7 +83,7 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
     <div className="single-product-page">
       <div className="container">
         <div className="row">
-          <Link to={"/products"}>
+          <Link to={"/produkter"}>
             <i className="fa-solid fa-arrow-left-long"></i>&nbsp;Gå tillbaka
           </Link>
           <div className="product-info">

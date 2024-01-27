@@ -51,7 +51,7 @@ const HomePage = () => {
                       alltid något nytt att upptäcka.
                     </p>
                     <Link
-                      to="/products"
+                      to="/produkter"
                       className="btn btn-light shadow-0 text-grey"
                     >
                       Visa alla produkter
@@ -71,7 +71,7 @@ const HomePage = () => {
                       vardagen så väl som till fest
                     </p>
                     <Link
-                      to="/products/decorations"
+                      to="/produkter/dekorationer"
                       className="btn btn-light shadow-0 text-grey"
                     >
                       Visa mer
@@ -121,7 +121,7 @@ const HomePage = () => {
                         ) : (
                           <Link
                             className="btn card-btn"
-                            to={`/products/${product.category}/${product.slug}`}
+                            to={`/produkter/${product.category}/${product.slug}`}
                           >
                             Läs mer
                           </Link>

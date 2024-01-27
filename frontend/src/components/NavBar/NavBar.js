@@ -36,17 +36,17 @@ const NavBar = ({ cart }) => {
                 </Link>
               </Nav.Item>
               <Nav.Item>
-                <Link to={"/products"} className="nav-link">
+                <Link to={"/produkter"} className="nav-link">
                   Produkter
                 </Link>
               </Nav.Item>
               <Nav.Item>
-                <Link to={"/about"} className="nav-link">
+                <Link to={"/om-oss"} className="nav-link">
                   Om oss
                 </Link>
               </Nav.Item>
               <Nav.Item>
-                <Link to={"/contact"} className="nav-link">
+                <Link to={"/kontakt"} className="nav-link">
                   Kontakt
                 </Link>
               </Nav.Item>
@@ -54,7 +54,7 @@ const NavBar = ({ cart }) => {
           </div>
           <div className="header-button">
             <button className={`btn-cart`}>
-              <Link to="/cart">
+              <Link to="/kundvagn">
                 <div className="d-md-block mb-0">
                   <p>Kundvagn</p>
                   {cart.length > 0 ? (
@@ -84,17 +84,17 @@ const NavBar = ({ cart }) => {
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/products"} className="nav-link">
+                  <Link to={"/produkter"} className="nav-link">
                     Produkter
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/about"} className="nav-link">
+                  <Link to={"/om-oss"} className="nav-link">
                     Om oss
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/contact"} className="nav-link">
+                  <Link to={"/kontakt"} className="nav-link">
                     Kontakt
                   </Link>
                 </Nav.Item>

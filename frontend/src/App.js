@@ -29,10 +29,10 @@ function App() {
       <NavBar cart={cart} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:category?" element={<ProductsPage />} />
+        <Route path="/produkter" element={<ProductsPage />} />
+        <Route path="/produkter/:category?" element={<ProductsPage />} />
         <Route
-          path="/products/:category/:slug"
+          path="/produkter/:category/:slug"
           element={
             <SingleProductPage
               cart={cart}
@@ -42,21 +42,21 @@ function App() {
           }
         />
         <Route
-          path="/cart"
+          path="/kundvagn"
           element={
             <CartPage cart={cart} removeFromCart={handleRemoveFromCart} />
           }
         />
         <Route
-          path="/checkout"
+          path="/kassa"
           element={<CheckoutPage cart={cart} clearCart={clearCart} />}
         />
         <Route path="/success" element={<SuccessPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/om-oss" element={<AboutPage />} />
+        <Route path="/kontakt" element={<ContactPage />} />
         <Route path="/*" element={<NotFoundPage />} />
-        <Route path="/products/*" element={<NotFoundPage />} />
-        <Route path="/products/:category/*" element={<NotFoundPage />} />
+        <Route path="/produkter/*" element={<NotFoundPage />} />
+        <Route path="/produkter/:category/*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </main>

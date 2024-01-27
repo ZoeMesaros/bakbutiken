@@ -102,19 +102,19 @@ const ProductsPage = () => {
           <div className="row items-row">
             <div className="col-md-6 col-lg-4 mx-auto">
               <div className="col product-category">
-                <Link to="/products" className="hover-effect">
+                <Link to="/produkter" className="hover-effect">
                   Alla
                 </Link>
-                <Link to="/products/pans" className="hover-effect">
+                <Link to="/produkter/bakformar" className="hover-effect">
                   Bakformar
                 </Link>
-                <Link to="/products/utensils" className="hover-effect">
+                <Link to="/produkter/verktyg" className="hover-effect">
                   Verktyg
                 </Link>
-                <Link to="/products/bowls" className="hover-effect">
+                <Link to="/produkter/skalar" className="hover-effect">
                   Skålar
                 </Link>
-                <Link to="/products/decorations" className="hover-effect">
+                <Link to="/produkter/dekorationer" className="hover-effect">
                   Dekorationer
                 </Link>
               </div>
@@ -160,7 +160,7 @@ const ProductsPage = () => {
                       </div>
                     ) : (
                       <Link
-                        to={`/products/${product.category}/${product.slug}`}
+                        to={`/produkter/${product.category}/${product.slug}`}
                         className="hover-effect"
                       >
                         <div className="card">

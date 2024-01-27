@@ -14,8 +14,8 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="contact-page d-flex align-items-center justify-content-center">
-      <div className="container">
+    <div className="contact-page ">
+      <div className="container ">
         <div className="contact-section">
           <h3 className="text-center contact-title">Kontakta oss</h3>
           <form onSubmit={handleSubmit(onSubmit)}>
