@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/images/bakbutiken.png";
 import "./footer.scss";
@@ -7,6 +7,8 @@ import "./footer.scss";
 // Footer component
 const Footer = () => {
   const [isRegistered, setRegistered] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -18,6 +20,11 @@ const Footer = () => {
     console.log("Form data submitted:", data);
     setRegistered(true);
   };
+
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <footer>
       <div className="container py-5">
@@ -57,16 +64,24 @@ const Footer = () => {
             <h6 className="text-uppercase font-weight-bold mb-4">Produkter</h6>
             <ul className="list-unstyled mb-0">
               <li className="mb-2">
-                <Link to={"/produkter/bakformar"}>Bakformar</Link>
+                <Link to={"/produkter/bakformar"} onClick={handleLinkClick}>
+                  Bakformar
+                </Link>
               </li>
               <li className="mb-2">
-                <Link to={"/produkter/verktyg"}>Verktyg</Link>
+                <Link to={"/produkter/verktyg"} onClick={handleLinkClick}>
+                  Verktyg
+                </Link>
               </li>
               <li className="mb-2">
-                <Link to={"/produkter/skalar"}>Skålar</Link>
+                <Link to={"/produkter/skalar"} onClick={handleLinkClick}>
+                  Skålar
+                </Link>
               </li>
               <li className="mb-2">
-                <Link to={"/produkter/dekorationer"}>Dekorationer</Link>
+                <Link to={"/produkter/dekorationer"} onClick={handleLinkClick}>
+                  Dekorationer
+                </Link>
               </li>
             </ul>
           </div>

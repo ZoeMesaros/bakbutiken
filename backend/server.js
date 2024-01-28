@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
 const app = express();
 require("dotenv").config({ path: __dirname + "/config.env" });
 
@@ -13,6 +15,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "default-secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
 const port = process.env.PORT || 5000;
 
 const dbo = require("./db/conn");
@@ -25,6 +35,48 @@ dbo.connectToServer((err) => {
   }
 
   // Set up routes after successful connection
+  // Admin login route
+  app.post("/admin/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+      const db_connect = dbo.getDb();
+      const admin = await db_connect.collection("admins").findOne({ username });
+
+      if (!admin) {
+        console.log("Admin not found");
+        res.status(401).json({ message: "Invalid username or password" });
+        return;
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, admin.password);
+
+      if (!isPasswordValid) {
+        console.log("Password mismatch");
+        res.status(401).json({ message: "Invalid username or password" });
+        return;
+      }
+
+      req.session.user = { username: admin.username, role: "admin" };
+
+      res.json({ message: "Login successful", user: req.session.user });
+    } catch (error) {
+      console.error("Error during admin login:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
+  // Admin logout route
+  app.post("/admin/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.json({ message: "Logout successful" });
+      }
+    });
+  });
 
   // Get a single product by category and slug
   app.get("/api/products/category/:category/:slug", async (req, res) => {
@@ -152,7 +204,24 @@ dbo.connectToServer((err) => {
       }
     }
   );
+
+  // Update stock and orders endpoint when making a successful purchase
+  app.put(
+    "/api/products/:slugOrBatch/update-stock-orders",
+    isAdminAuthenticated,
+    async (req, res) => {
+      // ... existing code for updating stock and orders
+    }
+  );
 });
+
+// Middleware to check if user is authenticated as admin
+function isAdminAuthenticated(req, res, next) {
+  if (req.session.user && req.session.user.role === "admin") {
+    return next();
+  }
+  res.status(401).json({ message: "Unauthorized" });
+}
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

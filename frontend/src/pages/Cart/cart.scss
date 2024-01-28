@@ -3,17 +3,17 @@
     padding-top: 3rem;
     background-color: white;
     min-height: calc(80vh - 9rem);
-    h3 {
+    .cart-title,
+    .cartamount-title {
       margin-left: 5rem;
     }
-    h5 {
-      margin-left: 5rem;
-    }
+
     @media (max-width: 982px) {
-      h3 {
+      .cart-title,
+      .cartamount-title {
         margin-left: 1rem;
       }
-      h5 {
+      .summary-title {
         margin-left: 1rem;
       }
     }
@@ -31,6 +31,13 @@
   h3 {
     padding-bottom: 1.5rem;
     font-family: "Poppins", sans-serif;
+  }
+
+  .no-cart-div {
+    font-family: "Poppins", sans-serif;
+    h4 {
+      font-weight: 400;
+    }
   }
 
   .main {

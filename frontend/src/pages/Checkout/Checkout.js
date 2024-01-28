@@ -506,11 +506,16 @@ const CheckoutPage = ({ cart, clearCart }) => {
             </>
           ) : (
             <>
-              <div className="col mx-5">
-                <h4>Inga produkter tillagda</h4>
-                <p>
-                  <Link to={"/products"}>Gå till sortiment</Link>
-                </p>
+              <div className="row no-items">
+                <h3 className="no-cart text-center pt-5">Kundvagn </h3>
+                <div className="col mx-5 d-flex align-items-center justify-content-center text-center no-cart-div mb-5">
+                  <div>
+                    <h4>Inga produkter tillagda</h4>
+                    <p>
+                      <Link to="/produkter">Gå till sortiment</Link>
+                    </p>
+                  </div>
+                </div>
               </div>
             </>
           )}

@@ -2,6 +2,7 @@
   .container {
     padding-top: 3rem;
     background-color: white;
+    min-height: calc(80vh - 9rem);
   }
 
   h3 {
@@ -228,6 +229,17 @@
         border-radius: 5px;
         border: 1px solid rgba(182, 182, 182, 0.2);
       }
+    }
+  }
+
+  .no-cart {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .no-cart-div {
+    font-family: "Poppins", sans-serif;
+    h4 {
+      font-weight: 400;
     }
   }
 

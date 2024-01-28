@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import useCart from "./customHooks/useCart";
@@ -14,6 +14,9 @@ import AboutPage from "./pages/About/About";
 import ContactPage from "./pages/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 import NotFoundPage from "./pages/404/NotFound";
+import useAuth from "./customHooks/useAuth";
+import AdminPage from "./pages/Admin/Admin";
+import LoginPage from "./pages/Login/Login";
 
 function App() {
   const {
@@ -23,6 +26,20 @@ function App() {
     handleRemoveSingleProduct,
     clearCart,
   } = useCart();
+
+  const navigate = useNavigate();
+
+  const { isLoggedIn, login, logout } = useAuth();
+
+  const handleLogin = async (credentials) => {
+    try {
+      const data = await login(credentials);
+      console.log(data.message); // Ensure that "Login successful" is logged
+      navigate("/admin", { replace: true }); // Redirect to /admin on successful login
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
 
   return (
     <main className="App">
@@ -54,6 +71,15 @@ function App() {
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/om-oss" element={<AboutPage />} />
         <Route path="/kontakt" element={<ContactPage />} />
+        <Route
+          path="/login"
+          element={<LoginPage handleLogin={handleLogin} />}
+        />
+        {isLoggedIn ? (
+          <Route path="/admin" element={<AdminPage />} />
+        ) : (
+          <Route path="/admin/*" element={<Navigate to="/" replace />} />
+        )}
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="/produkter/*" element={<NotFoundPage />} />
         <Route path="/produkter/:category/*" element={<NotFoundPage />} />
