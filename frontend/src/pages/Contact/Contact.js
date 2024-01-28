@@ -82,6 +82,7 @@ const ContactPage = () => {
                     {...register("message", { required: true })}
                     className="form-control rounded"
                     id="form-message"
+                    placeholder="Ditt meddelande..."
                   />
                 </div>
 

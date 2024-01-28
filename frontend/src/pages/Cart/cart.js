@@ -70,7 +70,7 @@ const CartPage = ({ cart, removeFromCart }) => {
         <h3>Kundvagn</h3>
         {cart.length > 0 ? (
           <>
-            <div className="col-md-7 text-muted pe-1 pb-3 mx-5">
+            <div className="col-md-7 text-muted pe-1 pb-3">
               <strong>
                 <h5>{calculateTotalQuantity()} artiklar i kundvagnen</h5>
               </strong>
@@ -98,7 +98,9 @@ const CartPage = ({ cart, removeFromCart }) => {
                         />
                       </div>
                       <div className="col">
-                        <Link to={`/products/${cartItem.slug}`}>
+                        <Link
+                          to={`/produkter/${cartItem.category}/${cartItem.slug}`}
+                        >
                           <div className="row text-muted">{cartItem.name}</div>
                         </Link>
                       </div>
@@ -170,7 +172,7 @@ const CartPage = ({ cart, removeFromCart }) => {
             <div className="col mx-5">
               <h4>Inga produkter tillagda</h4>
               <p>
-                <Link to={"/products"}>Gå till sortiment</Link>
+                <Link to={"/produkter"}>Gå till sortiment</Link>
               </p>
             </div>
           </>

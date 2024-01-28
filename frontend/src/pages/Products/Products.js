@@ -139,10 +139,7 @@ const ProductsPage = () => {
         <div className="container align-items-center">
           <div className="row">
             <main className="row category-row ">
-              <div
-                className="card-banner m-3 p-2 rounded-5"
-                style={getBanner()}
-              >
+              <div className="card-banner mt-3 rounded-5" style={getBanner()}>
                 <div
                   className="default-banner-text"
                   style={{ height: "150px" }}

@@ -4,9 +4,12 @@
     background-color: white;
     .about-title {
       margin-top: 2rem;
+      font-family: "Poppins", sans-serif;
     }
     .about-text {
       margin-top: 2rem;
+      font-family: "Poppins", sans-serif;
+      margin-bottom: 2rem;
     }
     .about-text-2 {
       margin-top: 3rem;
@@ -14,11 +17,12 @@
 
     @media (min-width: 768px) {
       .about-title {
-        margin-top: 7rem;
+        margin-top: 3rem;
         margin-bottom: 2rem;
       }
       .about-text {
         margin-top: 3rem;
+        margin-bottom: 3rem;
       }
     }
   }
