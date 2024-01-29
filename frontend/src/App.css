@@ -2,3 +2,10 @@
   min-height: 100vh;
   background-color: rgba(241, 229, 213, 0.241);
 }
+
+.admin-layout {
+  header,
+  footer {
+    display: none;
+  }
+}

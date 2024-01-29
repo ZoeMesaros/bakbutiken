@@ -1,10 +1,8 @@
 import { useState } from "react";
 
-// Custom hook for handling authentication logic
 const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Functionality to handle user login and send the post request
   const login = async (credentials) => {
     try {
       const response = await fetch("http://localhost:5000/admin/login", {
@@ -15,7 +13,6 @@ const useAuth = () => {
         body: JSON.stringify(credentials),
       });
 
-      //If response was successful set the setIsLoggedIn state to true
       if (response.ok) {
         const data = await response.json();
         setIsLoggedIn(true);
@@ -29,7 +26,6 @@ const useAuth = () => {
     }
   };
 
-  //Functionality to handle user logout
   const logout = async () => {
     try {
       const response = await fetch("http://localhost:5000/admin/logout", {

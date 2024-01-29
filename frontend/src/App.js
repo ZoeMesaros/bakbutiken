@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -18,6 +18,18 @@ import useAuth from "./customHooks/useAuth";
 import AdminPage from "./pages/Admin/Admin";
 import LoginPage from "./pages/Login/Login";
 
+const DefaultLayout = ({ children, cart }) => (
+  <div className="app-layout">
+    <NavBar cart={cart} />
+    {children}
+    <Footer />
+  </div>
+);
+
+const AdminLayout = ({ children }) => (
+  <div className="app-layout admin-layout">{children}</div>
+);
+
 function App() {
   const {
     cart,
@@ -27,64 +39,202 @@ function App() {
     clearCart,
   } = useCart();
 
-  const navigate = useNavigate();
-
   const { isLoggedIn, login, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async (credentials) => {
     try {
       const data = await login(credentials);
-      console.log(data.message); // Ensure that "Login successful" is logged
-      navigate("/admin", { replace: true }); // Redirect to /admin on successful login
+      console.log(data.message);
+      navigate("/admin");
     } catch (error) {
       console.error("Login failed:", error);
     }
   };
 
+  const handleLoginWrapper = (credentials) => {
+    handleLogin(credentials);
+  };
+
   return (
     <main className="App">
-      <NavBar cart={cart} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/produkter" element={<ProductsPage />} />
-        <Route path="/produkter/:category?" element={<ProductsPage />} />
+        <Route
+          path="/"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<HomePage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/produkter"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<ProductsPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/produkter/:category?"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<ProductsPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
         <Route
           path="/produkter/:category/:slug"
           element={
-            <SingleProductPage
-              cart={cart}
-              addToCart={handleAddToCart}
-              removeFromCart={handleRemoveSingleProduct}
-            />
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route
+                  index
+                  element={
+                    <SingleProductPage
+                      cart={cart}
+                      addToCart={handleAddToCart}
+                      removeFromCart={handleRemoveSingleProduct}
+                    />
+                  }
+                />
+              </Routes>
+            </DefaultLayout>
           }
         />
         <Route
           path="/kundvagn"
           element={
-            <CartPage cart={cart} removeFromCart={handleRemoveFromCart} />
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route
+                  index
+                  element={
+                    <CartPage
+                      cart={cart}
+                      removeFromCart={handleRemoveFromCart}
+                    />
+                  }
+                />
+              </Routes>
+            </DefaultLayout>
           }
         />
         <Route
           path="/kassa"
-          element={<CheckoutPage cart={cart} clearCart={clearCart} />}
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route
+                  index
+                  element={<CheckoutPage cart={cart} clearCart={clearCart} />}
+                />
+              </Routes>
+            </DefaultLayout>
+          }
         />
-        <Route path="/success" element={<SuccessPage />} />
-        <Route path="/om-oss" element={<AboutPage />} />
-        <Route path="/kontakt" element={<ContactPage />} />
+        <Route
+          path="/success"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<SuccessPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/om-oss"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<AboutPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/kontakt"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<ContactPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            isLoggedIn ? (
+              <AdminLayout>
+                <Routes>
+                  <Route
+                    index
+                    element={<AdminPage cart={cart} handleLogout={logout} />}
+                  />
+                </Routes>
+              </AdminLayout>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
         <Route
           path="/login"
-          element={<LoginPage handleLogin={handleLogin} />}
+          element={
+            isLoggedIn ? (
+              <Navigate to="/admin" replace />
+            ) : (
+              <DefaultLayout cart={cart}>
+                <Routes>
+                  <Route
+                    index
+                    element={<LoginPage handleLogin={handleLoginWrapper} />}
+                  />
+                </Routes>
+              </DefaultLayout>
+            )
+          }
         />
-        {isLoggedIn ? (
-          <Route path="/admin" element={<AdminPage />} />
-        ) : (
-          <Route path="/admin/*" element={<Navigate to="/" replace />} />
-        )}
-        <Route path="/*" element={<NotFoundPage />} />
-        <Route path="/produkter/*" element={<NotFoundPage />} />
-        <Route path="/produkter/:category/*" element={<NotFoundPage />} />
+
+        <Route
+          path="/*"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<NotFoundPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/produkter/*"
+          element={
+            <DefaultLayout cart={cart}>
+              <Routes>
+                <Route index element={<NotFoundPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/produkter/:category/*"
+          element={
+            <DefaultLayout>
+              <Routes>
+                <Route index element={<NotFoundPage />} />
+              </Routes>
+            </DefaultLayout>
+          }
+        />
       </Routes>
-      <Footer />
     </main>
   );
 }

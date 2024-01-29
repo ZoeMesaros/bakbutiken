@@ -1,72 +1,176 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import useProductFetch from "../../customHooks/fetchProducts";
+import "./admin.scss";
 
-//Admin page component
-const AdminPage = () => {
+// Admin page component
+const AdminPage = ({ handleLogout }) => {
+  const { category } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const selectedCategory = category || "";
+
+  const { products, loading } = useProductFetch(selectedCategory, currentPage);
+
+  const { handleSubmit, control, setValue } = useForm();
+
+  // State to track the open/closed state of each accordion
+  const [openAccordions, setOpenAccordions] = useState({});
+
+  const toggleAccordion = (productId) => {
+    setOpenAccordions((prevOpenAccordions) => ({
+      ...prevOpenAccordions,
+      [productId]: !prevOpenAccordions[productId],
+    }));
+  };
+
+  const handleInputChange = (productId, fieldName, value) => {
+    setValue(`${productId}.${fieldName}`, value);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory]);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleLogoutClick = () => {
+    if (typeof handleLogout === "function") {
+      handleLogout();
+    }
+  };
+
+  const onSubmit = (data) => {
+    // Handle form submission, send data to the server, etc.
+    console.log(data);
+  };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="admin-page">
       <div className="container">
+        <div className="d-flex justify-content-end">
+          <button onClick={handleLogoutClick} className="btn btn-danger m-5">
+            Logga ut
+          </button>
+        </div>
         <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <h3 className="text-center about-title">Om Bakbutiken</h3>
-            <div className="about-section mx-3 mt-4">
-              <main className="col ">
-                <div className="card-banner p-5 rounded-5"></div>
-              </main>
-              <div className="about-text">
-                <p>
-                  Välkommen till Bakbutiken, din destination för högkvalitativa
-                  bakningstillbehör! Vi är en startup som nyligen öppnade våra
-                  dörrar med en passion för att tillhandahålla bakentusiaster de
-                  finaste verktygen för fester och vardagsbaking.
-                </p>
-
-                <p>
-                  På Bakbutiken förstår vi glädjen och kreativiteten som bakning
-                  för med sig i människors liv. Oavsett om du planerar en
-                  speciell fest eller bara njuter av den enkla glädjen av att
-                  baka hemma har vi allt du behöver för att göra din
-                  bakupplevelse underbar.
-                </p>
-
-                <p>
-                  Vårt åtagande är att erbjuda ett kuraterat urval av
-                  bakningstillbehör för att säkerställa att du har tillgång till
-                  de bästa produkterna på marknaden. Från förstklassiga
-                  köksredskap till festliga dekorationer väljer vi våra
-                  produkter med kvalitet och överkomliga priser i åtanke.
-                </p>
-                <div className="about-text-2">
-                  <p>
-                    <strong>Varför välja Bakbutiken?</strong>
-                  </p>
-
-                  <ul>
-                    <li>
-                      Kvalitetsprodukter: Vi prioriterar högkvalitativa
-                      bakningstillbehör för dina kreativa äventyr.
-                    </li>
-                    <li>
-                      Fantastiska Erbjudanden: Njut av specialerbjudanden och
-                      rabatter för att göra din bakupplevelse ännu roligare.
-                    </li>
-                    <li>
-                      Brett Utbud: Hitta ett mångsidigt utbud av produkter
-                      lämpliga både för festbaking och dagligt bruk.
-                    </li>
-                    <li>
-                      Engagerat Team: Vårt team är dedikerat att hjälpa dig att
-                      hitta de perfekta verktygen för dina bakäventyr.
-                    </li>
-                  </ul>
-                  <br></br>
-                  <p>
-                    Tack för att du valt Bakbutiken. Oavsett om du är en erfaren
-                    bagare eller bara börjar är vi här för att stödja din
-                    bakningsresa. Utforska vår och upptäck glädjen med att baka
-                    hos Bakbutiken!
-                  </p>
-                </div>
-              </div>
+          <div className="col">
+            <div>
+              {products.map((product) => (
+                <form onSubmit={handleSubmit(onSubmit)} key={product._id}>
+                  <div className="row no-gutters border-top cart-item">
+                    <div className="row main align-items-center">
+                      <div className="col">
+                        <img className="admin-img" src={product.img} alt="" />
+                      </div>
+                      <div className="col">
+                        <div className="row text-muted">Namn</div>
+                        <div className="row text-muted">{product.name}</div>
+                      </div>
+                      <div className="col">
+                        <div className="row text-muted">På rea</div>
+                        <div className="row text-muted">{`${
+                          product.onSale ? "Ja" : "Nej "
+                        }`}</div>
+                      </div>
+                      <div className="col">
+                        <div className="row text-muted">Pris</div>
+                        <div className="row text-muted">
+                          {`${
+                            product.onSale
+                              ? `${product.salePrice}`
+                              : `${product.price}`
+                          }`}{" "}
+                          kr
+                        </div>
+                      </div>
+                      <button onClick={() => toggleAccordion(product._id)}>
+                        Redigera
+                      </button>
+                    </div>
+                    {openAccordions[product._id] && (
+                      <div
+                        className="col accordion-content"
+                        id={`field-${product._id}`}
+                      >
+                        <div className="admin-items-info">
+                          <div>
+                            Produktnamn
+                            <Controller
+                              name={`${product._id}.name`}
+                              control={control}
+                              defaultValue={product.name}
+                              render={({ field }) => (
+                                <input
+                                  type="text"
+                                  {...field}
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      product._id,
+                                      "name",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+                            />
+                          </div>
+                          <div>
+                            Pris
+                            <Controller
+                              name={`${product._id}.price`}
+                              control={control}
+                              defaultValue={product.price}
+                              render={({ field }) => (
+                                <input
+                                  type="number"
+                                  {...field}
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      product._id,
+                                      "price",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+                            />
+                          </div>
+                          <div>
+                            På REA
+                            <Controller
+                              name={`${product._id}.onSale`}
+                              control={control}
+                              defaultValue={product.onSale}
+                              render={({ field }) => (
+                                <input
+                                  type="checkbox"
+                                  {...field}
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      product._id,
+                                      "onSale",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              )}
+                            />
+                          </div>
+                        </div>
+                        <button type="submit">Spara</button>
+                      </div>
+                    )}
+                  </div>
+                </form>
+              ))}
             </div>
           </div>
         </div>

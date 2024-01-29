@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "./products.scss";
-import NotFoundPage from "../404/NotFound";
 import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
 import utensils from "../../assets/images/bakbutiken-om.jpg";
