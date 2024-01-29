@@ -75,6 +75,10 @@ const AdminPage = ({ handleLogout }) => {
                         <div className="row text-muted">{product.name}</div>
                       </div>
                       <div className="col">
+                        <div className="row text-muted">Antal i lager</div>
+                        <div className="row text-muted">{product.inStock}</div>
+                      </div>
+                      <div className="col">
                         <div className="row text-muted">På rea</div>
                         <div className="row text-muted">{`${
                           product.onSale ? "Ja" : "Nej "

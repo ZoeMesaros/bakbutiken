@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// Custom hook to fetch products
+// Custom hook to fetch all products
 const useProductFetch = (selectedCategory, currentPage) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);

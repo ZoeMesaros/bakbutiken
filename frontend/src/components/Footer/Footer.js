@@ -1,26 +1,28 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import logo from "../../assets/images/bakbutiken.png";
 import "./footer.scss";
 
-// Footer component
+//Footer navigation bar
 const Footer = () => {
+  //State to track if customer is registered
   const [isRegistered, setRegistered] = useState(false);
 
-  const navigate = useNavigate();
-
+  //React hook form functionality
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  //Submit the registration for the newsletter
   const onSubmit = (data) => {
     console.log("Form data submitted:", data);
     setRegistered(true);
   };
 
+  //When clicking a link, go to top of the page
   const handleLinkClick = () => {
     window.scrollTo(0, 0);
   };
@@ -113,6 +115,7 @@ const Footer = () => {
                 Du är nu registrerad till vårt nyhetsbrev
               </p>
             ) : (
+              /* Form for subscribing to the newsletter */
               <form
                 className="subscribe-form"
                 onSubmit={handleSubmit(onSubmit)}

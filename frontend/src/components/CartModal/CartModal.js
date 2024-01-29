@@ -2,11 +2,13 @@ import "./cartmodal.scss";
 
 //Modal to confirm the removal of more than 1 item
 const CartModal = ({ cartItem, removeFromCart, closeModal }) => {
+  // Confirm removing the items and closing modal when clicking "Ja"
   const handleConfirm = () => {
     removeFromCart(cartItem);
     closeModal();
   };
 
+  //Cancel the action and close the modal when clicking "Nej"
   const handleCancel = () => {
     closeModal();
   };

@@ -6,18 +6,8 @@ import logo from "../../assets/images/bakbutiken.png";
 import cartImg from "../../assets/images/cart.png";
 import cartItemImg from "../../assets/images/cart-item.png";
 
-// Navigation menu
+// Main avigation menu
 const NavBar = ({ cart }) => {
-  const [cartLength, setCartLength] = useState(cart.length);
-
-  // Calculate the total amount of items in the cart
-  const calculateTotalQuantity = () => {
-    return cart.reduce(
-      (total, cartItem) => total + Number(cartItem.quantity || 0),
-      0
-    );
-  };
-
   return (
     <>
       <header>
@@ -61,7 +51,7 @@ const NavBar = ({ cart }) => {
                     <>
                       <img src={cartItemImg} className="cart-img" />
                       <span
-                        className={`item${cartLength ? "-symbol" : ""}`}
+                        className={`item${cart.length ? "-symbol" : ""}`}
                       ></span>
                     </>
                   ) : (
