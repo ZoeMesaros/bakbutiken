@@ -40,47 +40,76 @@ const CheckoutPage = ({ cart, clearCart }) => {
     required: `${placeholder} är obligatoriskt`,
   });
 
-  // Function to submit the form with data to make a purchase
   const onSubmit = async (formData) => {
     try {
-      // When a purchase is successful, send a request with cart items to update the stock
       const cartData = cart.map(({ _id, quantity }) => ({ _id, quantity }));
 
-      console.log("Sending request with data:", cartData);
+      // Include order details and cart data in the request body
+      const requestBody = {
+        ...formData,
+        items: cartData,
+        totalAmount: calculateTotalSumWithShipping(),
+      };
 
-      // Send a request to update stock amount based on the products purchased
-      const response = await fetch(
-        `http://localhost:5000/api/products/${cart[0]._id}/update-stock-orders`,
+      // Step 1: Make a request to create a new order
+      const createOrderResponse = await fetch(
+        "http://localhost:5000/api/orders/new",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (!createOrderResponse.ok) {
+        console.error(
+          "Failed to create order:",
+          createOrderResponse.status,
+          createOrderResponse.statusText
+        );
+        return; // Exit if creating order fails
+      }
+
+      // Extract orderId from the response
+      const createOrderData = await createOrderResponse.json();
+      const orderId = createOrderData.orderId;
+
+      // Step 2: Make a request to update stock for the created order
+      const updateStockResponse = await fetch(
+        `http://localhost:5000/api/orders/${orderId}/update-stock`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(cartData),
+          // Include any necessary data in the body if required
         }
       );
 
-      // Log whether the update was successful or unsuccessful
-      if (!response.ok) {
+      if (!updateStockResponse.ok) {
         console.error(
           "Failed to update stock and orders:",
-          response.status,
-          response.statusText
+          updateStockResponse.status,
+          updateStockResponse.statusText
         );
-      } else {
-        const responseData = await response.json();
-        console.log("Server response:", responseData);
+        return; // Exit if updating stock fails
       }
 
-      // After successful purchase, clear and remove the cart from local storage and redirect to the /success page
-      console.log("Stock and orders updated successfully");
+      const updateStockData = await updateStockResponse.json();
+      console.log(
+        "Stock and orders updated successfully. Response:",
+        updateStockData
+      );
+
+      // After successful purchase, clear and remove the cart from local storage
       localStorage.removeItem("cart");
       clearCart();
       navigate("/success");
     } catch (error) {
-      console.error("Error updating stock and orders:", error);
+      console.error("Error creating order:", error);
     }
-    console.log(formData);
   };
 
   // Form hook funcitonality watch chosen shipping or payment method

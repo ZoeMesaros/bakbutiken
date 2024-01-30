@@ -142,95 +142,110 @@ dbo.connectToServer((err) => {
     }
   });
 
-  // Update stock and orders endpoint when making a successful purchase
-  app.put(
-    "/api/products/:slugOrBatch/update-stock-orders",
-    async (req, res) => {
-      console.log(
-        "Received a PUT request to /api/products/:slugOrBatch/update-stock-orders"
-      );
-
-      const identifier = req.params.slugOrBatch;
-      const cartItems = req.body;
-      console.log("Received cart items:", cartItems);
-
-      let result;
-
-      try {
-        const db_connect = dbo.getDb();
-
-        if (ObjectId.isValid(identifier)) {
-          result = await db_connect.collection("products").updateOne(
-            { _id: new ObjectId(identifier) },
-            {
-              $inc: {
-                inStock: -cartItems[0].quantity,
-                orders: cartItems[0].quantity,
-              },
-            }
-          );
-
-          if (result.matchedCount === 0) {
-            console.log("Product not found for ID:", identifier);
-            res.status(404).json({ error: "Product not found" });
-            return;
-          }
-        } else {
-          for (const cartItem of cartItems) {
-            result = await db_connect.collection("products").updateOne(
-              { _id: new ObjectId(cartItem._id) },
-              {
-                $inc: {
-                  inStock: -cartItem.quantity,
-                  orders: cartItem.quantity,
-                },
-              }
-            );
-
-            if (result.matchedCount === 0) {
-              console.log("Product not found for ID:", cartItem._id);
-              res.status(404).json({ error: "Product not found" });
-              return;
-            }
-          }
-        }
-
-        console.log("Update result:", result);
-        console.log("Stock and orders updated successfully");
-        res.json({ message: "Stock and orders updated successfully" });
-      } catch (error) {
-        console.error("Error updating stock and orders:", error);
-        res.status(500).send("Internal Server Error");
-      }
-    }
-  );
-
-  // Update a product by ID
-  app.put("/api/products/:id", isAdminAuthenticated, async (req, res) => {
-    const productId = req.params.id;
-    const updatedProductData = req.body;
-
+  // Create a new order
+  app.post("/api/orders/new", async (req, res) => {
     try {
+      const {
+        first_name,
+        last_name,
+        items,
+        shipping_method,
+        payment_method,
+        address,
+        area,
+        postal,
+        email,
+        mobile,
+        phone,
+        totalAmount,
+      } = req.body;
+
       const db_connect = dbo.getDb();
+      const ordersCollection = db_connect.collection("orders");
 
-      // Update the product by its ID
-      const result = await db_connect
-        .collection("products")
-        .updateOne(
-          { _id: new ObjectId(productId) },
-          { $set: updatedProductData }
-        );
+      // Prepare order data
+      const orderData = {
+        first_name,
+        last_name,
+        items,
+        shipping_method,
+        payment_method,
+        address,
+        area,
+        postal,
+        email,
+        mobile,
+        phone,
+        totalAmount,
+        orderDate: new Date(),
+      };
 
-      if (result.matchedCount === 0) {
-        console.log("Product not found for ID:", productId);
-        res.status(404).json({ error: "Product not found" });
+      // Create a new order entry
+      const result = await ordersCollection.insertOne(orderData);
+
+      console.log(`Order inserted with _id: ${result.insertedId}`);
+
+      // Send response
+      res.json({
+        message: "Order created successfully",
+        orderId: result.insertedId,
+      });
+    } catch (error) {
+      console.error("Error creating order:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
+  //Update stock
+  app.put("/api/orders/:orderId/update-stock", async (req, res) => {
+    try {
+      const orderId = req.params.orderId;
+
+      // Retrieve order details from the database using orderId
+      const db_connect = dbo.getDb();
+      const ordersCollection = db_connect.collection("orders");
+
+      const order = await ordersCollection.findOne({
+        _id: new ObjectId(orderId),
+      });
+
+      if (!order) {
+        console.log("Order not found for ID:", orderId);
+        res.status(404).json({ error: "Order not found" });
         return;
       }
 
-      console.log("Product updated successfully");
-      res.json({ message: "Product updated successfully" });
+      // Update stock for each item in the order
+      const productsCollection = db_connect.collection("products");
+
+      const updateOperations = order.items.map(({ _id, quantity }) => ({
+        updateOne: {
+          filter: { _id: new ObjectId(_id) },
+          update: {
+            $inc: {
+              inStock: -quantity,
+              orders: quantity,
+            },
+          },
+        },
+      }));
+
+      const updateResults = await productsCollection.bulkWrite(
+        updateOperations
+      );
+
+      // Check if any update operation failed
+      if (updateResults.hasWriteErrors()) {
+        const error = updateResults.getWriteError();
+        console.error("Error updating stock and orders:", error);
+        res.status(500).send("Internal Server Error");
+        return;
+      }
+
+      console.log("Stock and orders updated successfully");
+      res.json({ message: "Stock and orders updated successfully" });
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.error("Error updating stock and orders:", error);
       res.status(500).send("Internal Server Error");
     }
   });
