@@ -1,0 +1,79 @@
+.admin-edit-page {
+  .container {
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+
+    .btn-primary {
+      margin-bottom: 1rem;
+    }
+
+    form {
+      .row {
+        .col-md-6 {
+          margin: 0 auto;
+
+          label {
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 17px;
+          }
+
+          input[type="text"],
+          input[type="number"],
+          textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+
+            &:disabled {
+              background-color: #e9ecef;
+            }
+          }
+
+          .form-error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+          }
+
+          .form-check {
+            display: flex;
+            align-items: center;
+
+            .form-check-input {
+              margin-right: 0.5rem;
+            }
+
+            .form-check-label {
+              margin-bottom: 0;
+            }
+          }
+
+          .custom-btn {
+            margin-top: 2rem;
+            color: rgba(0, 0, 0, 0.923);
+            padding: 0.4rem;
+            font-size: 17px;
+            border-radius: 5px;
+            font-weight: 500;
+            display: block;
+            width: 100%;
+            outline: 4px solid #d0ebde;
+            outline-offset: 2px;
+            cursor: pointer;
+            background: transparent;
+            background-color: #d0ebde;
+            margin-bottom: 5rem;
+
+            &:hover {
+              background-color: #abd6c2;
+            }
+          }
+        }
+      }
+    }
+  }
+}

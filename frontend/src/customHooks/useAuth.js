@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-//Custom hook for admin authentication
 const useAuth = () => {
-  //State to track when an admin is logged in/out
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Check if there is a token in localStorage
+  const initialLoggedIn = !!localStorage.getItem("adminToken");
+  const [isLoggedIn, setIsLoggedIn] = useState(initialLoggedIn);
 
-  // Send an asynchronous API request to log into the admin page
+  // Function to log in
   const login = async (credentials) => {
     try {
       const response = await fetch("http://localhost:5000/admin/login", {
@@ -16,9 +16,10 @@ const useAuth = () => {
         body: JSON.stringify(credentials),
       });
 
-      // If login was successful, set the isLoggedIn state to true
       if (response.ok) {
         const data = await response.json();
+        // Set the token in localStorage
+        localStorage.setItem("adminToken", data.token);
         setIsLoggedIn(true);
         return data;
       } else {
@@ -30,26 +31,20 @@ const useAuth = () => {
     }
   };
 
-  // Async function for sending an API request to log out of the admin page
-  const logout = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/admin/logout", {
-        method: "POST",
-      });
-
-      //If successful log out, set the isLoggedIn state to false
-      if (response.ok) {
-        setIsLoggedIn(false);
-      } else {
-        throw new Error("Logout failed");
-      }
-    } catch (error) {
-      console.error("Error during logout:", error);
-      throw error;
-    }
+  // Function to log out
+  const logout = () => {
+    localStorage.removeItem("adminToken");
+    setIsLoggedIn(false);
   };
 
-  //Return the login state, and response of the login and logout functions
+  // Effect to check for token in localStorage on mount
+  useEffect(() => {
+    const storedToken = localStorage.getItem("adminToken");
+    if (storedToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return { isLoggedIn, login, logout };
 };
 

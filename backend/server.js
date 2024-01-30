@@ -205,23 +205,36 @@ dbo.connectToServer((err) => {
     }
   );
 
-  // Update stock and orders endpoint when making a successful purchase
-  app.put(
-    "/api/products/:slugOrBatch/update-stock-orders",
-    isAdminAuthenticated,
-    async (req, res) => {
-      // ... existing code for updating stock and orders
-    }
-  );
-});
+  // Update a product by ID
+  app.put("/api/products/:id", isAdminAuthenticated, async (req, res) => {
+    const productId = req.params.id;
+    const updatedProductData = req.body;
 
-// Middleware to check if user is authenticated as admin
-function isAdminAuthenticated(req, res, next) {
-  if (req.session.user && req.session.user.role === "admin") {
-    return next();
-  }
-  res.status(401).json({ message: "Unauthorized" });
-}
+    try {
+      const db_connect = dbo.getDb();
+
+      // Update the product by its ID
+      const result = await db_connect
+        .collection("products")
+        .updateOne(
+          { _id: new ObjectId(productId) },
+          { $set: updatedProductData }
+        );
+
+      if (result.matchedCount === 0) {
+        console.log("Product not found for ID:", productId);
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      console.log("Product updated successfully");
+      res.json({ message: "Product updated successfully" });
+    } catch (error) {
+      console.error("Error updating product:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

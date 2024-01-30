@@ -57,7 +57,7 @@ const LoginPage = ({ handleLogin }) => {
                   <br></br>
                   <input
                     {...register("password", { required: true })}
-                    type="text"
+                    type="password"
                     className="form-control rounded"
                     id="password"
                     name="password"

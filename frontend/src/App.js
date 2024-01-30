@@ -22,6 +22,7 @@ import AboutPage from "./pages/About/About";
 import ContactPage from "./pages/Contact/Contact";
 import NotFoundPage from "./pages/404/NotFound";
 import AdminPage from "./pages/Admin/Admin";
+import AdminEditPage from "./pages/AdminEdit/AdminEdit";
 import LoginPage from "./pages/Login/Login";
 
 // Main application
@@ -110,7 +111,13 @@ function App() {
           element={<LoginPage handleLogin={handleLogin} />}
         />
         {isLoggedIn ? (
-          <Route path="/admin" element={<AdminPage />} />
+          <>
+            <Route path="/admin" element={<AdminPage />} />
+            <Route
+              path="/admin/edit/:category/:slug"
+              element={<AdminEditPage />}
+            />
+          </>
         ) : (
           <Route path="/admin/*" element={<Navigate to="/" replace />} />
         )}
