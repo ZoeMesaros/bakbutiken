@@ -10,10 +10,16 @@ import swish from "../../assets/images/swish.png";
 
 //Checkout page
 const CheckoutPage = ({ cart, clearCart }) => {
+  //State to track chosen shipping cost, with 59 kr as the initial state
   const [shippingCost, setShippingCost] = useState(59);
+
+  //State to track which payment method has been chosen, with card / "kort" as the initial state
   const [paymentMethod, setPaymentMethod] = useState("kort");
+
+  //State to control open and close functionality of payment method accordion
   const [isOpen, setIsOpen] = useState(true);
 
+  // Form managed using react hook form
   const {
     register,
     handleSubmit,
@@ -23,22 +29,26 @@ const CheckoutPage = ({ cart, clearCart }) => {
 
   const navigate = useNavigate();
 
+  // Function to handle opening and closing accordions
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
 
+  //Validation for credit card input fields
   const inputValidation = (placeholder, additionalRules = {}) => ({
     ...additionalRules,
     required: `${placeholder} är obligatoriskt`,
   });
 
-  // When a purchase is successful, update the stock amount accordingly
+  // Function to submit the form with data to make a purchase
   const onSubmit = async (formData) => {
     try {
+      // When a purchase is successful, send a request with cart items to update the stock
       const cartData = cart.map(({ _id, quantity }) => ({ _id, quantity }));
 
       console.log("Sending request with data:", cartData);
 
+      // Send a request to update stock amount based on the products purchased
       const response = await fetch(
         `http://localhost:5000/api/products/${cart[0]._id}/update-stock-orders`,
         {
@@ -50,6 +60,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
         }
       );
 
+      // Log whether the update was successful or unsuccessful
       if (!response.ok) {
         console.error(
           "Failed to update stock and orders:",
@@ -61,6 +72,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
         console.log("Server response:", responseData);
       }
 
+      // After successful purchase, clear and remove the cart from local storage and redirect to the /success page
       console.log("Stock and orders updated successfully");
       localStorage.removeItem("cart");
       clearCart();
@@ -71,9 +83,11 @@ const CheckoutPage = ({ cart, clearCart }) => {
     console.log(formData);
   };
 
+  // Form hook funcitonality watch chosen shipping or payment method
   const watchShippingMethod = watch("shipping_method");
   const watchPaymentMethod = watch("payment_method");
 
+  // UseEffect to apply the correct values to the chosen shipping or payment method
   useEffect(() => {
     if (watchShippingMethod === "standard") {
       setShippingCost(59);
@@ -96,29 +110,32 @@ const CheckoutPage = ({ cart, clearCart }) => {
     );
   };
 
-  //Calculate tax based on total sum
+  // Calculate tax based on total sum
   const calculateTotalSumWithTax = () => {
     const totalItems = cart.reduce(
       (total, cartItem) => total + cartItem.price * cartItem.quantity,
       0
     );
 
-    //Fixed tax of 25% of the total sum of products
+    // Fixed tax of 25% of the total sum of products
     const taxRate = 0.25;
 
     return totalItems * taxRate;
   };
 
-  //Calculate the total sum with shipping
+  // Calculate the total sum with shipping
   const calculateTotalSumWithShipping = () => {
     const totalItems = cart.reduce(
       (total, cartItem) => total + cartItem.price * cartItem.quantity,
       0
     );
 
-    //Fixed shipping fee
-
     return totalItems + shippingCost;
+  };
+
+  //When clicking a link, go to top of the page
+  const handleLinkClick = () => {
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -348,6 +365,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                   <div className="shipping-options">
                     <label className="shipping-div" htmlFor="field-standard">
                       <div>
+                        {/* Standard shipping */}
                         <input
                           {...register("shipping_method")}
                           type="radio"
@@ -365,6 +383,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                     </label>
                     <label className="shipping-div" htmlFor="field-home">
                       <div>
+                        {/* Home delivery */}
                         <input
                           {...register("shipping_method")}
                           type="radio"
@@ -385,6 +404,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                       htmlFor="field-standard"
                     >
                       <div>
+                        {/* Payment method using card */}
                         <input
                           {...register("payment_method")}
                           type="radio"
@@ -407,7 +427,6 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         <div className="credit-card-info">
                           {/* Credit Card Details */}
                           <div>
-                            {/* Kortnummer */}
                             {errors.creditCard && (
                               <span className="form-error">
                                 {errors.creditCard.message}
@@ -429,7 +448,6 @@ const CheckoutPage = ({ cart, clearCart }) => {
                             />
                           </div>
                           <div>
-                            {/* Giltigt till */}
                             {errors.expiryDate && (
                               <span className="form-error">
                                 {errors.expiryDate.message}
@@ -450,10 +468,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                               placeholder="MM/ÅÅ"
                             />
                           </div>
-
-                          {/* CVV/CVC */}
                           <div>
-                            {/* CVV/CVC */}
                             {errors.cvv && (
                               <span className="form-error">
                                 {errors.cvv.message}
@@ -479,6 +494,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                     )}
                     <label className="payment-div-swish" htmlFor="field-swish">
                       <div>
+                        {/*   Payment method using Swish */}
                         <input
                           {...register("payment_method")}
                           type="radio"
@@ -496,7 +512,11 @@ const CheckoutPage = ({ cart, clearCart }) => {
                     <p>Totalt att betala</p>
                     <h2>{calculateTotalSumWithShipping()} kr</h2>
                     <div className="row">
-                      <button className="paybutton" type="submit">
+                      <button
+                        onClick={handleLinkClick}
+                        className="paybutton"
+                        type="submit"
+                      >
                         Betala med {paymentMethod}
                       </button>
                     </div>

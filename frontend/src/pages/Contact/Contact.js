@@ -2,13 +2,16 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import "./contact.scss";
 
+//Contact page
 const ContactPage = () => {
+  // Form managed using react hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  //When form is submitted, log the data
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -66,7 +69,7 @@ const ContactPage = () => {
                   />
                 </div>
 
-                {/* Meddelande */}
+                {/* Message */}
                 <div className="mb-3">
                   <label htmlFor="form-message" className="form-label">
                     Meddelande

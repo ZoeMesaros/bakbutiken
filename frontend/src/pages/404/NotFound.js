@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./notfound.scss";
 import notFoundImg from "../../assets/images/404.jpg";
 
+//404 Not found page
 const NotFoundPage = () => {
   return (
     <div className="not-found-page">

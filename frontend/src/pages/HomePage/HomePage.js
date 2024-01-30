@@ -1,19 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./homepage.scss";
 import offersBg from "../../assets/images/offers-bg.jpg";
 import pageBg from "../../assets/images/all-products.jpg";
 import { Link } from "react-router-dom";
 import useProductFetch from "../../customHooks/fetchProducts";
 
+// Home page
 const HomePage = () => {
+  //Fetch all products from the useProductFetch hook
   const { products } = useProductFetch();
 
   //Display the 4 latest added items based on date added
   const latestProducts = products
-    .slice(0, 4) // Limit to the first 5 items
-    .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)); // Sort by dateAdded
+    .slice(0, 4)
+    .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
 
-  // Display the 4 best-selling items based on items ordered
+  // Display the 4 best-selling items based on amount of items ordered
   const bestSellingProducts = products
     .slice()
     .sort((a, b) => b.orders - a.orders)

@@ -6,31 +6,50 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
 import "./product.scss";
 
+// Single product page
 const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
+  // State to hold the details of a single product fetched from the API
   const [product, setProduct] = useState({});
+
+  // State to control the visibility of the specifications accordion
   const [specificationsOpen, setSpecificationsOpen] = useState(false);
+
+  // State to control the visibility of the materials accordion
   const [materialsOpen, setMaterialsOpen] = useState(false);
+
+  // State to store information about an item's presence in the cart
   const [existingCartItem, setExistingCartItem] = useState(null);
+
+  // State to indicate whether a product is not found, triggering a redirect
   const [productNotFound, setProductNotFound] = useState(false);
+
+  // State to manage the loading state while fetching product data
   const [loading, setLoading] = useState(true);
 
   // Use useParams to get both category and slug
   const { category, slug } = useParams();
 
+  // UseEffect to make an API call fetch a product based on category and slug name
   useEffect(() => {
     const fetchSingleProduct = async () => {
       try {
-        // Adjust the API endpoint to include both category and slug
         const response = await axios.get(
           `/api/products/category/${category}/${slug}`
         );
+        // Look for a id in the cart the matches the response id
         const existingCartItem = cart.find(
           (item) => item._id === response.data._id
         );
+        // If there's a product in the cart matching the current one, set its details
         setProduct(response.data);
+
+        // If a product matching the current one is found in the cart, set its details
         setExistingCartItem(existingCartItem);
+
+        // End the loading spinner
         setLoading(false);
       } catch (error) {
+        //Handling errors
         setLoading(false);
         setProduct(null);
         setProductNotFound(true);
@@ -40,20 +59,24 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
     fetchSingleProduct();
   }, [category, slug, cart]);
 
+  // Display the loading spinner while data is being fetched
   if (loading) {
-    return <LoadingSpinner />; // Display the loading spinner while data is being fetched
+    return <LoadingSpinner />;
   }
 
+  // If a product wasn't found, return the "Not Found" page
   if (productNotFound) {
     return <NotFoundPage />;
   }
 
+  // If a product has not been fetched yet, show the loading page
   if (!product) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
-  //Add to cart funcitonality
+  // Add to cart functionality
   const AddToCart = () => {
+    // Check if the item is already in the cart and not exceeding available stock
     if (existingCartItem && existingCartItem.quantity < product.inStock) {
       addToCart(product);
     } else if (!existingCartItem) {
@@ -61,6 +84,7 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
     }
   };
 
+  // Remove from cart functionality
   const RemoveFromCart = () => {
     removeFromCart(product);
   };
@@ -74,10 +98,6 @@ const SingleProductPage = ({ cart, addToCart, removeFromCart }) => {
   const toggleMaterials = () => {
     setMaterialsOpen(!materialsOpen);
   };
-
-  if (!product) {
-    return <p>Loading...</p>; // or return an error message
-  }
 
   return (
     <div className="single-product-page">

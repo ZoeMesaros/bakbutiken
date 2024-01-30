@@ -1,36 +1,42 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./products.scss";
 import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
 import utensils from "../../assets/images/bakbutiken-om.jpg";
 import pans from "../../assets/images/pans.jpg";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import NotFoundPage from "../404/NotFound";
 
+// All products banner style
 const cardBannerAll = {
   backgroundImage: `url(${allProducts})`,
   backgroundSize: "cover",
   backgroundPosition: "100% 45%",
 };
 
+// Utensils banner style
 const cardBannerUtensils = {
   backgroundImage: `url(${utensils})`,
   backgroundSize: "cover",
   backgroundPosition: "100% 15%",
 };
 
+// Pans banner style
 const cardBannerPans = {
   backgroundImage: `url(${pans})`,
   backgroundSize: "cover",
   backgroundPosition: "100% 55%",
 };
 
+// Bowls banner style
 const cardBannerBowls = {
   backgroundImage: `url(${allProducts})`,
   backgroundSize: "cover",
   backgroundPosition: "100% 100%",
 };
 
+// Decorations banner style
 const cardBannerDecorations = {
   backgroundImage: `url(${utensils})`,
   backgroundSize: "cover",
@@ -39,24 +45,45 @@ const cardBannerDecorations = {
 
 // All products page
 const ProductsPage = () => {
+  // Set category as parameter
   const { category } = useParams();
+
+  // State to handle page changes with the initial page set to 1
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Give selectedCategoy the value of category or empty string
   const selectedCategory = category || "";
 
+  // Fetch products and loading state for the selected category and current page
   const { products, loading } = useProductFetch(selectedCategory, currentPage);
 
+  // UseEffect to display page 1 when a new category is chosen
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategory]);
 
+  //When a page changes set the state of the new page
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  // If the page is loading, display LoadingSpinner component
   if (loading) {
     return <LoadingSpinner />;
   }
 
+  // Check for valid categories
+  const isValidCategory = (category) => {
+    const validCategories = ["bakformar", "verktyg", "skalar", "dekorationer"];
+    return !category || validCategories.includes(category);
+  };
+
+  // If a category is not valid, display the not found page
+  if (!isValidCategory(category)) {
+    return <NotFoundPage />;
+  }
+
+  // Banner functionality to display the right banner image for the right category
   const getBanner = () => {
     switch (selectedCategory) {
       case "bakformar":
@@ -72,6 +99,7 @@ const ProductsPage = () => {
     }
   };
 
+  // functionality to render category banner and its contents based on category
   const renderCategoryBanner = () => {
     switch (selectedCategory) {
       case "bakformar":
@@ -126,10 +154,6 @@ const ProductsPage = () => {
         );
     }
   };
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <>

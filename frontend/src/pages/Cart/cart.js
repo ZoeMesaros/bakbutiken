@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./cart.scss";
 import CartModal from "../../components/CartModal/CartModal";
 
 // Cart page
 const CartPage = ({ cart, removeFromCart }) => {
+  // // State to control when to show the confirmation modal for removing items
   const [showModal, setShowModal] = useState(false);
+
+  // State to track which item to be targeted for the modal to perform removal
   const [selectedCartItem, setSelectedCartItem] = useState(null);
-  // Calculate the total amount of items in the cart
+
+  // Calculate the total quantity of items in the cart
   const calculateTotalQuantity = () => {
     return cart.reduce(
       (total, cartItem) => total + Number(cartItem.quantity || 0),
@@ -36,14 +40,14 @@ const CartPage = ({ cart, removeFromCart }) => {
     return totalItems * taxRate;
   };
 
-  //Calculate the total sum with shipping
+  //Calculate the total price with standard shipping fee
   const calculateTotalSumWithShipping = () => {
     const totalItems = cart.reduce(
       (total, cartItem) => total + cartItem.price * cartItem.quantity,
       0
     );
 
-    //Fixed shipping fee
+    //Standard shipping fee
     const shippingPrice = 59;
 
     return totalItems + shippingPrice;
@@ -52,13 +56,16 @@ const CartPage = ({ cart, removeFromCart }) => {
   //Open modal to confirm clearing the cart if quantity is more than 1, otherwise remove item
   const handleRemoveClick = (cartItem) => {
     if (cartItem.quantity === 1) {
+      // If item quantity is 1, remove the item directly
       removeFromCart(cartItem);
     } else {
+      // If item quantity is greater than 1, show the confirmation modal
       setSelectedCartItem(cartItem);
       setShowModal(true);
     }
   };
 
+  //Close the confirm modal
   const closeModal = () => {
     setShowModal(false);
     setSelectedCartItem(null);
@@ -184,6 +191,7 @@ const CartPage = ({ cart, removeFromCart }) => {
             </div>
           </>
         )}
+        {/* Render the confirmation modal if show modal state is true */}
         {showModal && (
           <CartModal
             cartItem={selectedCartItem}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import aboutBg from "../../assets/images/bakbutiken-om.jpg";
 import "./about.scss";
 
+//About us page
 const AboutPage = () => {
   const cardBannerStyle = {
     backgroundImage: `url(${aboutBg})`,

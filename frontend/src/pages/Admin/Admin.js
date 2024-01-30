@@ -5,7 +5,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useProductFetch from "../../customHooks/fetchProducts";
 import "./admin.scss";
 
-// Admin page component
+// Admin page
 const AdminPage = ({ handleLogout }) => {
   const { category } = useParams();
   const [currentPage, setCurrentPage] = useState(1);

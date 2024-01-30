@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import "./login.scss";
 
-//Login page component to access the admin dashboard
+// Admin login page
 const LoginPage = ({ handleLogin }) => {
+  // Form managed using react hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // When submitting the form, attempt to log in with the provided credentials
   const onSubmit = async (data) => {
     try {
+      // If successful navigate to the admin page and log a success message
       await handleLogin(data);
-
       console.log("Login successful!");
     } catch (error) {
+      // If there was an error log an error message
       console.error("Login failed:", error);
     }
   };

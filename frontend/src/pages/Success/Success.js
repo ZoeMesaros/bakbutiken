@@ -4,21 +4,27 @@ import { Link } from "react-router-dom";
 import "./success.scss";
 import success from "../../assets/images/success.json";
 
-// Page for a successful transaction
+// Success page
 const SuccessPage = () => {
+  // Clear the local storage
   useEffect(() => {
     localStorage.clear();
   }, []);
 
+  // UseEfect to display success animation
   useEffect(() => {
     const animationContainer = document.getElementById("successAnimation");
-    Lottie.loadAnimation({
-      container: animationContainer,
-      animationData: success,
-      loop: false,
-      renderer: "svg",
-      autoplay: true,
-    });
+    try {
+      Lottie.loadAnimation({
+        container: animationContainer,
+        animationData: success,
+        loop: false,
+        renderer: "svg",
+        autoplay: true,
+      });
+    } catch (error) {
+      console.error("Error loading animation:", error);
+    }
 
     return () => {
       if (animationContainer) {
