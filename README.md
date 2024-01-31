@@ -1,26 +1,25 @@
 ![Bakbutiken Logo](https://i.ibb.co/D7tqwZf/bakbutiken.png)
 
-Bakbutiken is an e-commerce store providing a different variety of baking supplies to customers
-
 ## Table of Contents
 
-- [About](#about)
-- [Getting Started](#getting-started)
-  - [Dependencies](#dependencies)
-  - [Frontend](#frontend)
-    - [Minimum Requirements](#minimum-requirements-for-frontend)
-    - [Browsers Compatibility](#browsers-compatibility-for-frontend)
-  - [Backend](#backend)
-    - [Minimum Requirements](#minimum-requirements-for-backend)
-    - [Other Considerations](#other-considerations-for-backend)
-  - [Installation](#installation)
-    - [Installation Steps](#installation-steps)
-- [Usage](#usage)
-- [Features](#features)
+1.  [About](#about)
+2.  [Getting Started](#getting-started)
+3.  [Dependencies](#dependencies)
+4.  [Frontend](#frontend)
+5.  [Minimum Requirements](#minimum-requirements-for-frontend)
+6.  [Browsers Compatibility](#browsers-compatibility-for-frontend)
+7.  [Backend](#backend)
+8.  [Minimum Requirements](#minimum-requirements-for-backend)
+9.  [Other Considerations](#other-considerations-for-backend)
+10. [Installation](#installation)
+11. [Installation Steps](#installation-steps)
+12. [Usage](#usage)
+13. [Features](#features)
 
 ## About
 
-Bakbutiken is the culmination of my journey in full-stack development, presented as a final exam e-commerce project. This venture seamlessly integrates MongoDB Atlas to manage products, orders, and user authentication. On the backend, Node.js and Express join forces to craft robust endpoints, while the frontend comes to life with the dynamic capabilities of React.
+Bakbutiken is an e-commerce store providing a different variety of baking supplies to customers.
+The project is a culmination of my journey in full-stack development, presented as a final exam e-commerce project. This venture seamlessly integrates MongoDB Atlas to manage products, orders, and user authentication. On the backend, Node.js and Express join forces to craft robust endpoints, while the frontend comes to life with the dynamic capabilities of React.
 
 ## Getting Started
 
