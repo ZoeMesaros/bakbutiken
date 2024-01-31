@@ -1,13 +1,13 @@
 import React from "react";
-import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-// Custom hooks
+// Custom hooks for handling cart and authentication
 import useCart from "./customHooks/useCart";
 import useAuth from "./customHooks/useAuth";
 
-// Components
+// Components to render main navigation menu and footer
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
@@ -22,12 +22,11 @@ import AboutPage from "./pages/About/About";
 import ContactPage from "./pages/Contact/Contact";
 import NotFoundPage from "./pages/404/NotFound";
 import AdminPage from "./pages/Admin/Admin";
-import AdminEditPage from "./pages/AdminEdit/AdminEdit";
 import LoginPage from "./pages/Login/Login";
 
 // Main application
 function App() {
-  // Use cart functionality from cart hook
+  // Data from useCart hook for handling cart actions and display cart data
   const {
     cart,
     handleAddToCart,
@@ -37,25 +36,7 @@ function App() {
   } = useCart();
 
   // Use authentication from auth hook
-  const { isLoggedIn, login, logout } = useAuth();
-  const navigate = useNavigate();
-
-  // Function to handle login functionality
-  const handleLogin = async (credentials) => {
-    try {
-      const data = await login(credentials);
-      console.log(data.message);
-      // After successful login, redirect to admin page
-      navigate("/admin");
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-  };
-
-  // Log in using credentials
-  const handleLoginWrapper = (credentials) => {
-    handleLogin(credentials);
-  };
+  const { isLoggedIn } = useAuth();
 
   return (
     <main className="App">
@@ -106,19 +87,13 @@ function App() {
         <Route path="/kontakt" element={<ContactPage />} />
 
         {/* Route to admin login page */}
-        <Route
-          path="/login"
-          element={<LoginPage handleLogin={handleLogin} />}
-        />
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Admin route only accessible if logged in */}
         {isLoggedIn ? (
-          <>
-            <Route path="/admin" element={<AdminPage />} />
-            <Route
-              path="/admin/edit/:category/:slug"
-              element={<AdminEditPage />}
-            />
-          </>
+          <Route path="/admin" element={<AdminPage />} />
         ) : (
+          /* Redirect to the home page if not logged in */
           <Route path="/admin/*" element={<Navigate to="/" replace />} />
         )}
 

@@ -1,29 +1,54 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-
+import React, { useState } from "react";
+import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import sv from "date-fns/locale/sv";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import useOrderFetch from "../../customHooks/fetchOrders";
 import useProductFetch from "../../customHooks/fetchProducts";
+import OrderDetailsModal from "../../components/OrderModal/OrderModal";
+import useAuth from "../../customHooks/useAuth";
 import "./admin.scss";
 
-const AdminPage = ({ handleLogout }) => {
-  const { category } = useParams();
-  const [currentPage, setCurrentPage] = useState(1);
-  const selectedCategory = category || "";
+// Admin page
+const AdminPage = () => {
+  // Call useOrderFetch to recieve orders and loading data
+  const { orders, loading } = useOrderFetch();
 
-  const { products, loading } = useProductFetch(selectedCategory, currentPage);
+  // Call the useProductFetch to recieve products and loading data
+  const { products, loading: productsLoading } = useProductFetch();
 
+  //Call the useAuth to handle logout
+  const { logout } = useAuth();
+
+  //State to track wich order has been selected
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  //State to control the visibility of the modal
+  const [showModal, setShowModal] = useState(false);
+
+  // Navigate to login page after successful logout
+  const navigate = useNavigate();
+
+  // Handle log out and navigate to the login page
   const handleLogoutClick = () => {
-    if (typeof handleLogout === "function") {
-      handleLogout();
-    }
+    logout();
+    navigate("/login");
   };
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategory]);
+  // When clicking on an order, show the modal
+  const handleDetailsClick = (order) => {
+    setSelectedOrder(order);
+    setShowModal(true);
+  };
 
-  if (loading) {
+  // When closing the details modal, reset the selectedOrder state
+  const handleCloseModal = () => {
+    setSelectedOrder(null);
+    setShowModal(false);
+  };
+
+  // Render loadingspinner component during loading
+  if (loading || productsLoading) {
     return <LoadingSpinner />;
   }
 
@@ -35,51 +60,41 @@ const AdminPage = ({ handleLogout }) => {
             Logga ut
           </button>
         </div>
-        <div className="row">
+        <div className="row mx-5">
           <div className="col">
             <div>
-              {products.map((product) => (
+              {orders.map((order) => (
                 <div
-                  key={product._id}
+                  key={order._id}
                   className="row no-gutters border-top cart-item"
                 >
-                  <div className="row main align-items-center">
-                    <div className="col">
-                      <img className="admin-img" src={product.img} alt="" />
+                  <div className="row main align-items-center p-3">
+                    <div className="col-md-4">
+                      <div className="row text-muted">Beställningsnummer</div>
+                      <div className="row text-muted">{order.orderNumber}</div>
                     </div>
-                    <div className="col">
-                      <div className="row text-muted">Namn</div>
-                      <div className="row text-muted">{product.name}</div>
-                    </div>
-                    <div className="col">
-                      <div className="row text-muted">I lager</div>
-                      <div className="row text-muted">{product.inStock}</div>
-                    </div>
-                    <div className="col">
-                      <div className="row text-muted">På rea</div>
-                      <div className="row text-muted">{`${
-                        product.onSale ? "Ja" : "Nej "
-                      }`}</div>
-                    </div>
-                    <div className="col">
-                      <div className="row text-muted">Pris</div>
+                    <div className="col-md-4">
+                      <div className="row text-muted">Datum</div>
                       <div className="row text-muted">
-                        {`${
-                          product.onSale
-                            ? `${product.salePrice}`
-                            : `${product.price}`
-                        }`}{" "}
-                        kr
+                        {/* Format the date */}
+                        {format(new Date(order.orderDate), "yyyy-MM-dd", {
+                          locale: sv,
+                        })}
                       </div>
                     </div>
-                    <div className="col">
-                      <Link
-                        to={`/admin/edit/${product.category}/${product.slug}`}
+                    <div className="col-md-3">
+                      <div className="row text-muted">Totalt</div>
+                      <div className="row text-muted">
+                        {order.totalAmount} kr
+                      </div>
+                    </div>
+                    <div className="col-md-1 ">
+                      <button
+                        className="btn btn-outline-success"
+                        onClick={() => handleDetailsClick(order)}
                       >
-                        <button className="btn btn-outline-success">
-                          Redigera
-                        </button>
-                      </Link>
+                        Detaljer
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -88,6 +103,14 @@ const AdminPage = ({ handleLogout }) => {
           </div>
         </div>
       </div>
+      {selectedOrder && (
+        <OrderDetailsModal
+          show={showModal}
+          onHide={handleCloseModal}
+          order={selectedOrder}
+          products={products}
+        />
+      )}
     </div>
   );
 };

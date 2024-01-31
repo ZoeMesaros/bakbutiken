@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "./login.scss";
+import useAuth from "../../customHooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 // Admin login page
-const LoginPage = ({ handleLogin }) => {
+const LoginPage = () => {
   // Form managed using react hook form
   const {
     register,
@@ -11,14 +13,26 @@ const LoginPage = ({ handleLogin }) => {
     formState: { errors },
   } = useForm();
 
+  // Navigate to admin page after successful login
+  const navigate = useNavigate();
+
+  // useAuth hook for handling authentication and login
+  const { isLoggedIn, login } = useAuth();
+
+  // Effect to redirect if admin is already logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/admin");
+    }
+  }, [isLoggedIn, navigate]);
+
   // When submitting the form, attempt to log in with the provided credentials
   const onSubmit = async (data) => {
     try {
-      // If successful navigate to the admin page and log a success message
-      await handleLogin(data);
+      await login(data);
       console.log("Login successful!");
+      navigate("/admin");
     } catch (error) {
-      // If there was an error log an error message
       console.error("Login failed:", error);
     }
   };
@@ -40,6 +54,7 @@ const LoginPage = ({ handleLogin }) => {
                     </span>
                   )}
                   <br></br>
+                  {/* Username */}
                   <input
                     {...register("username", { required: true })}
                     type="text"
@@ -55,6 +70,7 @@ const LoginPage = ({ handleLogin }) => {
                     <span className="form-error">&nbsp;Ange ett lösenord</span>
                   )}
                   <br></br>
+                  {/* Password */}
                   <input
                     {...register("password", { required: true })}
                     type="password"

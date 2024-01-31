@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { format } from "date-fns";
+import sv from "date-fns/locale/sv";
 import "./checkout.scss";
 import parcel from "../../assets/images/parcel.png";
 import parcelTruck from "../../assets/images/parcel-truck.png";
@@ -40,15 +42,26 @@ const CheckoutPage = ({ cart, clearCart }) => {
     required: `${placeholder} är obligatoriskt`,
   });
 
+  function generateOrderNumber() {
+    const timestamp = Date.now(); // Get current timestamp
+    const random = Math.floor(Math.random() * 1000); // Generate a random number with 3 digits
+
+    // Concatenate timestamp and random number to create a unique order number
+    const orderNumber = `${timestamp}${random}`;
+
+    return orderNumber;
+  }
+
   const onSubmit = async (formData) => {
     try {
       const cartData = cart.map(({ _id, quantity }) => ({ _id, quantity }));
-
+      const orderNumber = generateOrderNumber();
       // Include order details and cart data in the request body
       const requestBody = {
         ...formData,
         items: cartData,
         totalAmount: calculateTotalSumWithShipping(),
+        orderNumber: orderNumber,
       };
 
       // Step 1: Make a request to create a new order
