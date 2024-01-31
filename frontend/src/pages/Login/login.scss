@@ -1,13 +1,13 @@
 .login-page {
   .container {
     @media (min-width: 768px) {
-      min-height: 80vh;
+      min-height: 70vh;
     }
     background-color: white;
     min-height: 45vh;
     .login-section {
       @media (min-width: 768px) {
-        padding-top: 15rem;
+        padding-top: 9rem;
       }
       font-family: "Poppins", sans-serif;
       align-items: center;
