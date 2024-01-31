@@ -1,4 +1,4 @@
-![Bakbutiken Logo](https://i.ibb.co/D7tqwZf/bakbutiken.png){: width="200px" }
+![Bakbutiken Logo](https://i.ibb.co/D7tqwZf/bakbutiken.png)
 
 Bakbutiken is an e-commerce store providing a different variety of baking supplies to customers
 
