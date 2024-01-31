@@ -1,0 +1,20 @@
+.success-page {
+  .container {
+    padding-top: 3rem;
+    background-color: white;
+    min-height: 70vh;
+    font-family: "Poppins", sans-serif;
+    svg {
+      width: 50% !important;
+      height: 50% !important;
+    }
+    .text-center {
+      p {
+        font-size: 17px;
+      }
+      a {
+        color: grey;
+      }
+    }
+  }
+}

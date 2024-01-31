@@ -1,0 +1,261 @@
+.checkout-page {
+  .container {
+    padding-top: 3rem;
+    background-color: white;
+    min-height: calc(80vh - 9rem);
+  }
+
+  h3 {
+    padding-bottom: 2rem;
+  }
+
+  .page-title,
+  .summary-title,
+  .info-title {
+    padding-bottom: 1rem;
+  }
+
+  .shipping-title,
+  .payment-title {
+    padding-bottom: 1rem;
+  }
+
+  #bg-color {
+    background-color: white;
+    max-height: 20rem;
+    overflow-y: scroll;
+  }
+
+  .item-price-sale {
+    word-break: break-all;
+    word-wrap: break-word;
+    color: red;
+    text-decoration: line-through;
+    margin-right: 1rem;
+  }
+
+  .row.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .no-gutters [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .row {
+    --bs-gutter-x: unset;
+    margin: 0;
+  }
+
+  .row .cart {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    min-height: 6vh;
+    padding: 1rem;
+    background-color: white;
+
+    img {
+      width: 25%;
+      margin-left: 25%;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .address h5 {
+    padding: 1rem 0rem;
+  }
+
+  .order-info {
+    display: grid;
+    gap: 20px;
+    height: 73rem;
+  }
+
+  .adress-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 1rem;
+    gap: 2px;
+    input {
+      padding-left: 10px;
+      width: 100%;
+      height: 3rem;
+      border-radius: 5px;
+      border: 1px solid rgba(182, 182, 182, 0.2);
+      margin: 2px;
+    }
+  }
+
+  .form-error {
+    color: red;
+    padding-left: 0.5rem;
+  }
+
+  .shipping-options,
+  .payment-options {
+    border-radius: 10px;
+    display: grid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    grid-template-columns: 1fr;
+    margin-bottom: 3rem;
+  }
+
+  .shipping-div {
+    grid-template-columns: 2rem auto 5.5rem 3rem;
+  }
+
+  .payment-div-card {
+    grid-template-columns: 2rem auto 7rem;
+    .cards-container {
+      display: flex;
+      img {
+        margin-right: 20px;
+        width: auto;
+        height: 15px;
+      }
+      .master {
+        height: 23px;
+      }
+      .visa {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .payment-div-swish {
+    grid-template-columns: 2rem auto 3rem;
+    .cards-container {
+      display: flex;
+      img {
+        margin-right: 20px;
+        width: auto;
+        height: 15px;
+      }
+      .master {
+        height: 23px;
+      }
+      .visa {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .shipping-div,
+  .payment-div-card,
+  .payment-div-swish {
+    margin: 0.2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    align-items: center;
+    padding-left: 1rem;
+    display: grid;
+    & input {
+      width: 25px;
+      height: 25px;
+    }
+
+    & p {
+      padding-top: 10px;
+      padding-left: 15px;
+      font-size: 20px;
+    }
+    & img {
+      width: 35px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .payment-section {
+    p,
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      font-size: 25px;
+    }
+    .paybutton {
+      margin-top: 1rem;
+      height: 3.5rem;
+      border-radius: 10px;
+      border: none;
+      background-color: #78a46a;
+      color: white;
+      font-size: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .paybutton:hover {
+      background-color: rgba(99, 164, 107, 0.893);
+    }
+  }
+
+  #field-standard,
+  #field-home {
+    margin-right: 8px;
+  }
+
+  .cart-summary {
+    text-align: right;
+    line-height: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1.2rem;
+    padding-bottom: 0.2rem;
+    padding-right: 2rem;
+  }
+
+  .checkout-form-div {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .accordion-content {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    .credit-card-info {
+      label {
+        padding-left: 30px;
+      }
+      input {
+        margin: 2px;
+        padding-left: 30px;
+        width: 100%;
+        height: 3rem;
+        border-radius: 5px;
+        border: 1px solid rgba(182, 182, 182, 0.2);
+      }
+    }
+  }
+
+  .no-cart {
+    font-family: "Poppins", sans-serif;
+  }
+
+  .no-cart-div {
+    font-family: "Poppins", sans-serif;
+    h4 {
+      font-weight: 400;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cart,
+    .cart-summary,
+    .order-info {
+      padding-bottom: 1rem;
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+    .page-title,
+    .summary-title,
+    .info-title {
+      margin-left: 5rem;
+      margin-right: 5rem;
+    }
+  }
+}

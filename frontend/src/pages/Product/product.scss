@@ -1,0 +1,220 @@
+.single-product-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    .row {
+      background-color: white;
+      min-height: calc(100vh - 9rem);
+    }
+  }
+
+  a {
+    top: 5rem;
+    left: 15%;
+    margin: 1rem;
+    color: black;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    height: 1rem;
+    transform: translateY(5rem) translateX(5rem);
+  }
+
+  .product-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    padding: 3rem;
+  }
+
+  .product-name,
+  .add-to-cart,
+  .product-description,
+  .product-price {
+    text-align: left;
+    margin-left: 1rem;
+  }
+
+  .product-name {
+    margin-top: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+  }
+
+  .product-price {
+    font-size: 23px;
+
+    .item-price-sale {
+      color: red;
+      text-decoration: line-through;
+    }
+  }
+
+  .add-to-cart,
+  .product-description {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .add-to-cart button {
+    color: rgba(0, 0, 0, 0.923);
+    font-size: 15px;
+    font-weight: 600;
+    outline-offset: 2px;
+    width: 100%;
+    height: 100%;
+    background-color: #d0ebde;
+    &:hover {
+      background-color: #bfdccf;
+    }
+  }
+
+  .add-to-cart button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    outline: 4px solid #d0ebde !important;
+    outline-offset: 2px !important;
+  }
+
+  .add-to-cart-container {
+    width: 50%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .add-to-cart-container-added {
+    width: 18.6rem;
+  }
+
+  .add-to-cart-container,
+  .add-to-cart-container-added {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0.4rem;
+    border-radius: 5px;
+    outline: 4px solid #d0ebde;
+    outline-offset: 2px;
+    background-color: #d0ebde;
+    border: none;
+
+    .card-btn span {
+      background-color: rgb(255, 255, 255);
+      padding: 8px;
+    }
+
+    .qty-container {
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      .btn:hover {
+        background-color: #e1eee8;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      }
+      .btn,
+      .btn-max {
+        margin-left: 8px;
+        margin-right: 8px;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn {
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+      }
+
+      .btn-max {
+        background-color: rgb(233, 233, 233);
+        border: white;
+        color: rgb(204, 204, 204);
+      }
+    }
+  }
+
+  .product-added {
+    color: green;
+    margin-top: 1rem;
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    transition: opacity 10s ease-in-out;
+    transform: translateY(3.5rem);
+  }
+
+  .product-added.show {
+    opacity: 1;
+  }
+
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    .in-stock {
+      margin-left: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: auto;
+    margin-left: 2rem;
+    margin-right: 2rem;
+
+    a {
+      top: 0;
+      left: 0;
+      transform: translateY(2rem) translateX(1rem);
+    }
+
+    .product-name,
+    .add-to-cart,
+    .product-description,
+    .product-price,
+    .in-stock {
+      text-align: center;
+      display: block;
+      justify-content: center;
+      display: flex;
+      margin-left: 0;
+    }
+
+    .product-info {
+      grid-template-columns: 1fr;
+      grid-template-areas: "image" "details";
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .product-details {
+      grid-area: details;
+      height: auto;
+      width: 100%;
+    }
+
+    #accordionFlushExample {
+      height: auto;
+    }
+  }
+
+  .accordion {
+    margin: 2rem 0;
+
+    .accordion-button {
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: white;
+    }
+  }
+}
