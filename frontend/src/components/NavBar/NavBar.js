@@ -6,38 +6,52 @@ import logo from "../../assets/images/bakbutiken.png";
 import cartImg from "../../assets/images/cart.png";
 import cartItemImg from "../../assets/images/cart-item.png";
 
-// Navigation menu
+// Main avigation menu
 const NavBar = ({ cart }) => {
-  const [cartLength, setCartLength] = useState(cart.length);
-
-  // Calculate the total amount of items in the cart
-  const calculateTotalQuantity = () => {
-    return cart.reduce(
-      (total, cartItem) => total + Number(cartItem.quantity || 0),
-      0
-    );
-  };
-
   return (
     <>
       <header>
         {/* Main header */}
-        <div className="header-nav">
+        <div className="container-xl header-nav">
           <div className="header-logo">
             <Link to={"/"}>
               <img src={logo} alt="Bakbutiken" />
             </Link>
           </div>
+          <div className="main-nav-items text-center">
+            <Nav id="main-navbar">
+              <Nav.Item>
+                <Link to={"/"} className="nav-link">
+                  Hem
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to={"/produkter"} className="nav-link">
+                  Produkter
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to={"/om-oss"} className="nav-link">
+                  Om oss
+                </Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Link to={"/kontakt"} className="nav-link">
+                  Kontakt
+                </Link>
+              </Nav.Item>
+            </Nav>
+          </div>
           <div className="header-button">
             <button className={`btn-cart`}>
-              <Link to="/cart">
-                <div className="d-none d-md-block mb-0">
+              <Link to="/kundvagn">
+                <div className="d-md-block mb-0">
                   <p>Kundvagn</p>
                   {cart.length > 0 ? (
                     <>
                       <img src={cartItemImg} className="cart-img" />
                       <span
-                        className={`item${cartLength ? "-symbol" : ""}`}
+                        className={`item${cart.length ? "-symbol" : ""}`}
                       ></span>
                     </>
                   ) : (
@@ -52,7 +66,7 @@ const NavBar = ({ cart }) => {
         <Navbar expand="md" variant="light" className="border">
           <Container>
             <Navbar.Toggle aria-controls="navbarNav" />
-            <Navbar.Collapse id="navbarNav">
+            <Navbar.Collapse id="navbarNav" className="justify-content-center">
               <Nav className="mx-auto">
                 <Nav.Item>
                   <Link to={"/"} className="nav-link">
@@ -60,17 +74,17 @@ const NavBar = ({ cart }) => {
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/products"} className="nav-link">
+                  <Link to={"/produkter"} className="nav-link">
                     Produkter
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/products"} className="nav-link">
+                  <Link to={"/om-oss"} className="nav-link">
                     Om oss
                   </Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Link to={"/products"} className="nav-link">
+                  <Link to={"/kontakt"} className="nav-link">
                     Kontakt
                   </Link>
                 </Nav.Item>
