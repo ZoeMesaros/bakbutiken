@@ -12,7 +12,10 @@ header {
 
   @media (min-width: 768px) and (max-width: 1569px) {
     .header-nav {
-      height: 6rem;
+      height: 5rem;
+    }
+    .navbar {
+      --bs-navbar-padding-y: 0;
     }
   }
 
