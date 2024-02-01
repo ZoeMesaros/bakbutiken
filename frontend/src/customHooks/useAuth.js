@@ -39,10 +39,7 @@ const useAuth = () => {
 
   // Effect to check for token in localStorage on mount
   useEffect(() => {
-    const storedToken = localStorage.getItem("adminToken");
-    if (storedToken) {
-      setIsLoggedIn(true);
-    }
+    setIsLoggedIn(!!localStorage.getItem("adminToken"));
   }, []);
 
   return { isLoggedIn, login, logout };
