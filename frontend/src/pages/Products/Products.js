@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./products.scss";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import useProductFetch from "../../customHooks/fetchProducts";
 import allProducts from "../../assets/images/all-products.jpg";
 import utensils from "../../assets/images/bakbutiken-om.jpg";
@@ -158,6 +159,7 @@ const ProductsPage = () => {
   return (
     <>
       <div className="product-page">
+        <ScrollToTop />
         <div className="container align-items-center">
           <div className="row">
             <main className="row category-row ">

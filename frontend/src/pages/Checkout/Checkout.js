@@ -16,7 +16,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
   const [shippingCost, setShippingCost] = useState(59);
 
   //State to track which payment method has been chosen, with card / "kort" as the initial state
-  const [paymentMethod, setPaymentMethod] = useState("kort");
+  const [paymentMethod, setPaymentMethod] = useState("Kort");
 
   //State to control open and close functionality of payment method accordion
   const [isOpen, setIsOpen] = useState(true);
@@ -131,16 +131,16 @@ const CheckoutPage = ({ cart, clearCart }) => {
 
   // UseEffect to apply the correct values to the chosen shipping or payment method
   useEffect(() => {
-    if (watchShippingMethod === "standard") {
+    if (watchShippingMethod === "Ombud") {
       setShippingCost(59);
-    } else if (watchShippingMethod === "homed") {
+    } else if (watchShippingMethod === "Hemleverans") {
       setShippingCost(150);
     }
 
-    if (watchPaymentMethod === "kort") {
-      setPaymentMethod("kort");
-    } else if (watchPaymentMethod === "swish") {
-      setPaymentMethod("swish");
+    if (watchPaymentMethod === "Kort") {
+      setPaymentMethod("Kort");
+    } else if (watchPaymentMethod === "Swish") {
+      setPaymentMethod("Swish");
     }
   }, [watchShippingMethod, watchPaymentMethod]);
 
@@ -411,10 +411,10 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         <input
                           {...register("shipping_method")}
                           type="radio"
-                          value="standard"
+                          value="Ombud"
                           id="field-standard"
                           checked={
-                            watchShippingMethod === "standard" ||
+                            watchShippingMethod === "Ombud" ||
                             !watchShippingMethod
                           }
                         />
@@ -429,9 +429,9 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         <input
                           {...register("shipping_method")}
                           type="radio"
-                          value="homed"
+                          value="Hemleverans"
                           id="field-home"
-                          defaultChecked={watchShippingMethod === "homed"}
+                          defaultChecked={watchShippingMethod === "Hemleverans"}
                         />
                       </div>
                       <p>Hemleverans</p>
@@ -450,10 +450,10 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         <input
                           {...register("payment_method")}
                           type="radio"
-                          value="kort"
+                          value="Kort"
                           id="field-card"
                           checked={
-                            watchPaymentMethod === "kort" || !watchPaymentMethod
+                            watchPaymentMethod === "Kort" || !watchPaymentMethod
                           }
                           onClick={toggleAccordion}
                         />
@@ -540,9 +540,9 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         <input
                           {...register("payment_method")}
                           type="radio"
-                          value="swish"
+                          value="Swish"
                           id="field-swish"
-                          defaultChecked={watchPaymentMethod === "swish"}
+                          defaultChecked={watchPaymentMethod === "Swish"}
                           onClick={toggleAccordion}
                         />
                       </div>

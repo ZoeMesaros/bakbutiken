@@ -1,5 +1,6 @@
 import React from "react";
 import "./homepage.scss";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import offersBg from "../../assets/images/offers-bg.jpg";
 import pageBg from "../../assets/images/all-products.jpg";
 import { Link } from "react-router-dom";
@@ -35,6 +36,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+      <ScrollToTop />
       <div className="container">
         <div className="row mx-1">
           <section className="mt-2 pt-3 ">

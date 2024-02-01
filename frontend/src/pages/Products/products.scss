@@ -314,11 +314,11 @@
 }
 
 .cards-item {
-  transition: transform 0.7s cubic-bezier(0.2, 0.5, 0.2, 1); /* Adjust the cubic-bezier values for the desired effect */
+  transition: transform 0.7s cubic-bezier(0.2, 0.5, 0.2, 1);
 }
 
 .cards-item:hover {
-  transform: scale(1.07); /* You can adjust the scale factor as needed */
+  transform: scale(1.07);
 }
 
 .cards-item:hover {

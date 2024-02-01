@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import aboutBg from "../../assets/images/bakbutiken-om.jpg";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import "./about.scss";
 
 //About us page
@@ -13,6 +14,7 @@ const AboutPage = () => {
   };
   return (
     <div className="about-page">
+      <ScrollToTop />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
