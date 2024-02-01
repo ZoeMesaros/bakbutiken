@@ -94,9 +94,8 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
         ) : (
           /* Redirect to the home page if not logged in */
-          <Route path="/admin/*" element={<Navigate to="/" replace />} />
+          <Route path="/login" element={<Navigate to="/" replace />} />
         )}
-
         {/* Routes to handle not found */}
         <Route path="/*" element={<NotFoundPage />} />
         <Route path="/produkter/*" element={<NotFoundPage />} />

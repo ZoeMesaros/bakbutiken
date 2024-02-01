@@ -11,6 +11,7 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
 
   // Navigate to admin page after successful login
@@ -33,7 +34,15 @@ const LoginPage = () => {
       console.log("Login successful!");
       navigate("/admin");
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Login failed:", error.message);
+
+      // Error message for wrong password
+      if (error.message === "WrongPassword") {
+        setError("password", {
+          type: "manual",
+          message: "Fel lösenord, försök igen.",
+        });
+      }
     }
   };
 
@@ -47,13 +56,13 @@ const LoginPage = () => {
               <div className="col-md-6 mx-auto">
                 <div className="mb-3">
                   <label htmlFor="username">Användarnamn</label>
-                  <br></br>
+                  <br />
                   {errors.username && (
                     <span className="form-error">
-                      &nbsp;Ange ett användarnamn
+                      {errors.username.message}
                     </span>
                   )}
-                  <br></br>
+                  <br />
                   {/* Username */}
                   <input
                     {...register("username", { required: true })}
@@ -65,11 +74,13 @@ const LoginPage = () => {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="password">Lösenord</label>
-                  <br></br>
+                  <br />
                   {errors.password && (
-                    <span className="form-error">&nbsp;Ange ett lösenord</span>
+                    <span className="form-error">
+                      {errors.password.message}
+                    </span>
                   )}
-                  <br></br>
+                  <br />
                   {/* Password */}
                   <input
                     {...register("password", { required: true })}

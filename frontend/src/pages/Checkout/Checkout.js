@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { format } from "date-fns";
-import sv from "date-fns/locale/sv";
 import "./checkout.scss";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import parcel from "../../assets/images/parcel.png";
@@ -117,7 +115,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
         updateStockData
       );
 
-      // After successful purchase, clear and remove the cart from local storage
+      // After successful purchase, clear and remove the items in the cart
       localStorage.removeItem("cart");
       clearCart();
       navigate("/success");
@@ -549,7 +547,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
                         />
                       </div>
                       <p>Swish</p>
-                      <img className="swish" src={swish} />
+                      <img className="swish" alt="" src={swish} />
                     </label>
                   </div>
                   <div className="payment-section">

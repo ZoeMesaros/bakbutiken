@@ -10,7 +10,7 @@ const NotFoundPage = () => {
       <div className="container">
         <div className="col text-center">
           <h2>404 - Sidan hittades inte</h2>
-          <img src={notFoundImg} />
+          <img src={notFoundImg} alt="Sidan hittades inte" />
           <p>Sidan du sökte efter existerar inte</p>
           <Link to="/">Gå till startsidan</Link>
         </div>

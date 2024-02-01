@@ -18,12 +18,18 @@ const useAuth = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Set the token in localStorage
         localStorage.setItem("adminToken", data.token);
         setIsLoggedIn(true);
         return data;
       } else {
-        throw new Error("Login failed");
+        const errorData = await response.json();
+        if (response.status === 401) {
+          throw new Error("WrongPassword");
+        } else if (response.status === 404) {
+          throw new Error("UserNotFound");
+        } else {
+          throw new Error(`Login failed: ${errorData.message}`);
+        }
       }
     } catch (error) {
       console.error("Error during login:", error);

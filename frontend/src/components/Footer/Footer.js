@@ -41,22 +41,22 @@ const Footer = () => {
             </p>
             <ul className="footer-social p-0">
               <li>
-                <a className="social-icon">
+                <a href="https://twitter.com/" className="social-icon">
                   <i className="fab fa-twitter"></i>
                 </a>
               </li>
               <li>
-                <a className="social-icon">
+                <a href="https://www.facebook.com/" className="social-icon">
                   <i className="fab fa-facebook"></i>
                 </a>
               </li>
               <li>
-                <a className="social-icon">
+                <a href="https://www.instagram.com/" className="social-icon">
                   <i className="fab fa-instagram"></i>
                 </a>
               </li>
               <li>
-                <a className="social-icon">
+                <a href="https://www.linkedin.com/" className="social-icon">
                   <i className="fab fa-linkedin"></i>
                 </a>
               </li>

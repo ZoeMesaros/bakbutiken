@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./navbar.scss";
 import { Navbar, Nav, Container } from "react-bootstrap";
@@ -49,13 +49,17 @@ const NavBar = ({ cart }) => {
                   <p>Kundvagn</p>
                   {cart.length > 0 ? (
                     <>
-                      <img src={cartItemImg} className="cart-img" />
+                      <img
+                        src={cartItemImg}
+                        className="cart-img"
+                        alt="Kundvagn"
+                      />
                       <span
                         className={`item${cart.length ? "-symbol" : ""}`}
                       ></span>
                     </>
                   ) : (
-                    <img src={cartImg} className="cart-img" />
+                    <img src={cartImg} className="cart-img" alt="Kungvagn" />
                   )}
                 </div>
               </Link>
