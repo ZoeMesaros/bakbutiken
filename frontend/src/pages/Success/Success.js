@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Lottie from "lottie-web";
 import { Link } from "react-router-dom";
 import "./success.scss";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import success from "../../assets/images/success.json";
 
 // Success page
@@ -35,6 +36,7 @@ const SuccessPage = () => {
 
   return (
     <div className="success-page">
+      <ScrollToTop />
       <div className="container">
         <div
           id="successAnimation"

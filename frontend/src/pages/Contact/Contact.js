@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import "./contact.scss";
 
 //Contact page
@@ -18,6 +19,7 @@ const ContactPage = () => {
 
   return (
     <div className="contact-page ">
+      <ScrollToTop />
       <div className="container ">
         <div className="contact-section">
           <h3 className="text-center contact-title">Kontakta oss</h3>
