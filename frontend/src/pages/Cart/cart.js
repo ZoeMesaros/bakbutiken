@@ -91,7 +91,7 @@ const CartPage = ({ cart, removeFromCart }) => {
                     <div className="col-2"></div>
                     <div className="col">Artikel</div>
                     <div className="col">Antal</div>
-                    <div className="col-2">À-pris </div>
+                    <div className="col">À-pris </div>
                     <div className="col">Summa</div>
                     <div className="col"></div>
                   </div>
