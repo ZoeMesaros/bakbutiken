@@ -1,19 +1,18 @@
 .login-page {
+  min-height: calc(100vh - 33rem);
+  background-color: white;
   .container {
-    @media (min-width: 768px) {
-      min-height: 80vh;
-    }
     background-color: white;
-    min-height: 45vh;
     .login-section {
-      @media (min-width: 768px) {
-        padding-top: 15rem;
+      @media (min-width: 1600px) {
+        padding-top: 10rem;
+        padding-bottom: 5rem;
       }
       font-family: "Poppins", sans-serif;
       align-items: center;
       width: 100%;
-      padding: 2rem;
       padding-top: 5rem;
+      padding-bottom: 5rem;
       .btn {
         margin-top: 5rem;
         color: rgba(0, 0, 0, 0.923);

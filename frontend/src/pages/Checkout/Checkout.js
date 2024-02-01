@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 import sv from "date-fns/locale/sv";
 import "./checkout.scss";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import parcel from "../../assets/images/parcel.png";
 import parcelTruck from "../../assets/images/parcel-truck.png";
 import visa from "../../assets/images/visa.png";
@@ -182,6 +183,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
 
   return (
     <div className="checkout-page">
+      <ScrollToTop />
       <div className="container">
         <div className="row">
           {cart.length > 0 ? (
