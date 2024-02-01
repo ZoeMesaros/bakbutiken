@@ -1,8 +1,8 @@
 .success-page {
+  min-height: calc(100vh - 33rem);
+  background-color: white;
   .container {
-    padding-top: 3rem;
     background-color: white;
-    min-height: 70vh;
     font-family: "Poppins", sans-serif;
     svg {
       width: 50% !important;
