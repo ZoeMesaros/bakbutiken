@@ -29,6 +29,11 @@ const AdminPage = () => {
   // Navigate to login page after successful logout
   const navigate = useNavigate();
 
+  //Display the latest orders on top
+  const latestOrders = orders.sort(
+    (a, b) => new Date(b.orderDate) - new Date(a.orderDate)
+  );
+
   // Handle log out and navigate to the login page
   const handleLogoutClick = () => {
     logout();
@@ -63,7 +68,7 @@ const AdminPage = () => {
         <div className="row mx-5">
           <div className="col">
             <div>
-              {orders.map((order) => (
+              {latestOrders.map((order) => (
                 <div
                   key={order._id}
                   className="row no-gutters border-top cart-item"
