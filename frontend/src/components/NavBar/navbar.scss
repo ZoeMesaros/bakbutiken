@@ -1,6 +1,31 @@
 header {
   background-color: white;
   box-shadow: rgba(144, 144, 144, 0.194) 0px -50px 36px -28px inset;
+  position: relative;
+  .admin-btn {
+    a {
+      color: rgb(36, 36, 36);
+    }
+    .fa-user-gear {
+      position: absolute;
+      right: 0;
+      display: flex;
+      justify-content: right;
+      align-items: right;
+      color: rgb(75, 75, 75);
+      @media (min-width: 1569px) {
+        margin: 2rem;
+        padding: 2rem;
+        border-radius: 15px;
+      }
+    }
+    .fa-2xl {
+      display: none;
+      @media (min-width: 1690px) {
+        display: block;
+      }
+    }
+  }
 
   @media (min-width: 0px) and (max-width: 768px) {
     .header-nav {

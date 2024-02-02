@@ -7,11 +7,18 @@ import cartImg from "../../assets/images/cart.png";
 import cartItemImg from "../../assets/images/cart-item.png";
 
 // Main avigation menu
-const NavBar = ({ cart }) => {
+const NavBar = ({ cart, loggedIn }) => {
   return (
     <>
       <header>
         {/* Main header */}
+        {loggedIn && (
+          <div className="admin-btn">
+            <Link to={"/admin"}>
+              <i className="fa-solid fa-user-gear fa-2xl"></i>
+            </Link>
+          </div>
+        )}
         <div className="container-xl header-nav">
           <div className="header-logo">
             <Link to={"/"}>

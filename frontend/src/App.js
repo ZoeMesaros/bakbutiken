@@ -40,7 +40,7 @@ function App() {
 
   return (
     <main className="App">
-      <NavBar cart={cart} />
+      <NavBar cart={cart} loggedIn={isLoggedIn} />
       <Routes>
         {/* Route to homepage */}
         <Route path="/" element={<HomePage />} />
