@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
 import sv from "date-fns/locale/sv";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import useOrderFetch from "../../customHooks/fetchOrders";
@@ -26,9 +25,6 @@ const AdminPage = () => {
   //State to control the visibility of the modal
   const [showModal, setShowModal] = useState(false);
 
-  // Navigate to login page after successful logout
-  const navigate = useNavigate();
-
   //Display the latest orders on top
   const latestOrders = orders.sort(
     (a, b) => new Date(b.orderDate) - new Date(a.orderDate)
@@ -37,7 +33,7 @@ const AdminPage = () => {
   // Handle log out and navigate to the login page
   const handleLogoutClick = () => {
     logout();
-    navigate("/login");
+    window.location.replace("/login");
   };
 
   // When clicking on an order, show the modal

@@ -14,6 +14,12 @@ const CheckoutPage = ({ cart, clearCart }) => {
   //State to track chosen shipping cost, with 59 kr as the initial state
   const [shippingCost, setShippingCost] = useState(59);
 
+  //State to track discount code
+  const [discount, setDiscount] = useState(0);
+
+  // State to track discount percentage
+  const [discountPercentage, setDiscountPercentage] = useState(0);
+
   //State to track which payment method has been chosen, with card / "kort" as the initial state
   const [paymentMethod, setPaymentMethod] = useState("Kort");
 
@@ -35,35 +41,55 @@ const CheckoutPage = ({ cart, clearCart }) => {
     setIsOpen(!isOpen);
   };
 
+  // Function to handle discount code
+  const handleDiscount = () => {
+    const discountCode = "rabatt15";
+
+    if (discount === discountCode) {
+      setDiscountPercentage(15);
+    } else {
+      setDiscountPercentage(0);
+    }
+  };
+
   //Validation for credit card input fields
   const inputValidation = (placeholder, additionalRules = {}) => ({
     ...additionalRules,
     required: `${placeholder} är obligatoriskt`,
   });
 
+  // Generate an order number
   function generateOrderNumber() {
-    const timestamp = Date.now(); // Get current timestamp
-    const random = Math.floor(Math.random() * 1000); // Generate a random number with 3 digits
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 1000);
 
-    // Concatenate timestamp and random number to create a unique order number
     const orderNumber = `${timestamp}${random}`;
 
     return orderNumber;
   }
 
+  //Submitting the form
   const onSubmit = async (formData) => {
     try {
       const cartData = cart.map(({ _id, quantity }) => ({ _id, quantity }));
       const orderNumber = generateOrderNumber();
+
+      // Calculate the discount amount
+      const discountAmount = (discountPercentage / 100) * calculateTotalSum();
+
+      // Calculate the total amount with shipping and discount
+      const totalAmountWithDiscount =
+        calculateTotalSumWithShipping() - discountAmount;
+
       // Include order details and cart data in the request body
       const requestBody = {
         ...formData,
         items: cartData,
-        totalAmount: calculateTotalSumWithShipping(),
+        totalAmount: totalAmountWithDiscount,
         orderNumber: orderNumber,
       };
 
-      // Step 1: Make a request to create a new order
+      // Make a request to create a new order
       const createOrderResponse = await fetch(
         "http://localhost:5000/api/orders/new",
         {
@@ -81,14 +107,14 @@ const CheckoutPage = ({ cart, clearCart }) => {
           createOrderResponse.status,
           createOrderResponse.statusText
         );
-        return; // Exit if creating order fails
+        return;
       }
 
       // Extract orderId from the response
       const createOrderData = await createOrderResponse.json();
       const orderId = createOrderData.orderId;
 
-      // Step 2: Make a request to update stock for the created order
+      // Make a request to update stock for the created order
       const updateStockResponse = await fetch(
         `http://localhost:5000/api/orders/${orderId}/update-stock`,
         {
@@ -106,7 +132,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
           updateStockResponse.status,
           updateStockResponse.statusText
         );
-        return; // Exit if updating stock fails
+        return;
       }
 
       const updateStockData = await updateStockResponse.json();
@@ -172,6 +198,16 @@ const CheckoutPage = ({ cart, clearCart }) => {
     );
 
     return totalItems + shippingCost;
+  };
+
+  // Calculate the total sum with shipping and discount
+  const calculateTotalSumWithDiscount = () => {
+    const totalItems = calculateTotalSum();
+
+    const discountAmount = (discountPercentage / 100) * totalItems;
+    const totalWithDiscount = totalItems - discountAmount;
+
+    return totalWithDiscount + shippingCost;
   };
 
   //When clicking a link, go to top of the page
@@ -258,9 +294,15 @@ const CheckoutPage = ({ cart, clearCart }) => {
                   <strong>
                     <h5>
                       Totalt att betala:&nbsp;&nbsp;
-                      {calculateTotalSumWithShipping().toLocaleString()} kr
+                      {calculateTotalSumWithDiscount().toLocaleString()} kr
                     </h5>
                   </strong>
+                  {discountPercentage > 0 && (
+                    <p className="discount-text">
+                      Rabatt: -
+                      {(discountPercentage / 100) * calculateTotalSum()} kr
+                    </p>
+                  )}
                   <p>
                     Varav moms:
                     <strong>
@@ -268,6 +310,23 @@ const CheckoutPage = ({ cart, clearCart }) => {
                       {calculateTotalSumWithTax().toLocaleString()} kr
                     </strong>
                   </p>
+                  <div className="row discount-section">
+                    <label htmlFor="discount">Rabattkod</label>
+                    <input
+                      type="text"
+                      id="discount"
+                      name="discount"
+                      onChange={(e) => setDiscount(e.target.value)}
+                    />
+                    {errors.discount && (
+                      <span className="form-error">
+                        Ange en giltig rabattkod
+                      </span>
+                    )}
+                    <button className="btn" onClick={handleDiscount}>
+                      OK
+                    </button>
+                  </div>
                 </div>
               </div>
               <h5 className="info-title">Uppgifter</h5>
@@ -552,7 +611,9 @@ const CheckoutPage = ({ cart, clearCart }) => {
                   </div>
                   <div className="payment-section">
                     <p>Totalt att betala</p>
-                    <h2>{calculateTotalSumWithShipping()} kr</h2>
+                    <h2>
+                      {calculateTotalSumWithDiscount().toLocaleString()} kr
+                    </h2>
                     <div className="row">
                       <button
                         onClick={handleLinkClick}

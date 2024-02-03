@@ -3,6 +3,7 @@
     padding-top: 3rem;
     background-color: white;
     min-height: calc(80vh - 9rem);
+    font-family: "Poppins", sans-serif;
   }
 
   h3 {
@@ -207,6 +208,58 @@
     padding-top: 1.2rem;
     padding-bottom: 0.2rem;
     padding-right: 2rem;
+    position: relative;
+
+    p,
+    strong {
+      position: relative;
+    }
+
+    .discount-text {
+      color: red;
+    }
+
+    .discount-section {
+      position: absolute;
+      width: 15rem;
+      align-items: center;
+      text-align: left;
+      left: 0;
+      display: flex;
+      justify-content: left;
+      align-items: left;
+      bottom: 1.5rem;
+      left: 1rem;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        position: static;
+        text-align: right;
+        right: unset;
+        justify-content: flex-end;
+        align-items: flex-end;
+        bottom: 1.5rem;
+        background-color: orange;
+      }
+
+      input {
+        border-radius: 5px;
+        width: 8rem;
+      }
+
+      button {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        width: 2.4rem;
+        height: 2rem;
+        margin-left: 0.5rem;
+        background-color: rgb(235, 235, 235) (215, 215, 215);
+        border: 2px solid grey;
+      }
+    }
   }
 
   .checkout-form-div {

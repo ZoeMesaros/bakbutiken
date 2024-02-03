@@ -23,7 +23,7 @@ const LoginPage = () => {
   // Effect to redirect if admin is already logged in
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/admin");
+      window.location.replace("/admin");
     }
   }, [isLoggedIn, navigate]);
 
@@ -32,10 +32,10 @@ const LoginPage = () => {
     try {
       await login(data);
       console.log("Login successful!");
-      navigate("/admin");
+      console.log("Navigating to /admin");
+      window.location.replace("/admin");
     } catch (error) {
       console.error("Login failed:", error.message);
-
       // Error message for wrong password
       if (error.message === "WrongPassword") {
         setError("password", {

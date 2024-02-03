@@ -6,13 +6,13 @@
 2. [Getting Started](#getting-started)
    - [Dependencies](#dependencies)
    - [Frontend](#frontend)
-      - [Minimum Requirements](#minimum-requirements-for-frontend)
-      - [Browsers Compatibility](#browsers-compatibility-for-frontend)
+     - [Minimum Requirements](#minimum-requirements-for-frontend)
+     - [Browsers Compatibility](#browsers-compatibility-for-frontend)
    - [Backend](#backend)
-      - [Minimum Requirements](#minimum-requirements-for-backend)
-      - [Other Considerations](#other-considerations-for-backend)
+     - [Minimum Requirements](#minimum-requirements-for-backend)
+     - [Other Considerations](#other-considerations-for-backend)
    - [Installation](#installation)
-      - [Installation Steps](#installation-steps)
+     - [Installation Steps](#installation-steps)
 3. [Usage](#usage)
 4. [Features](#features)
    - [Homepage](#homepage)
@@ -97,6 +97,8 @@ Database: The MongoDB server should be accessible
 5. Run both folders to start the server side and the client.
 
 # Usage
+
+During checkout, discount code "rabatt15" can be applied for 15% off the order
 
 To access the admin panel, please follow these steps:
 
