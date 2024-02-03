@@ -37,9 +37,15 @@ const useAuth = () => {
     }
   };
 
+  // Function to check if the user is logged in
+  const checkLoggedIn = () => {
+    const token = localStorage.getItem("adminToken");
+    setIsLoggedIn(!!token);
+  };
+
   // Function to log out
-  const logout = () => {
-    localStorage.removeItem("adminToken");
+  const logout = async () => {
+    await localStorage.removeItem("adminToken");
     setIsLoggedIn(false);
   };
 
@@ -48,7 +54,7 @@ const useAuth = () => {
     setIsLoggedIn(!!localStorage.getItem("adminToken"));
   }, []);
 
-  return { isLoggedIn, login, logout };
+  return { isLoggedIn, login, logout, checkLoggedIn };
 };
 
 export default useAuth;

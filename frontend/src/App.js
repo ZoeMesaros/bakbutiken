@@ -81,6 +81,7 @@ function App() {
         <Route path="/success" element={<SuccessPage />} />
 
         {/* Route to about us page */}
+
         <Route path="/om-oss" element={<AboutPage />} />
 
         {/* Route to contact page */}
@@ -91,10 +92,9 @@ function App() {
 
         {/* Admin route only accessible if logged in */}
         {isLoggedIn ? (
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
         ) : (
-          /* Redirect to the home page if not logged in */
-          <Route path="/login" element={<Navigate to="/" replace />} />
+          <Route path="/admin/*" element={<Navigate to="/" replace />} />
         )}
         {/* Routes to handle not found */}
         <Route path="/*" element={<NotFoundPage />} />
